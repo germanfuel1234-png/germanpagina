@@ -1,0 +1,2358 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<meta name="description" content="Rodriuez German — Desarrollo web a medida. Landing pages, sitios corporativos, e-commerce y apps. CABA, Argentina." />
+<title>Rodriuez German — Desarrollo Web</title>
+<style>
+  :root {
+    --bg:        #0a0a0c;
+    --surface:   #121215;
+    --fg:        #f2f1ef;
+    --muted:     rgba(242, 241, 239, 0.62);
+    --faint:     rgba(242, 241, 239, 0.38);
+    --border:    rgba(242, 241, 239, 0.10);
+    --accent:    oklch(80% 0.13 75);
+    --accent-dim: oklch(80% 0.13 75 / 0.12);
+    --danger:    oklch(62% 0.20 25);
+    --radius-sm: 6px;
+    --radius-md: 12px;
+    --font-display: -apple-system, BlinkMacSystemFont, 'SF Pro Display', system-ui, sans-serif;
+    --font-body:    -apple-system, BlinkMacSystemFont, 'SF Pro Text', system-ui, sans-serif;
+    --font-mono:    ui-monospace, 'SF Mono', Menlo, monospace;
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  html {
+    scroll-behavior: smooth;
+    scroll-padding-top: 88px;
+  }
+
+  body {
+    background: var(--bg);
+    color: var(--fg);
+    font-family: var(--font-body);
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    overflow-x: hidden;
+  }
+
+  ::selection { background: var(--accent); color: #17130c; }
+  :focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; border-radius: 4px; }
+  section[id] { scroll-margin-top: 88px; }
+
+  /* ===== HERO (fijo con interactividad) ===== */
+  .hero {
+    position: fixed;
+    inset: 0;
+    overflow: hidden;
+    cursor: crosshair;
+    background: var(--bg);
+    z-index: 0;
+  }
+  .hero__frame {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+    will-change: opacity;
+  }
+  .hero__frame.is-ready { opacity: 1; }
+  .hero::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background:
+      linear-gradient(to right, rgba(10,10,12,0.85) 0%, rgba(10,10,12,0.25) 35%, transparent 55%),
+      linear-gradient(to top, rgba(10,10,12,0.92) 0%, rgba(10,10,12,0.15) 40%, rgba(10,10,12,0.4) 100%);
+    pointer-events: none;
+  }
+  .gaze-indicator {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    width: 60px;
+    height: 60px;
+    border: 1px solid var(--accent-dim);
+    border-radius: 50%;
+    transform: translate(-50%, -50%);
+    pointer-events: none;
+    z-index: 5;
+    transition: all 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+    opacity: 0.2;
+  }
+  .gaze-indicator::after {
+    content: "◆";
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    color: var(--accent);
+    font-size: 8px;
+    opacity: 0.5;
+  }
+
+  /* ===== NAV ===== */
+  .nav {
+    position: fixed;
+    top: 0; left: 0; right: 0;
+    z-index: 100;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 26px 44px;
+    background: rgba(10,10,12,0.6);
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
+    border-bottom: 1px solid var(--border);
+  }
+  .nav__brand {
+    font-family: var(--font-display);
+    font-weight: 600;
+    font-size: 16px;
+    letter-spacing: 0.02em;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    text-decoration: none;
+    color: var(--fg);
+  }
+  .nav__dot { width: 9px; height: 9px; border-radius: 50%; background: var(--accent); }
+  .nav__links { display: flex; gap: 30px; }
+  .nav__links a {
+    color: var(--faint);
+    text-decoration: none;
+    font-size: 13px;
+    letter-spacing: 0.02em;
+    transition: color 0.2s ease;
+    padding: 4px 0;
+  }
+  .nav__links a:hover { color: var(--fg); }
+  .nav__toggle {
+    display: none;
+    place-items: center;
+    width: 42px;
+    height: 42px;
+    background: transparent;
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    color: var(--fg);
+    cursor: pointer;
+  }
+  .nav__toggle span {
+    display: block;
+    width: 18px;
+    height: 1.5px;
+    background: currentColor;
+    border-radius: 2px;
+    transition: transform 0.25s ease, opacity 0.25s ease;
+  }
+  .nav__toggle span + span { margin-top: 5px; }
+  .nav.open .nav__toggle span:nth-child(1) { transform: translateY(3.25px) rotate(45deg); }
+  .nav.open .nav__toggle span:nth-child(2) { transform: translateY(-3.25px) rotate(-45deg); }
+
+  
+  /* ===== CONTENIDO PRINCIPAL (scroll) ===== */
+  .main-content {
+    position: relative;
+    z-index: 10;
+    min-height: 100vh;
+    padding-top: 80px;
+  }
+  
+
+  /* ===== HERO SECTION (texto) ===== */
+  .hero-section {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding: 0 8vw;
+    max-width: 1480px;
+    margin: 0 auto;
+    pointer-events: none;
+    position: relative;
+  }
+  .eyebrow {
+    font-family: var(--font-mono);
+    font-size: 12px;
+    letter-spacing: 0.24em;
+    text-transform: uppercase;
+    color: var(--accent);
+    margin-bottom: 22px;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+  }
+  .eyebrow::before {
+    content: "";
+    width: 34px; height: 1px;
+    background: var(--accent);
+  }
+  h1 {
+    font-family: var(--font-display);
+    font-weight: 700;
+    font-size: clamp(40px, 6.4vw, 84px);
+    line-height: 1.02;
+    letter-spacing: -0.025em;
+    max-width: 15ch;
+    text-wrap: balance;
+  }
+  h1 .accent-word { color: var(--accent); }
+  .lead {
+    margin-top: 26px;
+    max-width: 46ch;
+    font-size: clamp(16px, 1.35vw, 19px);
+    line-height: 1.6;
+    color: var(--muted);
+  }
+  .cta {
+    margin-top: 40px;
+    display: flex;
+    gap: 14px;
+    pointer-events: auto;
+    flex-wrap: wrap;
+  }
+  .cta a {
+    font-family: var(--font-display);
+    font-weight: 600;
+    font-size: 14px;
+    letter-spacing: 0.03em;
+    text-decoration: none;
+    padding: 14px 26px;
+    border-radius: 2px;
+    transition: transform 0.15s ease, background 0.2s ease, color 0.2s ease, border-color 0.2s ease;
+  }
+  .cta a:hover { transform: translateY(-2px); }
+  .cta a:active { transform: translateY(0); }
+  .cta__primary { background: var(--accent); color: #17130c; }
+  .cta__ghost { color: var(--fg); border: 1px solid var(--border); }
+  .cta__ghost:hover { border-color: var(--accent); color: var(--accent); }
+
+  /* ===== SECCIONES (vidrio sobre hero) ===== */
+  .section {
+    padding: 100px 8vw 80px;
+    max-width: 1480px;
+    margin: 0 auto;
+    border-top: 1px solid var(--border);
+    position: relative;
+    background: rgba(10,10,12,0.7);
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+  }
+  .section-head { margin-bottom: 60px; }
+  .section-head .label {
+    font-family: var(--font-mono);
+    font-size: 12px;
+    letter-spacing: 0.24em;
+    text-transform: uppercase;
+    color: var(--accent);
+    display: flex;
+    align-items: center;
+    gap: 12px;
+  }
+  .section-head .label::before {
+    content: "";
+    width: 34px; height: 1px;
+    background: var(--accent);
+  }
+  .section-head h2 {
+    font-family: var(--font-display);
+    font-size: clamp(32px, 4vw, 52px);
+    font-weight: 700;
+    letter-spacing: -0.025em;
+    margin-top: 14px;
+  }
+  .section-head p {
+    color: var(--muted);
+    font-size: 18px;
+    margin-top: 12px;
+    max-width: 50ch;
+  }
+
+  /* ===== SERVICIOS ===== */
+  .services__grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 30px;
+  }
+  .service-card {
+    position: relative;
+    background: rgba(18, 18, 21, 0.8);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-md);
+    padding: 40px 36px 36px;
+    transition: border-color 0.3s ease, transform 0.3s ease;
+    backdrop-filter: blur(4px);
+  }
+  .service-card:hover { border-color: var(--accent-dim); transform: translateY(-4px); }
+  .service-card__index {
+    position: absolute;
+    top: 22px;
+    right: 26px;
+    font-family: var(--font-mono);
+    font-size: 11px;
+    letter-spacing: 0.2em;
+    color: var(--faint);
+  }
+  .service-card h3 {
+    font-family: var(--font-display);
+    font-size: 22px;
+    font-weight: 600;
+    letter-spacing: -0.01em;
+    margin-bottom: 10px;
+  }
+  .service-card > p { color: var(--muted); font-size: 15px; line-height: 1.6; }
+  .service-card ul { list-style: none; margin-top: 16px; }
+  .service-card ul li {
+    color: var(--faint);
+    font-size: 14px;
+    padding: 6px 0;
+    padding-left: 20px;
+    position: relative;
+    border-bottom: 1px solid var(--border);
+  }
+  .service-card ul li:last-child { border-bottom: none; }
+  .service-card ul li::before { content: "—"; position: absolute; left: 0; color: var(--accent); }
+  .service-card__badge {
+    display: inline-block;
+    margin-top: 18px;
+    font-family: var(--font-mono);
+    font-size: 10px;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: var(--accent);
+    border: 1px solid var(--accent-dim);
+    padding: 4px 16px;
+    border-radius: 20px;
+  }
+
+  /* ===== PROYECTOS CARRUSEL ===== */
+.projects__carousel {
+    position: relative;
+    width: 100%;
+    overflow: hidden;
+    padding: 10px 0;
+    mask-image: linear-gradient(to right, transparent, black 10%, black 90%, transparent);
+    -webkit-mask-image: linear-gradient(to right, transparent, black 10%, black 90%, transparent);
+}
+
+.projects__track {
+    display: flex;
+    gap: 24px;
+    width: max-content;
+    animation: scroll-carousel 30s linear infinite;
+    transition: animation-play-state 0.2s ease;
+}
+
+.projects__carousel:hover .projects__track {
+    animation-play-state: paused;
+}
+
+.projects__carousel:not(:hover) .projects__track {
+    animation-play-state: running;
+}
+
+@keyframes scroll-carousel {
+    0% { transform: translateX(0); }
+    100% { transform: translateX(-50%); }
+}
+
+.project-card {
+    flex: 0 0 280px;
+    scroll-snap-align: start;
+    background: rgba(18, 18, 21, 0.8);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-md);
+    padding: 30px 28px;
+    transition: border-color 0.3s ease, transform 0.3s ease;
+    backdrop-filter: blur(4px);
+    display: flex;
+    flex-direction: column;
+}
+
+.project-card:hover {
+    border-color: var(--accent-dim);
+    transform: translateY(-4px) scale(1.02);
+    z-index: 2;
+}
+
+.project-card .project-icon {
+    width: 30px;
+    height: 30px;
+    margin-bottom: 16px;
+    color: var(--muted);
+    transition: color 0.3s ease, transform 0.3s ease;
+}
+
+.project-card:hover .project-icon {
+    color: var(--accent);
+    transform: translateY(-1px);
+}
+
+.project-card h3 {
+    font-family: var(--font-display);
+    font-size: 18px;
+    font-weight: 600;
+    letter-spacing: -0.01em;
+    margin-bottom: 6px;
+}
+
+.project-card p {
+    color: var(--muted);
+    font-size: 13px;
+    line-height: 1.5;
+    flex: 1;
+}
+
+.project-card .project-tag {
+    display: inline-block;
+    margin-top: 14px;
+    font-family: var(--font-mono);
+    font-size: 10px;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--accent);
+    border: 1px solid var(--accent-dim);
+    padding: 3px 14px;
+    border-radius: 20px;
+    align-self: flex-start;
+}
+
+/* Ajustes Responsivos del carrusel */
+@media (max-width: 820px) {
+    .project-card { flex: 0 0 220px; }
+}
+
+@media (max-width: 600px) {
+    .project-card { flex: 0 0 180px; padding: 20px; }
+    .project-card h3 { font-size: 16px; }
+    .project-card p { font-size: 12px; }
+}
+
+
+
+  /* ===== CONTACTO ===== */
+  .contact__wrapper {
+    display: grid;
+    grid-template-columns: 1fr 1.8fr;
+    gap: 50px;
+    align-items: start;
+  }
+  .contact__info {
+    background: rgba(18, 18, 21, 0.6);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-md);
+    padding: 36px 32px;
+    backdrop-filter: blur(4px);
+  }
+  .contact__info h3 {
+    font-family: var(--font-display);
+    font-size: 18px;
+    font-weight: 600;
+    margin-bottom: 6px;
+  }
+  .contact__info .sub { color: var(--muted); font-size: 14px; line-height: 1.6; margin-bottom: 20px; }
+  .contact__info .contact-item {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    padding: 12px 0;
+    border-top: 1px solid var(--border);
+  }
+  .contact__info .contact-item:first-of-type { border-top: none; padding-top: 0; }
+  .contact__info .contact-item .icon {
+    width: 20px;
+    height: 20px;
+    flex-shrink: 0;
+    color: var(--faint);
+    transition: color 0.2s ease;
+  }
+  .contact__info .contact-item:hover .icon { color: var(--accent); }
+  .contact__info .contact-item a {
+    color: var(--fg);
+    text-decoration: none;
+    font-size: 15px;
+    transition: color 0.2s ease;
+  }
+  .contact__info .contact-item a:hover { color: var(--accent); }
+  .contact__info .contact-item span { color: var(--muted); font-size: 14px; }
+  .contact__info .location {
+    margin-top: 16px;
+    padding-top: 16px;
+    border-top: 1px solid var(--border);
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    color: var(--faint);
+    font-size: 14px;
+  }
+  .contact__info .location .icon { width: 18px; height: 18px; }
+
+  .contact__form {
+    background: rgba(18, 18, 21, 0.6);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-md);
+    padding: 40px 36px;
+    backdrop-filter: blur(4px);
+  }
+  .contact__form .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 18px; }
+  .contact__form .form-group { margin-bottom: 18px; }
+  .contact__form .form-group.full { grid-column: 1 / -1; }
+  .contact__form label {
+    display: block;
+    font-size: 12px;
+    font-weight: 500;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+    color: var(--faint);
+    margin-bottom: 5px;
+  }
+  .contact__form label .optional {
+    font-weight: 400;
+    text-transform: none;
+    color: var(--faint);
+    font-size: 11px;
+  }
+  .contact__form input,
+  .contact__form textarea,
+  .contact__form select {
+    width: 100%;
+    padding: 12px 16px;
+    background: var(--bg);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-sm);
+    color: var(--fg);
+    font-family: var(--font-body);
+    font-size: 14px;
+    transition: border-color 0.3s ease;
+    outline: none;
+  }
+  .contact__form input:focus,
+  .contact__form textarea:focus,
+  .contact__form select:focus { border-color: var(--accent); }
+  .contact__form select {
+    appearance: none;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpath d='M1 1l5 5 5-5' stroke='%23f2f1ef' stroke-width='1.5' fill='none' stroke-linecap='round'/%3E%3C/svg%3E");
+    background-repeat: no-repeat;
+    background-position: right 16px center;
+    cursor: pointer;
+  }
+  .contact__form select option { background: var(--bg); color: var(--fg); }
+  .contact__form textarea { resize: vertical; min-height: 100px; }
+
+  .contact__form .checkbox-group {
+    display: flex;
+    gap: 24px;
+    flex-wrap: wrap;
+    padding-top: 4px;
+  }
+  .contact__form .checkbox-group label {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 14px;
+    font-weight: 400;
+    text-transform: none;
+    letter-spacing: 0;
+    color: var(--muted);
+    cursor: pointer;
+  }
+  .contact__form .checkbox-group input[type="checkbox"] {
+    width: 16px;
+    height: 16px;
+    accent-color: var(--accent);
+    cursor: pointer;
+    flex-shrink: 0;
+    background: var(--bg);
+    border: 1px solid var(--border);
+    border-radius: 3px;
+    appearance: none;
+    -webkit-appearance: none;
+    position: relative;
+    transition: all 0.2s ease;
+  }
+  .contact__form .checkbox-group input[type="checkbox"]:checked {
+    background: var(--accent);
+    border-color: var(--accent);
+  }
+  .contact__form .checkbox-group input[type="checkbox"]:checked::after {
+    content: "✓";
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    color: #17130c;
+    font-size: 11px;
+    font-weight: 700;
+  }
+  .contact__form .checkbox-group input[type="checkbox"]:focus { border-color: var(--accent); outline: none; }
+
+  .field-error { display: none; margin-top: 6px; font-size: 12px; color: var(--danger); }
+  .form-group.has-error input,
+  .form-group.has-error select,
+  .form-group.has-error textarea { border-color: var(--danger); }
+  .form-group.has-error .field-error { display: block; }
+
+  .form-success {
+    display: none;
+    margin-top: 16px;
+    padding: 12px 16px;
+    border: 1px solid var(--accent-dim);
+    border-radius: 8px;
+    color: var(--accent);
+    font-size: 14px;
+  }
+  .contact__form.is-sent .form-success { display: block; }
+  .contact__form.is-sent button[type="submit"] { opacity: 0.5; pointer-events: none; }
+
+  .contact__form button {
+    background: var(--accent);
+    color: #17130c;
+    border: none;
+    padding: 14px 40px;
+    font-family: var(--font-display);
+    font-weight: 600;
+    font-size: 14px;
+    letter-spacing: 0.03em;
+    border-radius: 2px;
+    cursor: pointer;
+    transition: transform 0.15s ease, opacity 0.2s ease;
+    margin-top: 6px;
+  }
+  .contact__form button:hover { transform: translateY(-2px); opacity: 0.9; }
+  .contact__form button:disabled { cursor: default; }
+
+  /* ===== FOOTER ===== */
+  .footer {
+    border-top: 1px solid var(--border);
+    padding: 30px 8vw;
+    max-width: 1480px;
+    margin: 0 auto;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    color: var(--faint);
+    font-size: 13px;
+    position: relative;
+    background: rgba(10,10,12,0.7);
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+  }
+
+  /* Enlaces de texto (ej: "Contacto") */
+  .footer a, 
+  .footer-link {
+    color: var(--faint); 
+    text-decoration: none; 
+    transition: color 0.2s ease; 
+  }
+  .footer a:hover, 
+  .footer-link:hover { 
+    color: var(--fg); 
+  }
+
+  /* Contenedor de los íconos y el texto */
+  .footer__socials { 
+    display: flex; 
+    align-items: center; 
+    gap: 16px; 
+  }
+
+  /* Íconos de redes sociales */
+  .footer-icon {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--faint); /* Color gris tenue por defecto */
+    transition: color 0.2s ease, transform 0.2s ease;
+  }
+  
+  /* Al pasar el mouse, se pone naranja y sube un poco */
+  .footer-icon:hover {
+    color: var(--accent);
+    transform: translateY(-2px);
+  }
+
+  /* ===== LOADER ===== */
+  .loader {
+    position: fixed;
+    inset: 0;
+    z-index: 50;
+    background: var(--bg);
+    display: grid;
+    place-items: center;
+    transition: opacity 0.8s ease, visibility 0.8s ease;
+  }
+  .loader.is-done { opacity: 0; visibility: hidden; }
+  .loader__bar {
+    width: 240px; height: 2px;
+    background: var(--border);
+    overflow: hidden;
+    border-radius: 2px;
+  }
+  .loader__fill {
+    width: 0%;
+    height: 100%;
+    background: var(--accent);
+    transition: width 0.15s ease;
+  }
+  .loader__label {
+    margin-top: 14px;
+    font-family: var(--font-mono);
+    font-size: 11px;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--faint);
+    text-align: center;
+  }
+
+  /* ===== HINTS ===== */
+  .interaction-hint {
+    position: fixed;
+    bottom: 40px;
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: 15;
+    font-family: var(--font-mono);
+    font-size: 10px;
+    letter-spacing: 0.3em;
+    text-transform: uppercase;
+    color: var(--faint);
+    opacity: 0.4;
+    transition: opacity 1.5s ease;
+    pointer-events: none;
+    text-align: center;
+    background: rgba(10, 10, 12, 0.6);
+    padding: 10px 24px;
+    border-radius: 20px;
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.03);
+  }
+  .interaction-hint.fade-out { opacity: 0; }
+  .frame-readout {
+    position: fixed;
+    bottom: 46px;
+    right: 44px;
+    z-index: 15;
+    font-family: var(--font-mono);
+    font-size: 11px;
+    letter-spacing: 0.2em;
+    color: var(--faint);
+    opacity: 0;
+    transition: opacity 1s ease;
+    pointer-events: none;
+    font-variant-numeric: tabular-nums;
+  }
+  .frame-readout.is-visible { opacity: 1; }
+
+  /* ===== REVEAL ===== */
+  .reveal {
+    opacity: 0;
+    transform: translateY(14px);
+    transition: opacity 0.6s ease, transform 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+  }
+  .reveal.in-view { opacity: 1; transform: none; }
+  .services__grid .reveal:nth-child(1) { transition-delay: 0.02s; }
+  .services__grid .reveal:nth-child(2) { transition-delay: 0.08s; }
+  .service-card.reveal:hover { transform: translateY(-4px); }
+  .project-card.reveal:hover { transform: translateY(-4px); }
+  
+  /* ===== BOTÓN FLOTANTE WHATSAPP ===== */
+  .whatsapp-float {
+      position: fixed;
+      width: 60px;
+      height: 60px;
+      bottom: 30px;
+      right: 30px;
+      background-color: #25D366;
+      color: #ffffff;
+      border-radius: 50%;
+      text-align: center;
+      box-shadow: 0 4px 12px rgba(37, 211, 102, 0.4);
+      z-index: 9999;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: all 0.3s ease;
+      text-decoration: none;
+  }
+
+  .whatsapp-float:hover {
+      transform: scale(1.08);
+      background-color: #128C7E;
+      box-shadow: 0 6px 16px rgba(37, 211, 102, 0.6);
+  }
+
+  .whatsapp-float svg {
+      width: 32px;
+      height: 32px;
+      fill: #ffffff;
+  }
+
+  /* Asegurar que no choque con el indicador de interacción en móviles */
+  @media (max-width: 600px) {
+      .whatsapp-float {
+          width: 54px;
+          height: 54px;
+          bottom: 20px;
+          right: 20px;
+      }
+      .whatsapp-float svg {
+          width: 28px;
+          height: 28px;
+      }
+  }
+  /* ===== RESPONSIVE ===== */
+  @media (max-width: 1024px) {
+    .projects__grid { grid-template-columns: repeat(2, 1fr); }
+    .contact__wrapper { grid-template-columns: 1fr; gap: 30px; }
+    .contact__info { display: grid; grid-template-columns: 1fr 1fr; gap: 10px 30px; }
+    .contact__info .contact-item:first-of-type { padding-top: 0; }
+    .contact__info .location { grid-column: 1 / -1; }
+  }
+  @media (max-width: 820px) {
+    .services__grid { grid-template-columns: 1fr; }
+    .projects__grid { grid-template-columns: 1fr; }
+    .hero-section { padding: 0 24px; }
+    .section { padding: 60px 24px; }
+    .contact__form { padding: 28px 22px; }
+    .contact__form .form-row { grid-template-columns: 1fr; }
+    .footer { padding: 20px 24px; flex-direction: column; gap: 12px; text-align: center; }
+    .footer__links { flex-wrap: wrap; justify-content: center; }
+  }
+  @media (max-width: 720px) {
+    .nav { padding: 16px 22px; }
+    .nav__links {
+      position: absolute;
+      top: 100%; left: 0; right: 0;
+      flex-direction: column;
+      gap: 0;
+      display: none;
+      background: rgba(10,10,12,0.94);
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
+      border-bottom: 1px solid var(--border);
+      padding: 8px 24px 18px;
+    }
+    .nav.open .nav__links { display: flex; }
+    .nav__links a { padding: 15px 0; font-size: 15px; border-top: 1px solid var(--border); }
+    .nav__links a:first-child { border-top: none; }
+    .nav__toggle { display: grid; }
+  }
+  @media (max-width: 600px) {
+    .contact__info { grid-template-columns: 1fr; }
+    .service-card { padding: 32px 22px 28px; }
+    .project-card { padding: 24px 20px; }
+    .interaction-hint { bottom: 20px; font-size: 8px; padding: 8px 16px; }
+    .frame-readout { bottom: 26px; right: 22px; }
+    .contact__form .checkbox-group { gap: 14px; }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    html { scroll-behavior: auto; }
+    .reveal { opacity: 1; transform: none; transition: none; }
+    *, *::before, *::after {
+      animation-duration: 0.01ms !important;
+      animation-iteration-count: 1 !important;
+      transition-duration: 0.01ms !important;
+    }
+  }
+
+/* ===== SIMULADOR DE PRESUPUESTOS ===== */
+.simulator__wrapper {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 40px;
+    align-items: start;
+}
+
+.simulator__options {
+    background: rgba(18, 18, 21, 0.8);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-md);
+    padding: 36px 32px;
+    backdrop-filter: blur(4px);
+}
+
+.sim-group {
+    margin-bottom: 24px;
+}
+
+.sim-group:last-child {
+    margin-bottom: 0;
+}
+
+.sim-group label {
+    display: block;
+    font-size: 12px;
+    font-weight: 500;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+    color: var(--faint);
+    margin-bottom: 8px;
+}
+
+.sim-group select {
+    width: 100%;
+    padding: 12px 16px;
+    background: var(--bg);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-sm);
+    color: var(--fg);
+    font-family: var(--font-body);
+    font-size: 14px;
+    transition: border-color 0.3s ease;
+    outline: none;
+    cursor: pointer;
+    appearance: none;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpath d='M1 1l5 5 5-5' stroke='%23f2f1ef' stroke-width='1.5' fill='none' stroke-linecap='round'/%3E%3C/svg%3E");
+    background-repeat: no-repeat;
+    background-position: right 16px center;
+}
+
+.sim-group select:focus {
+    border-color: var(--accent);
+}
+
+.sim-checkboxes {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    padding-top: 4px;
+}
+
+.sim-checkboxes label {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-size: 13px;
+    font-weight: 400;
+    text-transform: none;
+    letter-spacing: 0;
+    color: var(--muted);
+    cursor: pointer;
+}
+
+.sim-checkboxes input[type="checkbox"] {
+    width: 16px;
+    height: 16px;
+    accent-color: var(--accent);
+    cursor: pointer;
+    flex-shrink: 0;
+    background: var(--bg);
+    border: 1px solid var(--border);
+    border-radius: 3px;
+    appearance: none;
+    -webkit-appearance: none;
+    position: relative;
+    transition: all 0.2s ease;
+}
+
+.sim-checkboxes input[type="checkbox"]:checked {
+    background: var(--accent);
+    border-color: var(--accent);
+}
+
+.sim-checkboxes input[type="checkbox"]:checked::after {
+    content: "✓";
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    color: #17130c;
+    font-size: 11px;
+    font-weight: 700;
+}
+
+.simulator__result {
+    background: rgba(18, 18, 21, 0.8);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-md);
+    padding: 36px 32px;
+    backdrop-filter: blur(4px);
+    display: flex;
+    flex-direction: column;
+}
+
+.sim-result__header {
+    border-bottom: 1px solid var(--border);
+    padding-bottom: 20px;
+    margin-bottom: 20px;
+}
+
+.sim-label {
+    display: block;
+    font-size: 11px;
+    font-weight: 500;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--faint);
+    margin-bottom: 6px;
+}
+
+.sim-price {
+    font-family: var(--font-display);
+    font-size: 42px;
+    font-weight: 700;
+    letter-spacing: -0.02em;
+    color: var(--accent);
+}
+
+.sim-result__breakdown {
+    flex: 1;
+    margin-bottom: 24px;
+}
+
+.sim-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 12px 0;
+    border-bottom: 1px solid var(--border);
+}
+
+.sim-row:last-child {
+    border-bottom: none;
+}
+
+.sim-row__label {
+    color: var(--muted);
+    font-size: 14px;
+}
+
+.sim-row__value {
+    color: var(--fg);
+    font-size: 16px;
+    font-weight: 500;
+}
+
+.sim-row__extras .sim-row__value {
+    color: var(--faint);
+}
+
+.sim-row__total {
+    padding-top: 16px;
+    padding-bottom: 16px;
+    border-top: 2px solid var(--border-strong);
+    border-bottom: none;
+}
+
+.sim-row__total .sim-row__label {
+    color: var(--fg);
+    font-weight: 600;
+    font-size: 16px;
+}
+
+.sim-row__total .sim-row__value {
+    color: var(--accent);
+    font-size: 22px;
+    font-weight: 700;
+}
+
+.sim-result__actions {
+    border-top: 1px solid var(--border);
+    padding-top: 20px;
+}
+
+.sim-result__actions .cta__primary {
+    display: inline-block;
+    font-family: var(--font-display);
+    font-weight: 600;
+    font-size: 14px;
+    letter-spacing: 0.03em;
+    text-decoration: none;
+    padding: 14px 26px;
+    border-radius: 2px;
+    transition: transform 0.15s ease, background 0.2s ease;
+    background: var(--accent);
+    color: #17130c;
+    width: 100%;
+    text-align: center;
+}
+
+.sim-result__actions .cta__primary:hover {
+    transform: translateY(-2px);
+    opacity: 0.9;
+}
+
+.sim-note {
+    font-size: 11px;
+    color: var(--faint);
+    margin-top: 12px;
+    text-align: center;
+    line-height: 1.5;
+}
+
+@media (max-width: 1024px) {
+    .simulator__wrapper {
+        grid-template-columns: 1fr;
+        gap: 30px;
+    }
+}
+
+@media (max-width: 600px) {
+    .simulator__options,
+    .simulator__result {
+        padding: 24px 20px;
+    }
+
+    .sim-price {
+        font-size: 32px;
+    }
+
+    .sim-row__total .sim-row__value {
+        font-size: 18px;
+    }
+}
+
+/* ===== BOTONES WHATSAPP Y GMAIL ===== */
+.contact__form .form-actions {
+    display: flex;
+    gap: 14px;
+    margin-top: 6px;
+    flex-wrap: wrap;
+}
+
+.contact__form .form-actions button {
+    flex: 1;
+    min-width: 180px;
+    padding: 14px 24px;
+    border: none;
+    border-radius: 2px;
+    font-family: var(--font-display);
+    font-weight: 600;
+    font-size: 14px;
+    letter-spacing: 0.03em;
+    cursor: pointer;
+    transition: transform 0.15s ease, opacity 0.2s ease;
+    
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+}
+
+.contact__form .form-actions button:hover {
+    transform: translateY(-2px);
+    opacity: 0.9;
+}
+
+.contact__form .form-actions button:active {
+    transform: translateY(0);
+}
+
+#btn-whatsapp {
+    background: #25D366;
+    color: #fff;
+}
+
+#btn-gmail {
+    background: #EA4335;
+    color: #fff;
+}
+
+@media (max-width: 600px) {
+    .contact__form .form-actions button {
+        min-width: 100%;
+    }
+}
+
+
+</style>
+<noscript><style>.reveal{opacity:1;transform:none}</style></noscript>
+</head>
+<body>
+
+  <!-- ===== HERO FONDO (interactivo) ===== -->
+  <div class="hero" data-od-id="hero">
+    <img class="hero__frame" id="hero-frame" alt="" draggable="false" />
+    <div class="gaze-indicator" id="gaze-indicator"></div>
+  </div>
+
+  <!-- ===== NAV ===== -->
+  <header class="nav" id="site-nav" data-od-id="site-nav">
+    <a href="#inicio" class="nav__brand" data-od-id="nav-brand"><span class="nav__dot"></span> Rodriuez German</a>
+      <nav class="nav__links" data-od-id="nav-links" id="nav-links">
+
+      <a href="#inicio">Inicio</a>
+      <a href="#servicios" data-od-id="nav-link-servicios">Servicios</a>
+      <a href="#proyectos" data-od-id="nav-link-proyectos">Proyectos</a>
+      <a href="#simulador" data-od-id="nav-link-simulador">Presupuestos</a>
+      <a href="#contacto" data-od-id="nav-link-contacto">Contacto</a>
+    </nav>
+    <button class="nav__toggle" id="nav-toggle" type="button" aria-label="Abrir menú" aria-expanded="false" aria-controls="nav-links">
+      <span></span><span></span>
+    </button>
+  </header>
+
+  <!-- ===== CONTENIDO CON SCROLL ===== -->
+  <div class="main-content">
+
+    <!-- ===== HERO TEXTO ===== -->
+    <section class="hero-section" id="inicio" data-od-id="hero-section">
+      <p class="eyebrow" data-od-id="hero-eyebrow">Programación · Diseño · Desarrollo</p>
+      <h1 data-od-id="hero-title"> <span class="accent-word"></span>Germán </h1>
+      <p class="lead" data-od-id="hero-lead">Landing Page · Sitio Web Corporativo · E-Commerce · Apps.</p>
+      <div class="cta" data-od-id="hero-cta">
+        <a href="#servicios" class="cta__primary" data-od-id="cta-servicios">Servicios</a>
+        <a href="#contacto" class="cta__ghost" data-od-id="cta-proyectos">Contacto</a>
+      </div>
+    </section>
+
+    <!-- ===== SERVICIOS ===== -->
+    <section class="section services" id="servicios" data-od-id="services">
+      <div class="section-head" data-od-id="services-head">
+        <p class="label">Lo que hago</p>
+        <h2 data-od-id="services-title">Soluciones a medida para tu negocio</h2>
+        <p>Te ofrezco un enfoque personalizado con resultados.</p>
+      </div>
+      <div class="services__grid" data-od-id="services-grid">
+        <div class="service-card reveal" data-od-id="service-card-landing">
+          <span class="service-card__index">01</span>
+          <h3>Landing Page</h3>
+          <p>Una sola página construida para convertir. Ideal para campañas puntuales, lanzamientos o profesionales que necesitan un punto de contacto digital directo.</p>
+          <ul>
+            <li>Foco en una sola acción del visitante</li>
+            <li>Carga liviana y rápida en móvil</li>
+            <li>Formulario integrado a tu CRM o correo</li>
+            <li>Configuración lista para campañas de Ads</li>
+          </ul>
+          <span class="service-card__badge">Conversión</span>
+        </div>
+        <div class="service-card reveal" data-od-id="service-card-corporativo">
+          <span class="service-card__index">02</span>
+          <h3>Sitio Web Corporativo</h3>
+          <p>Tu identidad digital completa. Ideal para empresas que necesitan presencia profesional, mostrar su equipo, servicios y generar confianza.</p>
+          <ul>
+            <li>Diseño de marca y experiencia de usuario</li>
+            <li>Estructura multi-página (nosotros, servicios, blog)</li>
+            <li>Optimizado para SEO y velocidad</li>
+            <li>Panel de administración sencillo</li>
+          </ul>
+          <span class="service-card__badge">Presencia profesional</span>
+        </div>
+        <div class="service-card reveal" data-od-id="service-card-ecommerce">
+          <span class="service-card__index">03</span>
+          <h3>E-Commerce</h3>
+          <p>Tu tienda online lista para vender. Desde la experiencia de compra hasta el pago, todo optimizado para convertir visitantes en clientes.</p>
+          <ul>
+            <li>Catálogo de productos con filtros</li>
+            <li>Carrito de compras y pasarela de pago</li>
+            <li>Gestión de inventario y pedidos</li>
+            <li>Diseño responsive y rápido</li>
+          </ul>
+          <span class="service-card__badge">Ventas online</span>
+        </div>
+        <div class="service-card reveal" data-od-id="service-card-apps">
+          <span class="service-card__index">04</span>
+          <h3>Apps y Sistemas Internos</h3>
+          <p>Herramientas digitales para optimizar tu operación. Desde paneles de control hasta flujos de trabajo a medida.</p>
+          <ul>
+            <li>Dashboards y reportes en tiempo real</li>
+            <li>Automatización de procesos internos</li>
+            <li>Gestión de usuarios y roles</li>
+            <li>Integración con tus herramientas existentes</li>
+          </ul>
+          <span class="service-card__badge">Eficiencia operativa</span>
+        </div>
+      </div>
+    </section>
+
+<!-- ===== PROYECTOS ===== -->
+<!-- ===== PROYECTOS ===== -->
+<section class="section projects" id="proyectos" data-od-id="projects">
+    <div class="section-head" data-od-id="projects-head">
+        <p class="label">Portafolio</p>
+        <h2 data-od-id="projects-title">Proyectos</h2>
+        <p>Desde aplicaciones web hasta soluciones empresariales.</p>
+    </div>
+    
+    <!-- Contenedor del carrusel -->
+    <div class="projects__carousel" data-od-id="projects-carousel">
+        <div class="projects__track">
+            
+            <!-- ===== TARJETAS ORIGINALES (COPIA 1) ===== -->
+            <div class="project-card reveal" data-od-id="project-card-bot">
+                <svg class="project-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><rect x="5" y="8" width="14" height="10" rx="2"/><circle cx="9" cy="13" r="1.1"/><circle cx="15" cy="13" r="1.1"/><path d="M12 8V5M9 3.5h6M9 18v1.5M15 18v1.5"/></svg>
+                <h3>Bot Espacial</h3>
+                <p>Asistente automatizado con integración de APIs y sistemas de mensajería.</p>
+                <span class="project-tag">Python · Bot · API</span>
+            </div>
+
+            <div class="project-card reveal" data-od-id="project-card-tec1">
+                <svg class="project-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><rect x="7" y="7" width="10" height="10" rx="2"/><path d="M12 2.5v3M12 18.5v3M2.5 12h3M18.5 12h3M5 5l2.1 2.1M16.9 16.9 19 19M19 5l-2.1 2.1M7.1 16.9 5 19"/></svg>
+                <h3>tec-1-pag-web</h3>
+                <p>Sitio web corporativo con diseño moderno y enfoque en experiencia de usuario.</p>
+                <span class="project-tag">HTML · Web</span>
+            </div>
+
+            <div class="project-card reveal" data-od-id="project-card-python">
+                <svg class="project-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><polygon points="12 2 22 7 22 17 12 22 2 17 2 7 12 2"/><path d="M12 12v6"/><path d="M9 10.5l3-1.5 3 1.5"/></svg>
+                <h3>Códigos varios Python</h3>
+                <p>Colección de scripts y utilidades en Python para automatización.</p>
+                <span class="project-tag">Python · Scripts</span>
+            </div>
+
+            <div class="project-card reveal" data-od-id="project-card-drive">
+                <svg class="project-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M3 7a2 2 0 0 1 2-2h4l2 2h8a2 2 0 0 1 2 2v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V7z"/></svg>
+                <h3>Drive Fer</h3>
+                <p>Plataforma de almacenamiento y gestión de archivos con interfaz intuitiva.</p>
+                <span class="project-tag">Python · Cloud</span>
+            </div>
+
+            <div class="project-card reveal" data-od-id="project-card-botman">
+                <svg class="project-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M12 8V5M9 3.5h6M4 8h16M5 8v11a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V8"/><circle cx="9" cy="13" r="1.1"/><circle cx="15" cy="13" r="1.1"/></svg>
+                <h3>BOTman</h3>
+                <p>Bot inteligente con procesamiento de lenguaje natural para atención al cliente.</p>
+                <span class="project-tag">Python · NLP</span>
+            </div>
+
+            <div class="project-card reveal" data-od-id="project-card-cenet">
+                <svg class="project-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3l7 3v5c0 4.3-3 7.8-7 9.5C8 18.8 5 15.3 5 11V6l7-3z"/></svg>
+                <h3>CENET - Procesos Industriales</h3>
+                <p>Sistema de gestión y simulación de procesos industriales con dashboards.</p>
+                <span class="project-tag">Python · Industria</span>
+            </div>
+
+            <div class="project-card reveal" data-od-id="project-card-futbol">
+                <svg class="project-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3c2.6 2.6 2.6 15.4 0 18M12 3c-2.6 2.6-2.6 15.4 0 18"/></svg>
+                <h3>Fútbol Manager</h3>
+                <p>Simulador de gestión deportiva con estadísticas, ligas y manejo de equipos.</p>
+                <span class="project-tag">Python · Gestión</span>
+            </div>
+
+            <div class="project-card reveal" data-od-id="project-card-redes">
+                <svg class="project-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="5" r="2.4"/><circle cx="5" cy="19" r="2.4"/><circle cx="19" cy="19" r="2.4"/><path d="M7.5 17.3L14 7.7M16.5 17.3L10 7.7"/></svg>
+                <h3>Simulaciones de Redes</h3>
+                <p>Simulación de redes y protocolos de comunicación con análisis de rendimiento.</p>
+                <span class="project-tag">Python · Redes</span>
+            </div>
+
+            <div class="project-card reveal" data-od-id="project-card-classroom">
+                <svg class="project-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4h16v16H4z"/><path d="M8 8h8M8 12h6M8 16h4"/></svg>
+                <h3>Classroom</h3>
+                <p>Plataforma educativa con gestión de cursos, tareas y seguimiento.</p>
+                <span class="project-tag">Rich Text · Educación</span>
+            </div>
+
+            <div class="project-card reveal" data-od-id="project-card-bonanno">
+                <svg class="project-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><rect x="2.5" y="3.5" width="19" height="17" rx="2"/><path d="M8 9h8M8 13h6"/></svg>
+                <h3>Bonanno - Falta HTML</h3>
+                <p>Desarrollo web con enfoque en HTML semántico y accesibilidad.</p>
+                <span class="project-tag">Python · HTML</span>
+            </div>
+
+            <div class="project-card reveal" data-od-id="project-card-mano">
+                <svg class="project-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M7 12V8a2 2 0 0 1 4 0v4M11 12V6a2 2 0 0 1 4 0v6M15 12V4a2 2 0 0 1 4 0v8"/><path d="M19 12v5a6 6 0 0 1-12 0v-5"/></svg>
+                <h3>Proyecto Py-Mano</h3>
+                <p>Aplicación interactiva con interfaz gráfica para control de gestos.</p>
+                <span class="project-tag">Python · GUI</span>
+            </div>
+
+            <div class="project-card reveal" data-od-id="project-card-android">
+                <svg class="project-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><rect x="7" y="2" width="10" height="20" rx="2"/><path d="M11 18h2"/></svg>
+                <h3>Proyecto Android</h3>
+                <p>Aplicación móvil nativa con funcionalidades avanzadas y sincronización en la nube.</p>
+                <span class="project-tag">Python · Mobile</span>
+            </div>
+
+            <div class="project-card reveal" data-od-id="project-card-poxedex">
+                <svg class="project-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="8"/><path d="M4 12h3M17 12h3M12 4v3M12 17v3"/></svg>
+                <h3>Poxedex - Falta HTML</h3>
+                <p>Enciclopedia digital con base de datos de Pokémon y filtros interactivos.</p>
+                <span class="project-tag">Python · HTML</span>
+            </div>
+
+            <div class="project-card reveal" data-od-id="project-card-djdistrack">
+                <svg class="project-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2v8M12 10l4-4M12 10l-4-4"/><circle cx="12" cy="18" r="4"/><path d="M12 14v4"/></svg>
+                <h3>DJ Distrack</h3>
+                <p>Sistema de gestión de música y playlists para DJs y productores.</p>
+                <span class="project-tag">HTML · Música</span>
+            </div>
+
+            <div class="project-card reveal" data-od-id="project-card-sur">
+                <svg class="project-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M3 6h18M3 12h18M3 18h18"/></svg>
+                <h3>Aplicación Sur</h3>
+                <p>Aplicación web para gestión de recursos y seguimiento de proyectos.</p>
+                <span class="project-tag">Python · Web</span>
+            </div>
+
+            <div class="project-card reveal" data-od-id="project-card-php">
+                <svg class="project-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><ellipse cx="12" cy="5" rx="8" ry="3"/><path d="M4 5v14c0 1.7 3.6 3 8 3s8-1.3 8-3V5"/><path d="M4 12c0 1.7 3.6 3 8 3s8-1.3 8-3"/></svg>
+                <h3>PHP 2025 - Rodriguez Depierro</h3>
+                <p>Sistema backend con PHP para gestión de usuarios y bases de datos.</p>
+                <span class="project-tag">PHP · Backend</span>
+            </div>
+
+            <!-- ===== TARJETAS DUPLICADAS (COPIA 2 - Para efecto infinito) ===== -->
+            <div class="project-card reveal" data-od-id="project-card-bot-copy">
+                <svg class="project-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><rect x="5" y="8" width="14" height="10" rx="2"/><circle cx="9" cy="13" r="1.1"/><circle cx="15" cy="13" r="1.1"/><path d="M12 8V5M9 3.5h6M9 18v1.5M15 18v1.5"/></svg>
+                <h3>Bot Espacial</h3>
+                <p>Asistente automatizado con integración de APIs y sistemas de mensajería.</p>
+                <span class="project-tag">Python · Bot · API</span>
+            </div>
+
+            <div class="project-card reveal" data-od-id="project-card-tec1-copy">
+                <svg class="project-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><rect x="7" y="7" width="10" height="10" rx="2"/><path d="M12 2.5v3M12 18.5v3M2.5 12h3M18.5 12h3M5 5l2.1 2.1M16.9 16.9 19 19M19 5l-2.1 2.1M7.1 16.9 5 19"/></svg>
+                <h3>tec-1-pag-web</h3>
+                <p>Sitio web corporativo con diseño moderno y enfoque en experiencia de usuario.</p>
+                <span class="project-tag">HTML · Web</span>
+            </div>
+
+            <div class="project-card reveal" data-od-id="project-card-python-copy">
+                <svg class="project-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><polygon points="12 2 22 7 22 17 12 22 2 17 2 7 12 2"/><path d="M12 12v6"/><path d="M9 10.5l3-1.5 3 1.5"/></svg>
+                <h3>Códigos varios Python</h3>
+                <p>Colección de scripts y utilidades en Python para automatización.</p>
+                <span class="project-tag">Python · Scripts</span>
+            </div>
+
+            <div class="project-card reveal" data-od-id="project-card-drive-copy">
+                <svg class="project-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M3 7a2 2 0 0 1 2-2h4l2 2h8a2 2 0 0 1 2 2v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V7z"/></svg>
+                <h3>Drive Fer</h3>
+                <p>Plataforma de almacenamiento y gestión de archivos con interfaz intuitiva.</p>
+                <span class="project-tag">Python · Cloud</span>
+            </div>
+
+            <div class="project-card reveal" data-od-id="project-card-botman-copy">
+                <svg class="project-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M12 8V5M9 3.5h6M4 8h16M5 8v11a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V8"/><circle cx="9" cy="13" r="1.1"/><circle cx="15" cy="13" r="1.1"/></svg>
+                <h3>BOTman</h3>
+                <p>Bot inteligente con procesamiento de lenguaje natural para atención al cliente.</p>
+                <span class="project-tag">Python · NLP</span>
+            </div>
+
+            <div class="project-card reveal" data-od-id="project-card-cenet-copy">
+                <svg class="project-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3l7 3v5c0 4.3-3 7.8-7 9.5C8 18.8 5 15.3 5 11V6l7-3z"/></svg>
+                <h3>CENET - Procesos Industriales</h3>
+                <p>Sistema de gestión y simulación de procesos industriales con dashboards.</p>
+                <span class="project-tag">Python · Industria</span>
+            </div>
+
+            <div class="project-card reveal" data-od-id="project-card-futbol-copy">
+                <svg class="project-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3c2.6 2.6 2.6 15.4 0 18M12 3c-2.6 2.6-2.6 15.4 0 18"/></svg>
+                <h3>Fútbol Manager</h3>
+                <p>Simulador de gestión deportiva con estadísticas, ligas y manejo de equipos.</p>
+                <span class="project-tag">Python · Gestión</span>
+            </div>
+
+            <div class="project-card reveal" data-od-id="project-card-redes-copy">
+                <svg class="project-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="5" r="2.4"/><circle cx="5" cy="19" r="2.4"/><circle cx="19" cy="19" r="2.4"/><path d="M7.5 17.3L14 7.7M16.5 17.3L10 7.7"/></svg>
+                <h3>Simulaciones de Redes</h3>
+                <p>Simulación de redes y protocolos de comunicación con análisis de rendimiento.</p>
+                <span class="project-tag">Python · Redes</span>
+            </div>
+
+            <div class="project-card reveal" data-od-id="project-card-classroom-copy">
+                <svg class="project-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4h16v16H4z"/><path d="M8 8h8M8 12h6M8 16h4"/></svg>
+                <h3>Classroom</h3>
+                <p>Plataforma educativa con gestión de cursos, tareas y seguimiento.</p>
+                <span class="project-tag">Rich Text · Educación</span>
+            </div>
+
+            <div class="project-card reveal" data-od-id="project-card-bonanno-copy">
+                <svg class="project-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><rect x="2.5" y="3.5" width="19" height="17" rx="2"/><path d="M8 9h8M8 13h6"/></svg>
+                <h3>Bonanno - Falta HTML</h3>
+                <p>Desarrollo web con enfoque en HTML semántico y accesibilidad.</p>
+                <span class="project-tag">Python · HTML</span>
+            </div>
+
+            <div class="project-card reveal" data-od-id="project-card-mano-copy">
+                <svg class="project-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M7 12V8a2 2 0 0 1 4 0v4M11 12V6a2 2 0 0 1 4 0v6M15 12V4a2 2 0 0 1 4 0v8"/><path d="M19 12v5a6 6 0 0 1-12 0v-5"/></svg>
+                <h3>Proyecto Py-Mano</h3>
+                <p>Aplicación interactiva con interfaz gráfica para control de gestos.</p>
+                <span class="project-tag">Python · GUI</span>
+            </div>
+
+            <div class="project-card reveal" data-od-id="project-card-android-copy">
+                <svg class="project-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><rect x="7" y="2" width="10" height="20" rx="2"/><path d="M11 18h2"/></svg>
+                <h3>Proyecto Android</h3>
+                <p>Aplicación móvil nativa con funcionalidades avanzadas y sincronización en la nube.</p>
+                <span class="project-tag">Python · Mobile</span>
+            </div>
+
+            <div class="project-card reveal" data-od-id="project-card-poxedex-copy">
+                <svg class="project-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="8"/><path d="M4 12h3M17 12h3M12 4v3M12 17v3"/></svg>
+                <h3>Poxedex - Falta HTML</h3>
+                <p>Enciclopedia digital con base de datos de Pokémon y filtros interactivos.</p>
+                <span class="project-tag">Python · HTML</span>
+            </div>
+
+            <div class="project-card reveal" data-od-id="project-card-djdistrack-copy">
+                <svg class="project-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2v8M12 10l4-4M12 10l-4-4"/><circle cx="12" cy="18" r="4"/><path d="M12 14v4"/></svg>
+                <h3>DJ Distrack</h3>
+                <p>Sistema de gestión de música y playlists para DJs y productores.</p>
+                <span class="project-tag">HTML · Música</span>
+            </div>
+
+            <div class="project-card reveal" data-od-id="project-card-sur-copy">
+                <svg class="project-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M3 6h18M3 12h18M3 18h18"/></svg>
+                <h3>Aplicación Sur</h3>
+                <p>Aplicación web para gestión de recursos y seguimiento de proyectos.</p>
+                <span class="project-tag">Python · Web</span>
+            </div>
+
+            <div class="project-card reveal" data-od-id="project-card-php-copy">
+                <svg class="project-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><ellipse cx="12" cy="5" rx="8" ry="3"/><path d="M4 5v14c0 1.7 3.6 3 8 3s8-1.3 8-3V5"/><path d="M4 12c0 1.7 3.6 3 8 3s8-1.3 8-3"/></svg>
+                <h3>PHP 2025 - Rodriguez Depierro</h3>
+                <p>Sistema backend con PHP para gestión de usuarios y bases de datos.</p>
+                <span class="project-tag">PHP · Backend</span>
+            </div>
+
+        </div>
+    </div>
+</section>
+
+<!-- ===== SIMULADOR DE PRESUPUESTOS ===== -->
+<section class="section simulator" id="simulador">
+    <div class="section-head">
+        <p class="label">Presupuestos</p>
+        <h2>Simulá el costo de tu proyecto</h2>
+        <p>Seleccioná el tipo de servicio. Obtené un presupuesto.</p>
+    </div>
+
+    <div class="simulator__wrapper">
+        <!-- Panel izquierdo: opciones -->
+        <div class="simulator__options">
+            <!-- Tipo de servicio -->
+            <div class="sim-group">
+                <label for="sim-service-type">Tipo de servicio</label>
+                <select id="sim-service-type">
+                    <option value="programacion">Programación Web (WordPress/Elementor + SEO)</option>
+                    <option value="diseno">Diseño Web (Figma + WordPress/Elementor + SEO)</option>
+                    <option value="plantilla">Implementación sobre Plantilla Premium (Envato)</option>
+                    <option value="apps">Aplicaciones (Móvil / Escritorio)</option>
+                </select>
+            </div>
+
+            <!-- Tipo de proyecto -->
+            <div class="sim-group">
+                <label for="sim-project-type">Tipo de proyecto</label>
+                <select id="sim-project-type">
+                    <!-- Se llena dinámicamente según el servicio seleccionado -->
+                </select>
+            </div>
+
+            <!-- Extras -->
+            <div class="sim-group">
+                <label>Extras (opcionales)</label>
+                <div class="sim-checkboxes">
+                    <label><input type="checkbox" id="sim-extra-seo" value="seo"> Optimización SEO avanzada (+15%)</label>
+                    <label><input type="checkbox" id="sim-extra-analytics" value="analytics"> Google Analytics / Tag Manager (+10%)</label>
+                    <label><input type="checkbox" id="sim-extra-crm" value="crm"> Integración con CRM (+12%)</label>
+                    <label><input type="checkbox" id="sim-extra-mantenimiento" value="mantenimiento"> Mantenimiento 3 meses (+18%)</label>
+                </div>
+            </div>
+        </div>
+
+        <!-- Panel derecho: resultado -->
+        <div class="simulator__result">
+            <div class="sim-result__header">
+                <span class="sim-label">Presupuesto estimado</span>
+                <span class="sim-price" id="sim-price">$0</span>
+            </div>
+
+            <div class="sim-result__breakdown">
+                <div class="sim-row">
+                    <span class="sim-row__label">Base</span>
+                    <span class="sim-row__value" id="sim-base">$0</span>
+                </div>
+                <div class="sim-row sim-row__extras">
+                    <span class="sim-row__label">Extras</span>
+                    <span class="sim-row__value" id="sim-extras">$0</span>
+                </div>
+                <div class="sim-row sim-row__total">
+                    <span class="sim-row__label">Total</span>
+                    <span class="sim-row__value" id="sim-total">$0</span>
+                </div>
+            </div>
+
+            <div class="sim-result__actions">
+                <a href="#contacto" class="cta__primary" id="sim-cta">Solicitar presupuesto</a>
+                <p class="sim-note">* Los precios son estimativos y pueden variar según requerimientos específicos.</p>
+            </div>
+        </div>
+    </div>
+</section>
+
+    <!-- ===== CONTACTO ===== -->
+    <section class="section contact" id="contacto" data-od-id="contact">
+      <div class="section-head" data-od-id="contact-head">
+        <p class="label">Contacto</p>
+        <h2 data-od-id="contact-title">Comencemos a trabajar hoy</h2>
+        <p>Esperamos tu mensaje</p>
+      </div>
+      <div class="contact__wrapper">
+        <div class="contact__info" data-od-id="contact-info">
+          <h3>Rodriuez German</h3>
+          <p class="sub">Desarrollador Web · Apps · E-Commerce</p>
+          <div class="contact-item" data-od-id="contact-mail">
+            <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="M3 7.5l9 6 9-6"/></svg>
+            <a href="mailto:germanty123@gmail.com">germanty123@gmail.com</a>
+          </div>
+          <div class="contact-item" data-od-id="contact-whatsapp">
+            <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 12a8 8 0 0 1-11.6 7.2L4 20l1.3-4.4A8 8 0 1 1 21 12z"/><path d="M9 10h6M9 13.5h3.5"/></svg>
+            <a href="https://wa.me/5491136239969" target="_blank" rel="noopener">+54 11 36239969</a>
+          </div>
+          <div class="contact-item" data-od-id="contact-agenda">
+            <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3.5" y="5" width="17" height="16" rx="2"/><path d="M3.5 10h17M8 3v4M16 3v4"/></svg>
+            <a href="#contacto">Agendar reunión</a>
+          </div>
+          <div class="location" data-od-id="contact-location">
+            <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 21.5s7-5.5 7-11a7 7 0 1 0-14 0c0 5.5 7 11 7 11z"/><circle cx="12" cy="10.5" r="2.5"/></svg>
+            <span>CABA, Argentina</span>
+          </div>
+        </div>
+
+        <form class="contact__form" id="form-contacto" novalidate data-od-id="contact-form">
+    <div class="form-row">
+        <div class="form-group">
+            <label for="nombre">Nombre</label>
+            <input type="text" id="nombre" name="nombre" placeholder="Tu nombre" required />
+            <p class="field-error">Este campo es obligatorio.</p>
+        </div>
+        <div class="form-group">
+            <label for="correo">Correo</label>
+            <input type="email" id="correo" name="correo" placeholder="tu@correo.com" required />
+            <p class="field-error">Ingresá un correo válido.</p>
+        </div>
+    </div>
+    <div class="form-group">
+        <label for="servicio">¿Qué necesitás?</label>
+        <select id="servicio" name="servicio">
+            <option value="">Seleccioná una opción</option>
+            <option value="software">Software a medida</option>
+            <option value="web">Página web</option>
+            <option value="ecommerce">E-commerce</option>
+            <option value="otro">Otro</option>
+        </select>
+    </div>
+    <div class="form-row">
+        <div class="form-group">
+            <label for="empresa">Empresa <span class="optional">(opcional)</span></label>
+            <input type="text" id="empresa" name="empresa" placeholder="Nombre de tu empresa" />
+        </div>
+        <div class="form-group">
+            <label for="whatsapp">WhatsApp / Teléfono</label>
+            <input type="tel" id="whatsapp" name="whatsapp" placeholder="+54 11 5555 5555" />
+        </div>
+    </div>
+    <div class="form-group">
+        <label>¿Cómo te contactamos?</label>
+        <div class="checkbox-group">
+            <label><input type="checkbox" name="contacto" value="correo" /> Correo</label>
+            <label><input type="checkbox" name="contacto" value="whatsapp" /> WhatsApp</label>
+            <label><input type="checkbox" name="contacto" value="llamada" /> Llamada</label>
+        </div>
+    </div>
+    <div class="form-group">
+        <label for="mensaje">Mensaje <span class="optional">(opcional)</span></label>
+        <textarea id="mensaje" name="mensaje" placeholder="Contanos un poco sobre tu proyecto..."></textarea>
+    </div>
+
+    <!-- Reemplazo el botón "Enviar mensaje" por estos 2 botones -->
+    <div class="form-actions">
+        <button type="button" id="btn-whatsapp">
+            📱   WhatsApp
+        </button>
+        <button type="button" id="btn-gmail">
+            ✉️   Gmail
+        </button>
+    </div>
+
+    <p class="form-success" id="form-success">¡Gracias! Tu mensaje se envió correctamente.</p>
+</form>
+      </div>
+    </section>
+
+    <!-- ===== FOOTER ===== -->
+    <footer class="footer" data-od-id="footer">
+      <span>© 2026 Rodriuez German. Todos los derechos reservados.</span>
+      
+      <div class="footer__socials" data-od-id="footer-socials">
+        <!-- Enlaces de texto -->
+        <a href="#contacto" class="footer-link">Contacto</a>
+        <a href="privacidad.html" class="footer-link">Aviso legal y privacidad</a>
+        
+        <!-- LinkedIn -->
+        <a href="https://www.linkedin.com/in/german-rodriguez-al/" target="_blank" rel="noopener noreferrer" class="footer-icon" aria-label="LinkedIn">
+          <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
+            <path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/>
+          </svg>
+        </a>
+
+        <!-- Instagram -->
+        <a href="https://www.instagram.com/germanfuel/" target="_blank" rel="noopener noreferrer" class="footer-icon" aria-label="Instagram">
+          <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
+            <path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zM12 0C8.741 0 8.333.014 7.053.072 2.695.272.273 2.69.073 7.052.014 8.333 0 8.741 0 12c0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98C8.333 23.986 8.741 24 12 24c3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98C15.668.014 15.259 0 12 0zm0 5.838a6.162 6.162 0 100 12.324 6.162 6.162 0 000-12.324zM12 16a4 4 0 110-8 4 4 0 010 8zm6.406-11.845a1.44 1.44 0 100 2.881 1.44 1.44 0 000-2.881z"/>
+          </svg>
+        </a>
+      </div>
+    </footer>
+
+  </div>
+
+  <!-- ===== LOADER ===== -->
+  <div class="loader" id="loader">
+    <div>
+      <div class="loader__bar"><div class="loader__fill" id="loader-fill"></div></div>
+      <p class="loader__label" id="loader-label">Cargando fotogramas… 0%</p>
+    </div>
+  </div>
+
+  <!-- ===== HINT ===== -->
+  <div class="interaction-hint" id="interaction-hint">↔ Mueve el cursor para explorar</div>
+  <div class="frame-readout" id="frame-readout">001 / 060</div>
+  <script>
+  (function () {
+    'use strict';
+
+    var TOTAL = 60;
+    var FPS = 30;
+
+    function pad4(n) { return String(n).padStart(4, '0'); }
+    function pad3(n) { return String(n).padStart(3, '0'); }
+
+    var frameImg = document.getElementById('hero-frame');
+    var loader = document.getElementById('loader');
+    var loaderFill = document.getElementById('loader-fill');
+    var loaderLabel = document.getElementById('loader-label');
+    var gazeIndicator = document.getElementById('gaze-indicator');
+    var interactionHint = document.getElementById('interaction-hint');
+    //var frameReadout = document.getElementById('frame-readout');
+
+    var frames = [];
+    var loaded = 0;
+    var current = -1;
+    var started = false;
+    var lastProgress = -1;
+
+    function mapMouseToFrame(progress) {
+      var inverted = 1 - progress;
+      var eased = easeInOutQuad(inverted);
+      var frameIndex = Math.round(eased * (TOTAL - 1));
+      return Math.max(0, Math.min(TOTAL - 1, frameIndex));
+    }
+
+    function easeInOutQuad(t) {
+      return t < 0.5 ? 2 * t * t : 1 - Math.pow(-2 * t + 2, 2) / 2;
+    }
+
+    function finish() {
+      if (started) return;
+      started = true;
+      loader.classList.add('is-done');
+      frameReadout.classList.add('is-visible');
+      setTimeout(function() {
+        interactionHint.classList.add('fade-out');
+      }, 4000);
+      show(0);
+    }
+
+    function frameLoaded(src) {
+      loaded++;
+      var pct = Math.round((loaded / TOTAL) * 100);
+      loaderFill.style.width = pct + '%';
+      loaderLabel.textContent = loaded >= TOTAL
+        ? 'Listo'
+        : 'Cargando fotogramas… ' + pct + '%';
+      if (loaded >= TOTAL) finish();
+    }
+
+    function preload() {
+      var head = document.head;
+      for (var i = 1; i <= TOTAL; i++) {
+        var name = 'frame_' + pad4(i) + '.webp';
+
+        var link = document.createElement('link');
+        link.rel = 'preload';
+        link.as = 'image';
+        link.href = 'frames/' + name;
+        head.appendChild(link);
+
+        (function (idx, src) {
+          var img = new Image();
+          img.onload = function () { frameLoaded(src); };
+          img.onerror = function () { frameLoaded(src); };
+          img.src = 'frames/' + src;
+          frames[idx - 1] = img;
+        })(i, name);
+      }
+
+      setTimeout(finish, 15000);
+    }
+
+    function show(idx) {
+      if (idx === current) return;
+      current = idx;
+      var img = frames[idx];
+      if (!img) return;
+      if (img.complete && img.naturalWidth === 0) return;
+
+      //if (frameReadout) {
+      //  frameReadout.textContent = pad3(idx + 1) + ' / ' + pad3(TOTAL);
+      //}
+
+      if (img.decode) {
+        img.decode().then(function () {
+          if (current === idx) {
+            frameImg.src = img.src;
+            frameImg.classList.add('is-ready');
+          }
+        }).catch(function () {
+          frameImg.src = img.src;
+          frameImg.classList.add('is-ready');
+        });
+      } else {
+        frameImg.src = img.src;
+        frameImg.classList.add('is-ready');
+      }
+    }
+
+    function render(progress) {
+      var frameIndex = mapMouseToFrame(progress);
+      show(frameIndex);
+
+      if (gazeIndicator) {
+        var xPos = 50 + (1 - progress - 0.5) * 30;
+        var yPos = 50 + Math.sin(progress * Math.PI) * 5;
+        gazeIndicator.style.left = xPos + '%';
+        gazeIndicator.style.top = yPos + '%';
+        gazeIndicator.style.transform = 'translate(-50%, -50%) scale(' + (0.8 + Math.sin(progress * Math.PI * 2) * 0.1) + ')';
+      }
+    }
+
+    var raf = null;
+
+    function onMove(clientX) {
+      if (raf) return;
+      raf = requestAnimationFrame(function () {
+        raf = null;
+        var w = window.innerWidth;
+        var progress = w === 0 ? 0 : Math.max(0, Math.min(1, clientX / w));
+        lastProgress = progress;
+        render(progress);
+      });
+    }
+
+    window.addEventListener('mousemove', function (e) {
+      onMove(e.clientX);
+    });
+
+    window.addEventListener('touchmove', function (e) {
+      var t = e.touches[0];
+      if (t) onMove(t.clientX);
+    }, { passive: true });
+
+    setTimeout(function() {
+      if (!started) return;
+      if (lastProgress === -1) {
+        render(0.5);
+      }
+    }, 2000);
+
+    preload();
+
+  })();
+  </script>
+
+  <script>
+  (function () {
+    'use strict';
+
+    var nav = document.getElementById('site-nav');
+    var toggle = document.getElementById('nav-toggle');
+    var links = document.querySelectorAll('.nav__links a');
+
+    if (nav && toggle) {
+      toggle.addEventListener('click', function () {
+        var open = nav.classList.toggle('open');
+        toggle.setAttribute('aria-expanded', open ? 'true' : 'false');
+        toggle.setAttribute('aria-label', open ? 'Cerrar menú' : 'Abrir menú');
+      });
+    }
+    links.forEach(function (link) {
+      link.addEventListener('click', function () {
+        nav.classList.remove('open');
+        toggle.setAttribute('aria-expanded', 'false');
+        toggle.setAttribute('aria-label', 'Abrir menú');
+      });
+    });
+  })();
+  </script>
+
+  <script>
+  (function () {
+    'use strict';
+
+    var reduceMotion = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    var revealEls = document.querySelectorAll('.reveal');
+
+    if (!('IntersectionObserver' in window) || reduceMotion) {
+      revealEls.forEach(function (el) { el.classList.add('in-view'); });
+      return;
+    }
+
+    var io = new IntersectionObserver(function (entries) {
+      entries.forEach(function (entry) {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('in-view');
+          io.unobserve(entry.target);
+          setTimeout(function () {
+            entry.target.classList.remove('reveal');
+            entry.target.classList.remove('in-view');
+          }, 800);
+        }
+      });
+    }, { threshold: 0.12, rootMargin: '0px 0px -40px 0px' });
+
+    revealEls.forEach(function (el) { io.observe(el); });
+  })();
+  </script>
+
+  <script>
+  (function () {
+    'use strict';
+
+    var form = document.getElementById('form-contacto');
+    var nombre = document.getElementById('nombre');
+    var correo = document.getElementById('correo');
+    var success = document.getElementById('form-success');
+
+    if (!form) return;
+
+    function validEmail(v) {
+      return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(v.trim());
+    }
+
+    function setError(input, hasError) {
+      input.closest('.form-group').classList.toggle('has-error', hasError);
+    }
+
+    function validate() {
+      var ok = true;
+      if (!nombre.value.trim()) { setError(nombre, true); ok = false; } else { setError(nombre, false); }
+      if (!validEmail(correo.value)) { setError(correo, true); ok = false; } else { setError(correo, false); }
+      return ok;
+    }
+
+    nombre.addEventListener('input', function () { setError(nombre, false); });
+    correo.addEventListener('input', function () { setError(correo, false); });
+
+    form.addEventListener('submit', function (e) {
+      e.preventDefault();
+      if (!validate()) return;
+      form.classList.add('is-sent');
+      form.reset();
+      setTimeout(function () {
+        form.classList.remove('is-sent');
+      }, 6000);
+    });
+  })();
+  </script>
+  <script>
+    document.addEventListener('DOMContentLoaded', function() {
+    'use strict';
+
+    // ============================================================
+    // 1. FORMULARIO DE CONTACTO
+    // ============================================================
+    const nombreInput = document.getElementById('nombre');
+    const correoInput = document.getElementById('correo');
+    const servicioSelect = document.getElementById('servicio');
+    const empresaInput = document.getElementById('empresa');
+    const whatsappInput = document.getElementById('whatsapp');
+    const mensajeTextarea = document.getElementById('mensaje');
+    const btnWhatsapp = document.getElementById('btn-whatsapp');
+    const btnGmail = document.getElementById('btn-gmail');
+    const successMessage = document.getElementById('form-success');
+
+    if (btnWhatsapp && btnGmail) {
+        // Función para validar el formulario
+        function validarFormulario() {
+            let isValid = true;
+            
+            // Validar nombre
+            if (!nombreInput.value.trim()) {
+                const errorNombre = nombreInput.parentElement.querySelector('.field-error');
+                if (errorNombre) errorNombre.style.display = 'block';
+                nombreInput.style.borderColor = 'red';
+                isValid = false;
+            } else {
+                const errorNombre = nombreInput.parentElement.querySelector('.field-error');
+                if (errorNombre) errorNombre.style.display = 'none';
+                nombreInput.style.borderColor = '';
+            }
+            
+            // Validar correo
+            const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+            if (!correoInput.value.trim() || !emailRegex.test(correoInput.value)) {
+                const errorCorreo = correoInput.parentElement.querySelector('.field-error');
+                if (errorCorreo) errorCorreo.style.display = 'block';
+                correoInput.style.borderColor = 'red';
+                isValid = false;
+            } else {
+                const errorCorreo = correoInput.parentElement.querySelector('.field-error');
+                if (errorCorreo) errorCorreo.style.display = 'none';
+                correoInput.style.borderColor = '';
+            }
+            
+            return isValid;
+        }
+
+        // Función para obtener los datos del formulario
+        function obtenerDatos() {
+            const contactoSeleccionado = [];
+            document.querySelectorAll('input[name="contacto"]:checked').forEach(cb => {
+                contactoSeleccionado.push(cb.value);
+            });
+
+            return {
+                nombre: nombreInput.value.trim(),
+                correo: correoInput.value.trim(),
+                servicio: servicioSelect.value,
+                empresa: empresaInput.value.trim(),
+                whatsapp: whatsappInput.value.trim(),
+                mensaje: mensajeTextarea.value.trim(),
+                contacto: contactoSeleccionado
+            };
+        }
+
+        // Función para mostrar mensaje de éxito
+        function mostrarExito() {
+            successMessage.style.display = 'block';
+            setTimeout(() => {
+                successMessage.style.display = 'none';
+            }, 5000);
+        }
+
+        // BOTÓN 1: Enviar por WhatsApp
+        btnWhatsapp.addEventListener('click', function() {
+            if (!validarFormulario()) return;
+
+            const datos = obtenerDatos();
+            
+            let mensaje = `*Nuevo mensaje de contacto*\n\n`;
+            mensaje += `*Nombre:* ${datos.nombre}\n`;
+            mensaje += `*Correo:* ${datos.correo}\n`;
+            if (datos.empresa) mensaje += `*Empresa:* ${datos.empresa}\n`;
+            if (datos.whatsapp) mensaje += `*Teléfono:* ${datos.whatsapp}\n`;
+            mensaje += `*Servicio:* ${servicioSelect.options[servicioSelect.selectedIndex].text}\n`;
+            if (datos.contacto.length > 0) {
+                mensaje += `*Contacto preferido:* ${datos.contacto.join(', ')}\n`;
+            }
+            if (datos.mensaje) mensaje += `\n*Mensaje:*\n${datos.mensaje}`;
+
+            const numeroWhatsApp = '5491136239969';
+            window.open(`https://wa.me/${numeroWhatsApp}?text=${encodeURIComponent(mensaje)}`, '_blank');
+            mostrarExito();
+        });
+
+        // BOTÓN 2: Enviar por Gmail
+        btnGmail.addEventListener('click', function() {
+            if (!validarFormulario()) return;
+
+            const datos = obtenerDatos();
+            
+            const asunto = `Contacto desde el sitio web - ${datos.nombre}`;
+            let cuerpo = `Nuevo mensaje de contacto:\n\n`;
+            cuerpo += `Nombre: ${datos.nombre}\n`;
+            cuerpo += `Correo: ${datos.correo}\n`;
+            if (datos.empresa) cuerpo += `Empresa: ${datos.empresa}\n`;
+            if (datos.whatsapp) cuerpo += `Teléfono: ${datos.whatsapp}\n`;
+            cuerpo += `Servicio: ${servicioSelect.options[servicioSelect.selectedIndex].text}\n`;
+            if (datos.contacto.length > 0) {
+                cuerpo += `Contacto preferido: ${datos.contacto.join(', ')}\n`;
+            }
+            if (datos.mensaje) cuerpo += `\nMensaje:\n${datos.mensaje}`;
+
+            const correoDestino = 'germanty123@gmail.com';
+            window.open(
+                `https://mail.google.com/mail/?view=cm&fs=1&to=${correoDestino}&su=${encodeURIComponent(asunto)}&body=${encodeURIComponent(cuerpo)}`,
+                '_blank'
+            );
+            mostrarExito();
+        });
+
+        // Prevenir envío por defecto del formulario
+        document.getElementById('form-contacto').addEventListener('submit', function(e) {
+            e.preventDefault();
+        });
+
+        // Ocultar errores cuando el usuario escribe
+        nombreInput.addEventListener('input', function() {
+            if (this.value.trim()) {
+                const error = this.parentElement.querySelector('.field-error');
+                if (error) error.style.display = 'none';
+                this.style.borderColor = '';
+            }
+        });
+
+        correoInput.addEventListener('input', function() {
+            const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+            if (this.value.trim() && emailRegex.test(this.value)) {
+                const error = this.parentElement.querySelector('.field-error');
+                if (error) error.style.display = 'none';
+                this.style.borderColor = '';
+            }
+        });
+    }
+
+    // ============================================================
+    // 2. SIMULADOR DE PRESUPUESTOS
+    // ============================================================
+    const serviceType = document.getElementById('sim-service-type');
+    const projectType = document.getElementById('sim-project-type');
+    const checkboxes = document.querySelectorAll('#sim-extra-seo, #sim-extra-analytics, #sim-extra-crm, #sim-extra-mantenimiento');
+    const priceEl = document.getElementById('sim-price');
+    const baseEl = document.getElementById('sim-base');
+    const extrasEl = document.getElementById('sim-extras');
+    const totalEl = document.getElementById('sim-total');
+    const simCta = document.getElementById('sim-cta');
+
+        if (serviceType && projectType) {
+        const PRICES = {
+            programacion: {
+                'landing-replica': 100000,
+                'landing-nueva': 200000,
+                'one-page': 240000,
+                'web-institucional': 400000,
+                'web-woocommerce': 530000
+            },
+            diseno: {
+                'landing-replica': 150000,
+                'landing-nueva': 230000,
+                'one-page-funnel': 350000,
+                'web-institucional': 600000,
+                'web-compleja': 800000
+            },
+            plantilla: {
+                'landing-plantilla': 140000,
+                'one-page-plantilla': 230000,
+                'web-institucional-plantilla': 340000,
+                'web-woocommerce-plantilla': 450000
+            },
+            // 👇 AGREGADO: Aplicaciones Móviles y Escritorio 👇
+            apps: {
+                'movil-basico': 500000,
+                'movil-database': 1200000,
+                'movil-compleja': 2500000,
+                'escritorio-basico': 600000,
+                'escritorio-profesional': 1500000
+            }
+        };
+
+        const PROJECT_NAMES = {
+            programacion: {
+                'landing-replica': 'Landing réplica (basada en web existente)',
+                'landing-nueva': 'Landing nueva',
+                'one-page': 'One Page',
+                'web-institucional': 'Web institucional (hasta 6 subpáginas + Home + Contacto)',
+                'web-woocommerce': 'Web institucional + WooCommerce'
+            },
+            diseno: {
+                'landing-replica': 'Landing réplica',
+                'landing-nueva': 'Landing nueva',
+                'one-page-funnel': 'One Page estilo Funnel (5 bloques)',
+                'web-institucional': 'Web institucional (hasta 6 subpáginas + Home + Contacto)',
+                'web-compleja': 'Web compleja (Tienda + Pasarela de pago + Especiales)'
+            },
+            plantilla: {
+                'landing-plantilla': 'Landing sobre plantilla',
+                'one-page-plantilla': 'One Page sobre plantilla',
+                'web-institucional-plantilla': 'Web institucional sobre plantilla',
+                'web-woocommerce-plantilla': 'Web institucional + WooCommerce sobre plantilla'
+            },
+            // 👇 AGREGADO: Nombres para Apps con el precio "Desde" 👇
+            apps: {
+                'movil-basico': 'App Móvil (Catálogo) - Desde $500.000',
+                'movil-database': 'App Móvil (Login / Base de Datos) - Desde $1.200.000',
+                'movil-compleja': 'App Móvil Premium (Pagos / GPS) - Desde $2.500.000',
+                'escritorio-basico': 'App Escritorio (Gestión básica) - Desde $600.000',
+                'escritorio-profesional': 'App Escritorio Profesional - Desde $1.500.000'
+            }
+        };
+
+        const EXTRA_PERCENTS = {
+            seo: 0.15,
+            analytics: 0.10,
+            crm: 0.12,
+            mantenimiento: 0.18
+        };
+
+        const EXTRA_NAMES = {
+            seo: 'Optimización SEO avanzada',
+            analytics: 'Google Analytics / Tag Manager',
+            crm: 'Integración con CRM',
+            mantenimiento: 'Mantenimiento 3 meses'
+        };
+
+        let currentTotal = 0;
+        let currentProjectName = '';
+
+        function formatPrice(value) {
+            return '$' + value.toLocaleString('es-AR');
+        }
+
+        function updateProjectOptions() {
+            const service = serviceType.value;
+            const projects = PRICES[service];
+            const names = PROJECT_NAMES[service];
+
+            projectType.innerHTML = '';
+            Object.keys(projects).forEach(key => {
+                const option = document.createElement('option');
+                option.value = key;
+                option.textContent = names[key];
+                projectType.appendChild(option);
+            });
+
+            updatePrice();
+        }
+
+        function updatePrice() {
+            const service = serviceType.value;
+            const projectKey = projectType.value;
+            const basePrice = PRICES[service]?.[projectKey] || 0;
+
+            // Obtener nombre del proyecto seleccionado
+            const selectedOption = projectType.options[projectType.selectedIndex];
+            currentProjectName = selectedOption ? selectedOption.textContent : '';
+
+            let extraTotal = 0;
+            let extrasList = [];
+            checkboxes.forEach(cb => {
+                if (cb.checked) {
+                    const percent = EXTRA_PERCENTS[cb.value] || 0;
+                    const extra = Math.round(basePrice * percent);
+                    extraTotal += extra;
+                    extrasList.push(EXTRA_NAMES[cb.value]);
+                }
+            });
+
+            currentTotal = basePrice + extraTotal;
+
+            priceEl.textContent = formatPrice(currentTotal);
+            baseEl.textContent = formatPrice(basePrice);
+            extrasEl.textContent = extraTotal > 0 ? formatPrice(extraTotal) : '$0';
+            totalEl.textContent = formatPrice(currentTotal);
+
+            // Actualizar el enlace del botón "Solicitar presupuesto"
+            if (simCta) {
+                const mensaje = `Hola, estoy interesado en el siguiente proyecto:\n\n`;
+                const proyecto = `Proyecto: ${currentProjectName}\n`;
+                const totalTexto = `Presupuesto estimado: ${formatPrice(currentTotal)}\n\n`;
+                const extrasTexto = extrasList.length > 0 ? `Extras seleccionados: ${extrasList.join(', ')}\n` : '';
+                const cuerpo = encodeURIComponent(mensaje + proyecto + extrasTexto + totalTexto + '\nMe gustaría recibir más información.');
+                simCta.href = `#contacto?presupuesto=${encodeURIComponent(currentProjectName)}&total=${currentTotal}`;
+                
+                // También podemos agregar un tooltip o data attribute
+                simCta.setAttribute('data-proyecto', currentProjectName);
+                simCta.setAttribute('data-total', currentTotal);
+            }
+        }
+
+        // Event listeners del simulador
+        serviceType.addEventListener('change', updateProjectOptions);
+        projectType.addEventListener('change', updatePrice);
+        checkboxes.forEach(cb => cb.addEventListener('change', updatePrice));
+
+        // Inicializar simulador
+        updateProjectOptions();
+
+        // Al hacer clic en "Solicitar presupuesto", si hay un campo oculto en el formulario, lo llenamos
+        if (simCta) {
+            simCta.addEventListener('click', function(e) {
+                // Si el formulario tiene un campo oculto para el presupuesto, lo llenamos
+                const presupuestoInput = document.getElementById('presupuesto-input');
+                if (presupuestoInput) {
+                    presupuestoInput.value = `${currentProjectName} - ${formatPrice(currentTotal)}`;
+                }
+
+                // También podemos llenar el campo de mensaje con el presupuesto
+                if (mensajeTextarea && mensajeTextarea.value.trim() === '') {
+                    mensajeTextarea.value = `Me interesa el siguiente proyecto:\n${currentProjectName}\nPresupuesto estimado: ${formatPrice(currentTotal)}`;
+                }
+            });
+        }
+    }
+
+    // ============================================================
+    // 3. RECIBIR PRESUPUESTO DESDE LA URL (si viene de "Solicitar presupuesto")
+    // ============================================================
+    function getParamsFromUrl() {
+        const params = new URLSearchParams(window.location.search);
+        const presupuesto = params.get('presupuesto');
+        const total = params.get('total');
+        if (presupuesto && mensajeTextarea) {
+            setTimeout(() => {
+                if (mensajeTextarea.value.trim() === '') {
+                    mensajeTextarea.value = `Me interesa el siguiente proyecto:\n${decodeURIComponent(presupuesto)}\nPresupuesto estimado: ${total ? '$' + total : ''}`;
+                }
+            }, 500);
+        }
+    }
+    getParamsFromUrl();
+});
+</script>
+<!-- ===== BOTÓN FLOTANTE DE WHATSAPP ===== -->
+<a href="https://wa.me/5491136239969?text=Hola%20Rodriuez%20German,%20quiero%20consultar%20por%20un%20proyecto..." 
+   target="_blank" 
+   rel="noopener noreferrer"
+   class="whatsapp-float" 
+   aria-label="Contactar por WhatsApp">
+    <!-- Icono SVG de WhatsApp (blanco para tu tema oscuro) -->
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" width="28" height="28">
+        <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/>
+    </svg>
+</a>
+
+<script>
+// ===== FUNCIONALIDAD BOTONES DE CONTACTO =====
+(function() {
+    'use strict';
+
+    var btnWhatsapp = document.getElementById('btn-whatsapp');
+    var btnGmail = document.getElementById('btn-gmail');
+    var nombreInput = document.getElementById('nombre');
+    var correoInput = document.getElementById('correo');
+    var mensajeInput = document.getElementById('mensaje');
+
+    // Función para formatear el mensaje con los datos del formulario
+    function obtenerMensaje() {
+        var nombre = nombreInput.value.trim() || 'Cliente potencial';
+        var correo = correoInput.value.trim() || 'No especificado';
+        var mensaje = mensajeInput.value.trim() || 'Hola, me interesa tu trabajo.';
+
+        return "Hola Rodriuez German,\n\nMi nombre es " + nombre + ".\nMi correo es: " + correo + ".\n\nMensaje:\n" + mensaje;
+    }
+
+    // Acción del botón WhatsApp
+    if (btnWhatsapp) {
+        btnWhatsapp.addEventListener('click', function() {
+            var texto = encodeURIComponent(obtenerMensaje());
+            var numero = "5491136239969"; // Tu número sin el +
+            var url = "https://wa.me/" + numero + "?text=" + texto;
+            window.open(url, '_blank');
+        });
+    }
+
+    // Acción del botón Gmail
+    if (btnGmail) {
+        btnGmail.addEventListener('click', function() {
+            var destinatario = "germanty123@gmail.com";
+            var asunto = encodeURIComponent("Consulta desde tu sitio web");
+            var cuerpo = encodeURIComponent(obtenerMensaje());
+            var url = "mailto:" + destinatario + "?subject=" + asunto + "&body=" + cuerpo;
+            window.location.href = url;
+        });
+    }
+
+})();
+</script>
+<script src="javascript.js"></script>
+</body>
+</html>
