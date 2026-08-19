@@ -1120,7 +1120,7 @@
     .sim-row__total {
         padding-top: 16px;
         padding-bottom: 16px;
-        border-top: 2px solid var(--border);  /* Usá el borde que ya existe */
+        border-top: 2px solid var(--border-strong);
         border-bottom: none;
     }
 
@@ -1192,74 +1192,57 @@
         }
     }
 
-.contact__form .form-actions {
-    display: flex;
-    gap: 14px;
-    margin-top: 6px;
-    flex-wrap: wrap;
-}
-
-/* Estilos base para ambos botones */
-.contact__form .form-actions button {
-    border: none;
-    border-radius: 2px;
-    font-family: var(--font-display);
-    font-weight: 600;
-    font-size: 14px;
-    letter-spacing: 0.03em;
-    cursor: pointer;
-    transition: transform 0.15s ease, opacity 0.2s ease;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: 10px;
-}
-
-.contact__form .form-actions button:hover {
-    transform: translateY(-2px);
-    opacity: 0.9;
-}
-
-.contact__form .form-actions button:active {
-    transform: translateY(0);
-}
-
-/* Botón WhatsApp - 30% */
-#btn-whatsapp {
-    flex: 0 0 30%;
-    min-width: 0;
-    padding: 14px 16px;
-    font-size: 13px;
-    background: #25D366;
-    color: #fff;
-}
-
-/* Botón Enviar - 70% (más grande) */
-#btn-gmail {
-    flex: 1 1 70%;
-    min-width: 0;
-    padding: 18px 24px;
-    font-size: 16px;
-    font-weight: 700;
-    background: var(--accent);
-    color: #17130c;
-}
-
-/* Responsive: en móviles ambos ocupan el 100% */
-@media (max-width: 600px) {
+    /* ===== BOTONES WHATSAPP Y GMAIL ===== */
     .contact__form .form-actions {
-        flex-direction: column;
+        display: flex;
+        gap: 14px;
+        margin-top: 6px;
+        flex-wrap: wrap;
     }
-    
-    #btn-whatsapp,
-    #btn-gmail {
-        flex: 1 1 100%;
-        width: 100%;
-        min-width: 0;
+
+    .contact__form .form-actions button {
+        flex: 1;
+        min-width: 180px;
         padding: 14px 24px;
+        border: none;
+        border-radius: 2px;
+        font-family: var(--font-display);
+        font-weight: 600;
         font-size: 14px;
+        letter-spacing: 0.03em;
+        cursor: pointer;
+        transition: transform 0.15s ease, opacity 0.2s ease;
+        
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 10px;
     }
-}
+
+    .contact__form .form-actions button:hover {
+        transform: translateY(-2px);
+        opacity: 0.9;
+    }
+
+    .contact__form .form-actions button:active {
+        transform: translateY(0);
+    }
+
+    #btn-whatsapp {
+        background: #25D366;
+        color: #fff;
+    }
+
+    #btn-gmail {
+        background: var(--accent);  /* Naranja/dorado de tu web */
+    color: #17130c;
+    }
+
+    @media (max-width: 600px) {
+        .contact__form .form-actions button {
+            min-width: 100%;
+        }
+    }
 
     /* ===== VENTANA MODAL CV ===== */
     .modal-overlay {
@@ -2055,6 +2038,9 @@
 
         <!-- Reemplazo el botón "Enviar mensaje" por estos 2 botones -->
         <div class="form-actions">
+            <button type="button" id="btn-whatsapp">
+                📱   WhatsApp
+            </button>
             <button type="button" id="btn-gmail">
                 ➤   Enviar
             </button>
@@ -3579,6 +3565,7 @@
     })();
 
     </script>
+    
     <script src="javascript.js"></script>
 
     <script>
