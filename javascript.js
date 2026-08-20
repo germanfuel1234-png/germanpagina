@@ -1,8 +1,218 @@
+// ============================================================
+// 0. HERO INTERACTIVO (frames, cursor)
+// ============================================================
+(function() {
+    'use strict';
+
+    var TOTAL = 60;
+    var FPS = 30;
+
+    function pad4(n) { return String(n).padStart(4, '0'); }
+    function pad3(n) { return String(n).padStart(3, '0'); }
+
+    var frameImg = document.getElementById('hero-frame');
+    var loader = document.getElementById('loader');
+    var loaderFill = document.getElementById('loader-fill');
+    var loaderLabel = document.getElementById('loader-label');
+    var gazeIndicator = document.getElementById('gaze-indicator');
+    var interactionHint = document.getElementById('interaction-hint');
+    var frameReadout = document.getElementById('frame-readout');
+
+    var frames = [];
+    var loaded = 0;
+    var current = -1;
+    var started = false;
+    var lastProgress = -1;
+
+    function mapMouseToFrame(progress) {
+        var inverted = 1 - progress;
+        var eased = easeInOutQuad(inverted);
+        var frameIndex = Math.round(eased * (TOTAL - 1));
+        return Math.max(0, Math.min(TOTAL - 1, frameIndex));
+    }
+
+    function easeInOutQuad(t) {
+        return t < 0.5 ? 2 * t * t : 1 - Math.pow(-2 * t + 2, 2) / 2;
+    }
+
+    function finish() {
+        if (started) return;
+        started = true;
+        loader.classList.add('is-done');
+        frameReadout.classList.add('is-visible');
+        setTimeout(function() {
+            interactionHint.classList.add('fade-out');
+        }, 4000);
+        show(0);
+    }
+
+    function frameLoaded(src) {
+        loaded++;
+        var pct = Math.round((loaded / TOTAL) * 100);
+        loaderFill.style.width = pct + '%';
+        loaderLabel.textContent = loaded >= TOTAL
+            ? 'Listo'
+            : 'Cargando fotogramas… ' + pct + '%';
+        if (loaded >= TOTAL) finish();
+    }
+
+    function preload() {
+        var head = document.head;
+        for (var i = 1; i <= TOTAL; i++) {
+            var name = 'frame_' + pad4(i) + '.webp';
+
+            var link = document.createElement('link');
+            link.rel = 'preload';
+            link.as = 'image';
+            link.href = 'frames/' + name;
+            head.appendChild(link);
+
+            (function (idx, src) {
+                var img = new Image();
+                img.onload = function () { frameLoaded(src); };
+                img.onerror = function () { frameLoaded(src); };
+                img.src = 'frames/' + src;
+                frames[idx - 1] = img;
+            })(i, name);
+        }
+
+        setTimeout(finish, 15000);
+    }
+
+    function show(idx) {
+        if (idx === current) return;
+        current = idx;
+        var img = frames[idx];
+        if (!img) return;
+        if (img.complete && img.naturalWidth === 0) return;
+
+        if (img.decode) {
+            img.decode().then(function () {
+                if (current === idx) {
+                    frameImg.src = img.src;
+                    frameImg.classList.add('is-ready');
+                }
+            }).catch(function () {
+                frameImg.src = img.src;
+                frameImg.classList.add('is-ready');
+            });
+        } else {
+            frameImg.src = img.src;
+            frameImg.classList.add('is-ready');
+        }
+    }
+
+    function render(progress) {
+        var frameIndex = mapMouseToFrame(progress);
+        show(frameIndex);
+
+        if (gazeIndicator) {
+            var xPos = 50 + (1 - progress - 0.5) * 30;
+            var yPos = 50 + Math.sin(progress * Math.PI) * 5;
+            gazeIndicator.style.left = xPos + '%';
+            gazeIndicator.style.top = yPos + '%';
+            gazeIndicator.style.transform = 'translate(-50%, -50%) scale(' + (0.8 + Math.sin(progress * Math.PI * 2) * 0.1) + ')';
+        }
+    }
+
+    var raf = null;
+
+    function onMove(clientX) {
+        if (raf) return;
+        raf = requestAnimationFrame(function () {
+            raf = null;
+            var w = window.innerWidth;
+            var progress = w === 0 ? 0 : Math.max(0, Math.min(1, clientX / w));
+            lastProgress = progress;
+            render(progress);
+        });
+    }
+
+    window.addEventListener('mousemove', function (e) {
+        onMove(e.clientX);
+    });
+
+    window.addEventListener('touchmove', function (e) {
+        var t = e.touches[0];
+        if (t) onMove(t.clientX);
+    }, { passive: true });
+
+    setTimeout(function() {
+        if (!started) return;
+        if (lastProgress === -1) {
+            render(0.5);
+        }
+    }, 2000);
+
+    preload();
+
+})();
+
+// ============================================================
+// 1. MENÚ DE NAVEGACIÓN (toggle)
+// ============================================================
+(function() {
+    'use strict';
+
+    var nav = document.getElementById('site-nav');
+    var toggle = document.getElementById('nav-toggle');
+    var links = document.querySelectorAll('.nav__links a');
+
+    if (nav && toggle) {
+        toggle.addEventListener('click', function () {
+            var open = nav.classList.toggle('open');
+            toggle.setAttribute('aria-expanded', open ? 'true' : 'false');
+            toggle.setAttribute('aria-label', open ? 'Cerrar menú' : 'Abrir menú');
+        });
+
+        links.forEach(function (link) {
+            link.addEventListener('click', function () {
+                nav.classList.remove('open');
+                toggle.setAttribute('aria-expanded', 'false');
+                toggle.setAttribute('aria-label', 'Abrir menú');
+            });
+        });
+    }
+})();
+
+// ============================================================
+// 2. REVEAL (IntersectionObserver)
+// ============================================================
+(function() {
+    'use strict';
+
+    var reduceMotion = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    var revealEls = document.querySelectorAll('.reveal');
+
+    if (!('IntersectionObserver' in window) || reduceMotion) {
+        revealEls.forEach(function (el) { el.classList.add('in-view'); });
+        return;
+    }
+
+    var io = new IntersectionObserver(function (entries) {
+        entries.forEach(function (entry) {
+            if (entry.isIntersecting) {
+                entry.target.classList.add('in-view');
+                io.unobserve(entry.target);
+                setTimeout(function () {
+                    entry.target.classList.remove('reveal');
+                    entry.target.classList.remove('in-view');
+                }, 800);
+            }
+        });
+    }, { threshold: 0.12, rootMargin: '0px 0px -40px 0px' });
+
+    revealEls.forEach(function (el) { io.observe(el); });
+})();
+
+// ============================================================
+// 3. FORMULARIO DE CONTACTO + SIMULADOR
+// ============================================================
 document.addEventListener('DOMContentLoaded', function() {
     'use strict';
 
     // ============================================================
-    // 1. FORMULARIO DE CONTACTO
+    // FORMULARIO DE CONTACTO (CON FORMSUBMIT)
     // ============================================================
     const nombreInput = document.getElementById('nombre');
     const correoInput = document.getElementById('correo');
@@ -14,11 +224,13 @@ document.addEventListener('DOMContentLoaded', function() {
     const btnGmail = document.getElementById('btn-gmail');
     const successMessage = document.getElementById('form-success');
 
+    // Solo ejecutar si los botones existen
     if (btnWhatsapp && btnGmail) {
-        // Función para validar el formulario
+        
+        // ===== FUNCIÓN PARA VALIDAR =====
         function validarFormulario() {
             let isValid = true;
-            
+
             // Validar nombre
             if (!nombreInput.value.trim()) {
                 const errorNombre = nombreInput.parentElement.querySelector('.field-error');
@@ -30,7 +242,7 @@ document.addEventListener('DOMContentLoaded', function() {
                 if (errorNombre) errorNombre.style.display = 'none';
                 nombreInput.style.borderColor = '';
             }
-            
+
             // Validar correo
             const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
             if (!correoInput.value.trim() || !emailRegex.test(correoInput.value)) {
@@ -43,11 +255,11 @@ document.addEventListener('DOMContentLoaded', function() {
                 if (errorCorreo) errorCorreo.style.display = 'none';
                 correoInput.style.borderColor = '';
             }
-            
+
             return isValid;
         }
 
-        // Función para obtener los datos del formulario
+        // ===== FUNCIÓN PARA OBTENER DATOS =====
         function obtenerDatos() {
             const contactoSeleccionado = [];
             document.querySelectorAll('input[name="contacto"]:checked').forEach(cb => {
@@ -65,15 +277,19 @@ document.addEventListener('DOMContentLoaded', function() {
             };
         }
 
-        // Función para mostrar mensaje de éxito
+        // ===== FUNCIÓN PARA MOSTRAR ÉXITO =====
         function mostrarExito() {
-            successMessage.style.display = 'block';
-            setTimeout(() => {
-                successMessage.style.display = 'none';
-            }, 5000);
+            if (successMessage) {
+                successMessage.style.display = 'block';
+                setTimeout(() => {
+                    successMessage.style.display = 'none';
+                }, 5000);
+            }
         }
 
-        // BOTÓN 1: Enviar por WhatsApp
+        // ============================================================
+        // ===== BOTÓN 1: WHATSAPP =====
+        // ============================================================
         btnWhatsapp.addEventListener('click', function() {
             if (!validarFormulario()) return;
 
@@ -95,38 +311,20 @@ document.addEventListener('DOMContentLoaded', function() {
             mostrarExito();
         });
 
-        // BOTÓN 2: Enviar por Gmail
-        btnGmail.addEventListener('click', function() {
-            if (!validarFormulario()) return;
-
-            const datos = obtenerDatos();
-            
-            const asunto = `Contacto desde el sitio web - ${datos.nombre}`;
-            let cuerpo = `Nuevo mensaje de contacto:\n\n`;
-            cuerpo += `Nombre: ${datos.nombre}\n`;
-            cuerpo += `Correo: ${datos.correo}\n`;
-            if (datos.empresa) cuerpo += `Empresa: ${datos.empresa}\n`;
-            if (datos.whatsapp) cuerpo += `Teléfono: ${datos.whatsapp}\n`;
-            cuerpo += `Servicio: ${servicioSelect.options[servicioSelect.selectedIndex].text}\n`;
-            if (datos.contacto.length > 0) {
-                cuerpo += `Contacto preferido: ${datos.contacto.join(', ')}\n`;
+        // ============================================================
+        // ===== BOTÓN 2: ENVIAR POR EMAIL (FORMSUBMIT) =====
+        // ============================================================
+        form.addEventListener('submit', function(e) {
+            if (!validarFormulario()) {
+                e.preventDefault();
+                return;
             }
-            if (datos.mensaje) cuerpo += `\nMensaje:\n${datos.mensaje}`;
-
-            const correoDestino = 'germanty123@gmail.com';
-            window.open(
-                `https://mail.google.com/mail/?view=cm&fs=1&to=${correoDestino}&su=${encodeURIComponent(asunto)}&body=${encodeURIComponent(cuerpo)}`,
-                '_blank'
-            );
-            mostrarExito();
+            console.log('✅ Formulario enviado correctamente a FormSubmit');
         });
 
-        // Prevenir envío por defecto del formulario
-        document.getElementById('form-contacto').addEventListener('submit', function(e) {
-            e.preventDefault();
-        });
-
-        // Ocultar errores cuando el usuario escribe
+        // ============================================================
+        // ===== OCULTAR ERRORES MIENTRAS ESCRIBEN =====
+        // ============================================================
         nombreInput.addEventListener('input', function() {
             if (this.value.trim()) {
                 const error = this.parentElement.querySelector('.field-error');
@@ -146,7 +344,7 @@ document.addEventListener('DOMContentLoaded', function() {
     }
 
     // ============================================================
-    // 2. SIMULADOR DE PRESUPUESTOS
+    // SIMULADOR DE PRESUPUESTOS
     // ============================================================
     const serviceType = document.getElementById('sim-service-type');
     const projectType = document.getElementById('sim-project-type');
@@ -157,7 +355,7 @@ document.addEventListener('DOMContentLoaded', function() {
     const totalEl = document.getElementById('sim-total');
     const simCta = document.getElementById('sim-cta');
 
-        if (serviceType && projectType) {
+    if (serviceType && projectType) {
         const PRICES = {
             programacion: {
                 'landing-replica': 100000,
@@ -179,7 +377,6 @@ document.addEventListener('DOMContentLoaded', function() {
                 'web-institucional-plantilla': 340000,
                 'web-woocommerce-plantilla': 450000
             },
-            // 👇 AGREGADO: Aplicaciones Móviles y Escritorio 👇
             apps: {
                 'movil-basico': 500000,
                 'movil-database': 1200000,
@@ -210,7 +407,6 @@ document.addEventListener('DOMContentLoaded', function() {
                 'web-institucional-plantilla': 'Web institucional sobre plantilla',
                 'web-woocommerce-plantilla': 'Web institucional + WooCommerce sobre plantilla'
             },
-            // 👇 AGREGADO: Nombres para Apps con el precio "Desde" 👇
             apps: {
                 'movil-basico': 'App Móvil (Catálogo) - Desde $500.000',
                 'movil-database': 'App Móvil (Login / Base de Datos) - Desde $1.200.000',
@@ -262,7 +458,6 @@ document.addEventListener('DOMContentLoaded', function() {
             const projectKey = projectType.value;
             const basePrice = PRICES[service]?.[projectKey] || 0;
 
-            // Obtener nombre del proyecto seleccionado
             const selectedOption = projectType.options[projectType.selectedIndex];
             currentProjectName = selectedOption ? selectedOption.textContent : '';
 
@@ -284,48 +479,39 @@ document.addEventListener('DOMContentLoaded', function() {
             extrasEl.textContent = extraTotal > 0 ? formatPrice(extraTotal) : '$0';
             totalEl.textContent = formatPrice(currentTotal);
 
-            // Actualizar el enlace del botón "Solicitar presupuesto"
             if (simCta) {
-                const mensaje = `Hola, estoy interesado en el siguiente proyecto:\n\n`;
-                const proyecto = `Proyecto: ${currentProjectName}\n`;
-                const totalTexto = `Presupuesto estimado: ${formatPrice(currentTotal)}\n\n`;
-                const extrasTexto = extrasList.length > 0 ? `Extras seleccionados: ${extrasList.join(', ')}\n` : '';
-                const cuerpo = encodeURIComponent(mensaje + proyecto + extrasTexto + totalTexto + '\nMe gustaría recibir más información.');
-                simCta.href = `#contacto?presupuesto=${encodeURIComponent(currentProjectName)}&total=${currentTotal}`;
-                
-                // También podemos agregar un tooltip o data attribute
                 simCta.setAttribute('data-proyecto', currentProjectName);
                 simCta.setAttribute('data-total', currentTotal);
+                simCta.removeEventListener('click', handleSimCtaClick);
+                simCta.addEventListener('click', handleSimCtaClick);
             }
         }
 
-        // Event listeners del simulador
+        function handleSimCtaClick(e) {
+            e.preventDefault();
+
+            const proyecto = this.getAttribute('data-proyecto') || 'Proyecto sin nombre';
+            const total = this.getAttribute('data-total') || '0';
+
+            if (mensajeTextarea) {
+                mensajeTextarea.value = `Me interesa el siguiente proyecto:\n${proyecto}\nPresupuesto estimado: $${Number(total).toLocaleString('es-AR')}`;
+            }
+
+            const contactoSection = document.getElementById('contacto');
+            if (contactoSection) {
+                contactoSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
+            }
+        }
+
         serviceType.addEventListener('change', updateProjectOptions);
         projectType.addEventListener('change', updatePrice);
         checkboxes.forEach(cb => cb.addEventListener('change', updatePrice));
 
-        // Inicializar simulador
         updateProjectOptions();
-
-        // Al hacer clic en "Solicitar presupuesto", si hay un campo oculto en el formulario, lo llenamos
-        if (simCta) {
-            simCta.addEventListener('click', function(e) {
-                // Si el formulario tiene un campo oculto para el presupuesto, lo llenamos
-                const presupuestoInput = document.getElementById('presupuesto-input');
-                if (presupuestoInput) {
-                    presupuestoInput.value = `${currentProjectName} - ${formatPrice(currentTotal)}`;
-                }
-
-                // También podemos llenar el campo de mensaje con el presupuesto
-                if (mensajeTextarea && mensajeTextarea.value.trim() === '') {
-                    mensajeTextarea.value = `Me interesa el siguiente proyecto:\n${currentProjectName}\nPresupuesto estimado: ${formatPrice(currentTotal)}`;
-                }
-            });
-        }
     }
 
     // ============================================================
-    // 3. RECIBIR PRESUPUESTO DESDE LA URL (si viene de "Solicitar presupuesto")
+    // RECIBIR PRESUPUESTO DESDE LA URL
     // ============================================================
     function getParamsFromUrl() {
         const params = new URLSearchParams(window.location.search);
@@ -340,4 +526,220 @@ document.addEventListener('DOMContentLoaded', function() {
         }
     }
     getParamsFromUrl();
-});
+
+}); // <--- FIN DEL DOMContentLoaded
+
+// ============================================================
+// 4. MODAL CV (Quién soy)
+// ============================================================
+(function() {
+    'use strict';
+
+    var modal = document.getElementById('modal-cv');
+    var btnCerrar = document.getElementById('modal-cerrar');
+    var btnQuienSoyHero = document.getElementById('btn-quien-soy');
+    var btnQuienSoyNav = document.getElementById('btn-quien-soy-nav');
+
+    function abrirModal(e) {
+        if (e) e.preventDefault();
+
+        var nav = document.getElementById('site-nav');
+        if (nav && nav.classList.contains('open')) {
+            nav.classList.remove('open');
+            var toggle = document.getElementById('nav-toggle');
+            if (toggle) {
+                toggle.setAttribute('aria-expanded', 'false');
+                toggle.setAttribute('aria-label', 'Abrir menú');
+            }
+        }
+
+        modal.style.display = 'flex';
+        void modal.offsetWidth;
+        modal.classList.add('active');
+        document.body.style.overflow = 'hidden';
+    }
+
+    function cerrarModal() {
+        modal.classList.remove('active');
+        setTimeout(function() {
+            modal.style.display = 'none';
+            document.body.style.overflow = '';
+        }, 300);
+    }
+
+    if (btnQuienSoyHero) btnQuienSoyHero.addEventListener('click', abrirModal);
+    if (btnQuienSoyNav) btnQuienSoyNav.addEventListener('click', abrirModal);
+    if (btnCerrar) btnCerrar.addEventListener('click', cerrarModal);
+
+    modal.addEventListener('click', function(e) {
+        if (e.target === modal) cerrarModal();
+    });
+
+    document.addEventListener('keydown', function(e) {
+        if (e.key === 'Escape' && modal.classList.contains('active')) {
+            cerrarModal();
+        }
+    });
+})();
+
+// ============================================================
+// 5. MODALES DE PROYECTOS
+// ============================================================
+(function() {
+    'use strict';
+
+    function abrirModal(modalId) {
+        const modal = document.getElementById(modalId);
+        if (!modal) {
+            console.warn('Modal no encontrado:', modalId);
+            return;
+        }
+
+        document.querySelectorAll('.modal-overlay.active').forEach(m => {
+            m.classList.remove('active');
+            m.style.display = 'none';
+        });
+
+        modal.style.display = 'flex';
+        void modal.offsetWidth;
+        modal.classList.add('active');
+        document.body.style.overflow = 'hidden';
+        console.log('Modal abierto:', modalId);
+    }
+
+    function cerrarModal(modal) {
+        modal.classList.remove('active');
+        setTimeout(function() {
+            modal.style.display = 'none';
+            document.body.style.overflow = '';
+        }, 300);
+    }
+
+    document.querySelectorAll('.project-card').forEach(function(card) {
+        card.style.cursor = 'pointer';
+        card.addEventListener('click', function(e) {
+            if (e.target.closest('a')) return;
+            const modalId = this.getAttribute('data-modal');
+            if (modalId) {
+                abrirModal(modalId);
+            }
+        });
+    });
+
+    document.querySelectorAll('.modal-close').forEach(function(btn) {
+        btn.addEventListener('click', function() {
+            const modal = this.closest('.modal-overlay');
+            if (modal) cerrarModal(modal);
+        });
+    });
+
+    document.querySelectorAll('.modal-overlay').forEach(function(modal) {
+        modal.addEventListener('click', function(e) {
+            if (e.target === this) cerrarModal(this);
+        });
+    });
+
+    document.addEventListener('keydown', function(e) {
+        if (e.key === 'Escape') {
+            document.querySelectorAll('.modal-overlay.active').forEach(function(modal) {
+                cerrarModal(modal);
+            });
+        }
+    });
+
+    document.querySelectorAll('[data-modal-close]').forEach(function(el) {
+        el.addEventListener('click', function(e) {
+            const modal = this.closest('.modal-overlay');
+            if (modal) cerrarModal(modal);
+        });
+    });
+
+    console.log('✅ Script de modales de proyectos cargado correctamente');
+    console.log('📦 Tarjetas encontradas:', document.querySelectorAll('.project-card').length);
+    console.log('📦 Modales encontrados:', document.querySelectorAll('.modal-overlay[id^="modal-proyecto-"]').length);
+})();
+
+// ============================================================
+// 6. REPRODUCTOR DE VIDEO
+// ============================================================
+(function() {
+    'use strict';
+
+    const modalVideo = document.getElementById('modal-video');
+    const videoElement = document.getElementById('video-reproductor');
+
+    function abrirVideo(videoSrc) {
+        if (!modalVideo || !videoElement) {
+            console.warn('Modal o video no encontrado');
+            return;
+        }
+
+        document.querySelectorAll('.modal-overlay.active').forEach(m => {
+            m.classList.remove('active');
+            m.style.display = 'none';
+        });
+
+        document.querySelectorAll('video').forEach(v => v.pause());
+
+        videoElement.src = videoSrc;
+        videoElement.load();
+
+        modalVideo.style.display = 'flex';
+        void modalVideo.offsetWidth;
+        modalVideo.classList.add('active');
+        document.body.style.overflow = 'hidden';
+
+        setTimeout(() => {
+            videoElement.play().catch(function(error) {
+                console.log('Autoplay bloqueado por el navegador:', error);
+            });
+        }, 300);
+    }
+
+    function cerrarVideo(modal) {
+        if (videoElement) {
+            videoElement.pause();
+            videoElement.src = '';
+            videoElement.load();
+        }
+        modal.classList.remove('active');
+        setTimeout(function() {
+            modal.style.display = 'none';
+            document.body.style.overflow = '';
+        }, 300);
+    }
+
+    document.querySelectorAll('[data-video]').forEach(function(btn) {
+        btn.addEventListener('click', function(e) {
+            e.preventDefault();
+            const videoSrc = this.getAttribute('data-video');
+            console.log('▶️ Reproduciendo video:', videoSrc);
+            if (videoSrc) {
+                abrirVideo(videoSrc);
+            }
+        });
+    });
+
+    document.querySelectorAll('#modal-video .modal-close').forEach(function(btn) {
+        btn.addEventListener('click', function() {
+            cerrarVideo(modalVideo);
+        });
+    });
+
+    if (modalVideo) {
+        modalVideo.addEventListener('click', function(e) {
+            if (e.target === this) {
+                cerrarVideo(this);
+            }
+        });
+    }
+
+    document.addEventListener('keydown', function(e) {
+        if (e.key === 'Escape' && modalVideo && modalVideo.classList.contains('active')) {
+            cerrarVideo(modalVideo);
+        }
+    });
+
+    console.log('✅ Script de video cargado correctamente');
+    console.log('📹 Botones "Ver demo" encontrados:', document.querySelectorAll('[data-video]').length);
+})();
