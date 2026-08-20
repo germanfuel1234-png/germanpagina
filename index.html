@@ -1989,66 +1989,72 @@
                 <span>BA · Zona Oeste</span>
             </div>
             </div>
+        <!-- ===== formulario ===== -->
+            <form class="contact__form" id="form-contacto" 
+                action="https://formsubmit.co/dc457587480933268d9fbc750bedfcc"
+                method="POST"
+                novalidate data-od-id="contact-form">    
+                <input type="hidden" name="_subject" value="Nuevo mensaje desde el sitio web">
+                <input type="hidden" name="_captcha" value="false">
+                <input type="hidden" name="_template" value="table">
+                <input type="hidden" name="_next" value="https://germanrodriguez.ar/gracias.html">
+                <div class="form-row">
+                <div class="form-group">
+                    <label for="nombre">Nombre</label>
+                    <input type="text" id="nombre" name="nombre" placeholder="Tu nombre" required />
+                    <p class="field-error">Este campo es obligatorio.</p>
+                </div>
+                <div class="form-group">
+                    <label for="correo">Correo</label>
+                    <input type="email" id="correo" name="correo" placeholder="tu@correo.com" required />
+                    <p class="field-error">Ingresá un correo válido.</p>
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="servicio">¿Qué necesitás?</label>
+                <select id="servicio" name="servicio">
+                    <option value="">Seleccioná una opción</option>
+                    <option value="software">Software a medida</option>
+                    <option value="web">Página web</option>
+                    <option value="ecommerce">E-commerce</option>
+                    <option value="otro">Otro</option>
+                </select>
+            </div>
+            <div class="form-row">
+                <div class="form-group">
+                    <label for="empresa">Empresa <span class="optional">(opcional)</span></label>
+                    <input type="text" id="empresa" name="empresa" placeholder="Nombre de tu empresa" />
+                </div>
+                <div class="form-group">
+                    <label for="whatsapp">WhatsApp / Teléfono</label>
+                    <input type="tel" id="whatsapp" name="whatsapp" placeholder="+54 11 5555 5555" />
+                </div>
+            </div>
+            <div class="form-group">
+                <label>¿Cómo te contactamos?</label>
+                <div class="checkbox-group">
+                    <label><input type="checkbox" name="contacto" value="correo" /> Correo</label>
+                    <label><input type="checkbox" name="contacto" value="whatsapp" /> WhatsApp</label>
+                    <label><input type="checkbox" name="contacto" value="llamada" /> Llamada</label>
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="mensaje">Mensaje <span class="optional">(opcional)</span></label>
+                <textarea id="mensaje" name="mensaje" placeholder="Contanos un poco sobre tu proyecto..."></textarea>
+            </div>
 
-            <form class="contact__form" id="form-contacto" novalidate data-od-id="contact-form">
-        <div class="form-row">
-            <div class="form-group">
-                <label for="nombre">Nombre</label>
-                <input type="text" id="nombre" name="nombre" placeholder="Tu nombre" required />
-                <p class="field-error">Este campo es obligatorio.</p>
+            <!-- ===== BOTONES ===== -->
+            <div class="form-actions">
+                <button type="button" id="btn-whatsapp">
+                    📱 WhatsApp
+                </button>
+                <button type="submit" id="btn-gmail">  <!-- CAMBIAR: type="submit" → type="button" -->
+                    ➤ Enviar
+                </button>
             </div>
-            <div class="form-group">
-                <label for="correo">Correo</label>
-                <input type="email" id="correo" name="correo" placeholder="tu@correo.com" required />
-                <p class="field-error">Ingresá un correo válido.</p>
-            </div>
-        </div>
-        <div class="form-group">
-            <label for="servicio">¿Qué necesitás?</label>
-            <select id="servicio" name="servicio">
-                <option value="">Seleccioná una opción</option>
-                <option value="software">Software a medida</option>
-                <option value="web">Página web</option>
-                <option value="ecommerce">E-commerce</option>
-                <option value="otro">Otro</option>
-            </select>
-        </div>
-        <div class="form-row">
-            <div class="form-group">
-                <label for="empresa">Empresa <span class="optional">(opcional)</span></label>
-                <input type="text" id="empresa" name="empresa" placeholder="Nombre de tu empresa" />
-            </div>
-            <div class="form-group">
-                <label for="whatsapp">WhatsApp / Teléfono</label>
-                <input type="tel" id="whatsapp" name="whatsapp" placeholder="+54 11 5555 5555" />
-            </div>
-        </div>
-        <div class="form-group">
-            <label>¿Cómo te contactamos?</label>
-            <div class="checkbox-group">
-                <label><input type="checkbox" name="contacto" value="correo" /> Correo</label>
-                <label><input type="checkbox" name="contacto" value="whatsapp" /> WhatsApp</label>
-                <label><input type="checkbox" name="contacto" value="llamada" /> Llamada</label>
-            </div>
-        </div>
-        <div class="form-group">
-            <label for="mensaje">Mensaje <span class="optional">(opcional)</span></label>
-            <textarea id="mensaje" name="mensaje" placeholder="Contanos un poco sobre tu proyecto..."></textarea>
-        </div>
 
-        <!-- Reemplazo el botón "Enviar mensaje" por estos 2 botones -->
-        <div class="form-actions">
-            <button type="button" id="btn-whatsapp">
-                📱   WhatsApp
-            </button>
-            <button type="button" id="btn-gmail">
-                ➤   Enviar
-            </button>
-        </div>
-
-        <p class="form-success" id="form-success">¡Gracias! Tu mensaje se envió correctamente.</p>
-    </form>
-        </div>
+            <p class="form-success" id="form-success">¡Gracias! Tu mensaje se envió correctamente.</p>
+            </form>
         </section>
 
         <!-- ===== FOOTER ===== -->
@@ -2305,46 +2311,7 @@
     })();
     </script>
 
-    <script>
-    (function () {
-        'use strict';
 
-        var form = document.getElementById('form-contacto');
-        var nombre = document.getElementById('nombre');
-        var correo = document.getElementById('correo');
-        var success = document.getElementById('form-success');
-
-        if (!form) return;
-
-        function validEmail(v) {
-        return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(v.trim());
-        }
-
-        function setError(input, hasError) {
-        input.closest('.form-group').classList.toggle('has-error', hasError);
-        }
-
-        function validate() {
-        var ok = true;
-        if (!nombre.value.trim()) { setError(nombre, true); ok = false; } else { setError(nombre, false); }
-        if (!validEmail(correo.value)) { setError(correo, true); ok = false; } else { setError(correo, false); }
-        return ok;
-        }
-
-        nombre.addEventListener('input', function () { setError(nombre, false); });
-        correo.addEventListener('input', function () { setError(correo, false); });
-
-        form.addEventListener('submit', function (e) {
-        e.preventDefault();
-        if (!validate()) return;
-        form.classList.add('is-sent');
-        form.reset();
-        setTimeout(function () {
-            form.classList.remove('is-sent');
-        }, 6000);
-        });
-    })();
-    </script>
     <script>
         document.addEventListener('DOMContentLoaded', function() {
         'use strict';
@@ -2358,9 +2325,10 @@
         const empresaInput = document.getElementById('empresa');
         const whatsappInput = document.getElementById('whatsapp');
         const mensajeTextarea = document.getElementById('mensaje');
-        const btnWhatsapp = document.getElementById('btn-whatsapp');
+        const btnWhatsapp = document.getElementById('btn-whatsapp');  // ← NUEVO
         const btnGmail = document.getElementById('btn-gmail');
         const successMessage = document.getElementById('form-success');
+
 
         if (btnWhatsapp && btnGmail) {
             // Función para validar el formulario
@@ -2468,12 +2436,6 @@
                 );
                 mostrarExito();
             });
-
-            // Prevenir envío por defecto del formulario
-            document.getElementById('form-contacto').addEventListener('submit', function(e) {
-                e.preventDefault();
-            });
-
             // Ocultar errores cuando el usuario escribe
             nombreInput.addEventListener('input', function() {
                 if (this.value.trim()) {
@@ -2492,7 +2454,6 @@
                 }
             });
         }
-
         // ============================================================
         // 2. SIMULADOR DE PRESUPUESTOS
         // ============================================================
@@ -2691,26 +2652,52 @@
     });
     </script>
 
-    <!-- ===== VENTANA MODAL - QUIÉN SOY ===== -->
-    <div id="modal-cv" class="modal-overlay" style="display: none;">
-        <div class="modal-container">
-            <div class="modal-header">
-                <h3>👨‍💻 Germán Rodríguez</h3>
-                <button id="modal-cerrar" class="modal-close" aria-label="Cerrar CV">✕</button>
-            </div>
-            <div class="modal-body">
-                <div class="modal-content">
-                    <p class="modal-subtitle">Desarrollador Backend · Analista de Sistemas · Docente</p>
+<!-- ===== VENTANA MODAL - QUIÉN SOY ===== -->
+<div id="modal-cv" class="modal-overlay" style="display: none;">
+    <div class="modal-container">
+        <div class="modal-header">
+            <h3>👨‍💻 Germán Rodríguez</h3>
+            <button id="modal-cerrar" class="modal-close" aria-label="Cerrar CV">✕</button>
+        </div>
+        <div class="modal-body">
+            <div class="modal-content" style="display: flex; flex-direction: row; gap: 32px; align-items: flex-start; padding: 8px 4px;">
+                
+                <!-- ===== COLUMNA IZQUIERDA: FOTO ===== -->
+                <div style="flex: 0 0 220px; display: flex; flex-direction: column; align-items: center; gap: 16px;">
+                    <div style="
+                        width: 200px;
+                        height: 200px;
+                        border-radius: 50%;
+                        overflow: hidden;
+                        border: 3px solid var(--accent);
+                        box-shadow: 0 0 40px rgba(242, 241, 239, 0.08);
+                        flex-shrink: 0;
+                    ">
+                        <img 
+                            src="cuerpo completo.jpg" 
+                            alt="Germán Rodríguez"
+                            style="width: 100%; height: 100%; object-fit: cover; display: block;"
+                        />
+                    </div>
+                    <div style="text-align: center;">
+                        <p style="font-family: var(--font-display); font-size: 14px; font-weight: 600; color: var(--fg); margin: 0;">Germán Rodríguez</p>
+                        <p style="font-size: 12px; color: var(--muted); margin: 2px 0 0;">Desarrollador Backend · Docente</p>
+                    </div>
+                </div>
+
+                <!-- ===== COLUMNA DERECHA: TEXTO ===== -->
+                <div style="flex: 1; min-width: 0;">
+                    <p class="modal-subtitle" style="margin-bottom: 16px;">Desarrollador Backend · Analista de Sistemas · Docente</p>
                     
-                    <p class="modal-text">
-                        Soy desarrollador backend vivo en Buenos Aires, especializado en automatizar procesos y optimizar infraestructura IT. Trabajo principalmente con Python y bases de datos para construir herramientas estables, modulares y pensadas para durar.
+                    <p class="modal-text" style="font-size: 14px; line-height: 1.7;">
+                        Soy desarrollador backend, vivo en Buenos Aires, especializado en automatizar procesos y optimizar infraestructura IT. Trabajo principalmente con Python y bases de datos para construir herramientas estables, modulares y pensadas para durar.
                     </p>
                     
-                    <p class="modal-text">
+                    <p class="modal-text" style="font-size: 14px; line-height: 1.7;">
                         Mi combo es un poco particular: vengo del mundo de la docencia en informática, y hoy en día combino esa experiencia con un presente enfocado en programación y diseño web. Esa mezcla me da una ventaja clave a la hora de traducir necesidades reales en soluciones tecnológicas concretas. No programo por programar, entiendo el problema antes de escribir la primera línea de código.
                     </p>
                     
-                    <p class="modal-text">
+                    <p class="modal-text" style="font-size: 14px; line-height: 1.7;">
                         Trabajo con un stack que incluye <strong>Python, PHP y HTML/CSS</strong> para desarrollo backend y web. Tengo experiencia en apps móviles (Android/Flutter), visión computacional con Python, también en infraestructura y redes (Ubuntu, MikroTik, Cisco), lo que me permite abordar proyectos de principio a fin.
                     </p>
 
@@ -2734,9 +2721,11 @@
                         </a>
                     </div>
                 </div>
+
             </div>
         </div>
     </div>
+</div>
 
 <<!-- Modal: Asistente Automatizado -->
 <div id="modal-proyecto-bot" class="modal-overlay" style="display: none;">
@@ -3521,50 +3510,7 @@
     </div>
 </div>
 
-    <script>
-    // ===== FUNCIONALIDAD BOTONES DE CONTACTO =====
-    (function() {
-        'use strict';
 
-        var btnWhatsapp = document.getElementById('btn-whatsapp');
-        var btnGmail = document.getElementById('btn-gmail');
-        var nombreInput = document.getElementById('nombre');
-        var correoInput = document.getElementById('correo');
-        var mensajeInput = document.getElementById('mensaje');
-
-        // Función para formatear el mensaje con los datos del formulario
-        function obtenerMensaje() {
-            var nombre = nombreInput.value.trim() || 'Cliente potencial';
-            var correo = correoInput.value.trim() || 'No especificado';
-            var mensaje = mensajeInput.value.trim() || 'Hola, me interesa tu trabajo.';
-
-            return "Hola Rodríguez Germán,\n\nMi nombre es " + nombre + ".\nMi correo es: " + correo + ".\n\nMensaje:\n" + mensaje;
-        }
-
-        // Acción del botón WhatsApp
-        if (btnWhatsapp) {
-            btnWhatsapp.addEventListener('click', function() {
-                var texto = encodeURIComponent(obtenerMensaje());
-                var numero = "5491136239969"; // Tu número sin el +
-                var url = "https://wa.me/" + numero + "?text=" + texto;
-                window.open(url, '_blank');
-            });
-        }
-
-        // Acción del botón Gmail
-        if (btnGmail) {
-            btnGmail.addEventListener('click', function() {
-                var destinatario = "germanty123@gmail.com";
-                var asunto = encodeURIComponent("Consulta desde tu sitio web");
-                var cuerpo = encodeURIComponent(obtenerMensaje());
-                var url = "mailto:" + destinatario + "?subject=" + asunto + "&body=" + cuerpo;
-                window.location.href = url;
-            });
-        }
-
-    })();
-
-    </script>
     
     <script src="javascript.js"></script>
 
