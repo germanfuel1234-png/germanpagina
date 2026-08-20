@@ -1996,14 +1996,7 @@
             </div>
             </div>
         <!-- ===== formulario ===== -->
-            <form class="contact__form" id="form-contacto" 
-                action="https://formsubmit.co/germanty123@gmail.com"
-                method="POST"
-                novalidate data-od-id="contact-form">    
-                <input type="hidden" name="_subject" value="Nuevo mensaje desde el sitio web">
-                <input type="hidden" name="_captcha" value="false">
-                <input type="hidden" name="_template" value="table">
-                <input type="hidden" name="_next" value="https://germanrodriguez.ar/gracias.html">
+            <form class="contact__form" id="form-contacto" novalidate data-od-id="contact-form">
                 <div class="form-row">
                 <div class="form-group">
                     <label for="nombre">Nombre</label>
@@ -2054,7 +2047,7 @@
                 <button type="button" id="btn-whatsapp">
                     📱 WhatsApp
                 </button>
-                <button type="submit" id="btn-gmail">  <!-- CAMBIAR: type="submit" → type="button" -->
+                <button type="submit" id="btn-gmail">
                     ➤ Enviar
                 </button>
             </div>
@@ -2318,6 +2311,9 @@
     </script>
 
 
+    <!-- SDK EmailJS -->
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
+
     <script>
         document.addEventListener('DOMContentLoaded', function() {
         'use strict';
@@ -2417,31 +2413,90 @@
                 mostrarExito();
             });
 
-            // BOTÓN 2: Enviar por Gmail
-            btnGmail.addEventListener('click', function() {
-                if (!validarFormulario()) return;
+            // ============================================================
+            // ENVÍO POR CORREO: EMAILJS (desde el navegador, sin abrir mail)
+            // Configurá estos 3 valores con los de tu cuenta emailjs.com:
+            //   - Service ID   (Email Services)
+            //   - Template ID  (Email Templates)
+            //   - Public Key   (Account -> General -> API Keys)
+            // ============================================================
 
-                const datos = obtenerDatos();
-                
-                const asunto = `Contacto desde el sitio web - ${datos.nombre}`;
-                let cuerpo = `Nuevo mensaje de contacto:\n\n`;
-                cuerpo += `Nombre: ${datos.nombre}\n`;
-                cuerpo += `Correo: ${datos.correo}\n`;
-                if (datos.empresa) cuerpo += `Empresa: ${datos.empresa}\n`;
-                if (datos.whatsapp) cuerpo += `Teléfono: ${datos.whatsapp}\n`;
-                cuerpo += `Servicio: ${servicioSelect.options[servicioSelect.selectedIndex].text}\n`;
-                if (datos.contacto.length > 0) {
-                    cuerpo += `Contacto preferido: ${datos.contacto.join(', ')}\n`;
+            // ⚙️ VALORES REALES DE TU CUENTA EMAILJS (configurado)
+            const EMAILJS_SERVICE_ID = '6utb7x5';      // → service_6utb7x5
+            const EMAILJS_TEMPLATE_ID = 'qo9p73r';     // → template_qo9p73r
+            const EMAILJS_PUBLIC_KEY = 'XFPQeErIA8HxOrmJO';
+
+            // Normaliza IDs por si copiaste sin el prefijo
+            function idEmailJs(valor, prefijo) {
+                if (!valor) return valor;
+                return valor.indexOf(prefijo) === 0 ? valor : prefijo + valor;
+            }
+            const EMAILJS_SERVICE_ID_REAL = idEmailJs(EMAILJS_SERVICE_ID, 'service_');
+            const EMAILJS_TEMPLATE_ID_REAL = idEmailJs(EMAILJS_TEMPLATE_ID, 'template_');
+
+            // Función para mostrar mensaje de error (no existía en este estado)
+            function mostrarError(mensaje) {
+                let errorDiv = document.getElementById('form-error');
+                if (!errorDiv) {
+                    errorDiv = document.createElement('div');
+                    errorDiv.id = 'form-error';
+                    errorDiv.style.cssText = "color:#ff4444;font-size:14px;margin-top:12px;padding:12px 16px;border:1px solid #ff4444;border-radius:8px;background:rgba(255,68,68,0.08);display:none;";
+                    successMessage.parentNode.insertBefore(errorDiv, successMessage);
                 }
-                if (datos.mensaje) cuerpo += `\nMensaje:\n${datos.mensaje}`;
+                errorDiv.textContent = mensaje;
+                errorDiv.style.display = 'block';
+                setTimeout(function() { errorDiv.style.display = 'none'; }, 6000);
+            }
 
-                const correoDestino = 'germanty123@gmail.com';
-                window.open(
-                    `https://mail.google.com/mail/?view=cm&fs=1&to=${correoDestino}&su=${encodeURIComponent(asunto)}&body=${encodeURIComponent(cuerpo)}`,
-                    '_blank'
-                );
-                mostrarExito();
-            });
+            const formContacto = document.getElementById('form-contacto');
+            if (formContacto && typeof emailjs !== 'undefined') {
+                emailjs.init({ publicKey: EMAILJS_PUBLIC_KEY });
+
+                formContacto.addEventListener('submit', function(e) {
+                    e.preventDefault();
+                    if (!validarFormulario()) return;
+
+                    const datos = obtenerDatos();
+                    const servicioTexto = servicioSelect.options[servicioSelect.selectedIndex].text;
+
+                    const textoOriginal = btnGmail.innerHTML;
+                    btnGmail.innerHTML = '⏳ Enviando...';
+                    btnGmail.disabled = true;
+                    btnGmail.style.opacity = '0.7';
+
+                    const templateParams = {
+                        to_name: 'Germán',
+                        from_name: datos.nombre,
+                        reply_to: datos.correo,
+                        nombre: datos.nombre,
+                        correo: datos.correo,
+                        empresa: datos.empresa,
+                        whatsapp: datos.whatsapp,
+                        servicio: servicioTexto,
+                        contacto: datos.contacto.join(', '),
+                        mensaje: datos.mensaje,
+                        asunto: 'Nuevo contacto desde germanrodriguez.ar',
+                        subject: 'Nuevo contacto desde germanrodriguez.ar'
+                    };
+
+                    emailjs.send(EMAILJS_SERVICE_ID_REAL, EMAILJS_TEMPLATE_ID_REAL, templateParams)
+                        .then(function() {
+                            btnGmail.innerHTML = '✅ ¡Enviado!';
+                            mostrarExito();
+                            setTimeout(function() {
+                                window.location.href = 'gracias.html';
+                            }, 1500);
+                        })
+                        .catch(function(error) {
+                            console.error('Error EmailJS:', error);
+                            mostrarError('❌ Hubo un error al enviar. Intentá de nuevo.');
+                            btnGmail.innerHTML = textoOriginal;
+                            btnGmail.disabled = false;
+                            btnGmail.style.opacity = '1';
+                        });
+                });
+            }
+
             // Ocultar errores cuando el usuario escribe
             nombreInput.addEventListener('input', function() {
                 if (this.value.trim()) {
