@@ -1,0 +1,9 @@
+# robots.txt — germanrodriguez.ar
+# Última actualización: 2026-08-21
+
+User-agent: *
+Allow: /
+Disallow: /gracias.html
+
+# Sitemap
+Sitemap: https://germanrodriguez.ar/sitemap.xml

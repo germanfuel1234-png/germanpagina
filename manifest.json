@@ -1,0 +1,11 @@
+{
+  "name": "Rodríguez Germán — Desarrollo Web",
+  "short_name": "Rodríguez Germán",
+  "description": "Desarrollo web a medida. Landing pages, sitios web corporativos, e-commerce y apps.",
+  "start_url": "https://germanrodriguez.ar/",
+  "display": "standalone",
+  "background_color": "#0a0a0c",
+  "theme_color": "#0a0a0c",
+  "lang": "es",
+  "icons": []
+}

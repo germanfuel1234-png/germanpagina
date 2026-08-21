@@ -1,0 +1,29 @@
+/*
+
+  humans.txt
+  Última actualización: 2026-08-21
+
+  PROYECTO
+  Nombre del proyecto:    Sitio Web Personal — Rodríguez Germán
+  Dominio:                https://germanrodriguez.ar
+  Repositorio:            https://github.com/germanfuel/pagina-man
+
+  PROPIO
+  Desarrollador web:      Germán Rodríguez
+  Web:                    https://germanrodriguez.ar
+  Correo:                 germanrodriguez@gmail.com
+  WhatsApp:               +54 11 36239969
+
+  TECNOLOGÍAS
+  Lenguajes:              HTML5, CSS3, JavaScript (ES6+)
+  Framework CSS:          CSS puro (sin framework)
+  Animación:              WebP frames + requestAnimationFrame
+  Envío de formulario:    EmailJS
+  Analítica:              Google Tag Manager (GTM-TBTVPDHN), Google Analytics
+  Hosting:                GitHub Pages
+
+  INSPIRACIÓN
+  Diseño:                 Basado en un estilo de diseño oscuro minimalista
+  Paleta de colores:      #0a0a0c (fondo), #121215 (superficie), oklch(80% 0.13 75) (acento)
+
+*/
