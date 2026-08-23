@@ -216,4 +216,120 @@ document.addEventListener('DOMContentLoaded', function() {
         }
     }
     getParamsFromUrl();
+
+    // ============================================================
+    // 4. MODALES (unificado)
+    // Reemplaza 3 IIFEs duplicadas que vivían inline en index.html:
+    // - Modal "quién soy" (#modal-cv)
+    // - Modales de proyectos (.modal-overlay[data-modal])
+    // - Modal de video (#modal-video)
+    // Un solo abrirModal/cerrarModal genérico + triggers específicos.
+    // ============================================================
+    function abrirModal(modal) {
+        if (!modal) return;
+
+        // Solo un modal activo a la vez
+        document.querySelectorAll('.modal-overlay.active').forEach(m => {
+            m.classList.remove('active');
+            m.style.display = 'none';
+        });
+
+        // Cerrar el menú mobile si está abierto (aplica sobre todo al CV)
+        const nav = document.getElementById('site-nav');
+        if (nav && nav.classList.contains('open')) {
+            nav.classList.remove('open');
+            const toggle = document.getElementById('nav-toggle');
+            if (toggle) {
+                toggle.setAttribute('aria-expanded', 'false');
+                toggle.setAttribute('aria-label', 'Abrir menú');
+            }
+        }
+
+        modal.style.display = 'flex';
+        void modal.offsetWidth;
+        modal.classList.add('active');
+        document.body.style.overflow = 'hidden';
+    }
+
+    function cerrarModal(modal) {
+        if (!modal) return;
+
+        // Limpieza específica para el modal de video: pausar y soltar el <video>
+        if (modal.id === 'modal-video') {
+            const videoElement = document.getElementById('video-reproductor');
+            if (videoElement) {
+                videoElement.pause();
+                videoElement.src = '';
+                videoElement.load();
+            }
+        }
+
+        modal.classList.remove('active');
+        setTimeout(() => {
+            modal.style.display = 'none';
+            document.body.style.overflow = '';
+        }, 300);
+    }
+
+    // ---- Trigger: botón "quién soy" (hero + nav) ----
+    const modalCV = document.getElementById('modal-cv');
+    const btnQuienSoyHero = document.getElementById('btn-quien-soy');
+    const btnQuienSoyNav = document.getElementById('btn-quien-soy-nav');
+    [btnQuienSoyHero, btnQuienSoyNav].forEach(btn => {
+        if (btn) btn.addEventListener('click', e => { e.preventDefault(); abrirModal(modalCV); });
+    });
+
+    // ---- Trigger: tarjetas de proyectos ----
+    document.querySelectorAll('.project-card').forEach(card => {
+        card.style.cursor = 'pointer';
+        card.addEventListener('click', e => {
+            if (e.target.closest('a')) return; // ignorar clics en links internos de la tarjeta
+            const modalId = card.getAttribute('data-modal');
+            if (modalId) abrirModal(document.getElementById(modalId));
+        });
+    });
+
+    // ---- Trigger: reproductor de video ----
+    const modalVideo = document.getElementById('modal-video');
+    const videoElement = document.getElementById('video-reproductor');
+    document.querySelectorAll('[data-video]').forEach(btn => {
+        btn.addEventListener('click', e => {
+            e.preventDefault();
+            const videoSrc = btn.getAttribute('data-video');
+            if (!videoSrc || !modalVideo || !videoElement) return;
+            document.querySelectorAll('video').forEach(v => v.pause());
+            videoElement.src = videoSrc;
+            videoElement.load();
+            abrirModal(modalVideo);
+            setTimeout(() => {
+                videoElement.play().catch(() => {
+                    // Autoplay bloqueado por el navegador: el usuario da play manualmente
+                });
+            }, 300);
+        });
+    });
+
+    // ---- Cierre: botón ✕ dentro de cualquier modal ----
+    document.querySelectorAll('.modal-close, #modal-cerrar').forEach(btn => {
+        btn.addEventListener('click', () => cerrarModal(btn.closest('.modal-overlay')));
+    });
+
+    // ---- Cierre: elementos con [data-modal-close] (ej. "Consultar por este proyecto") ----
+    document.querySelectorAll('[data-modal-close]').forEach(el => {
+        el.addEventListener('click', () => cerrarModal(el.closest('.modal-overlay')));
+    });
+
+    // ---- Cierre: clic fuera del contenido (backdrop) ----
+    document.querySelectorAll('.modal-overlay').forEach(modal => {
+        modal.addEventListener('click', e => {
+            if (e.target === modal) cerrarModal(modal);
+        });
+    });
+
+    // ---- Cierre: tecla ESC ----
+    document.addEventListener('keydown', e => {
+        if (e.key === 'Escape') {
+            document.querySelectorAll('.modal-overlay.active').forEach(cerrarModal);
+        }
+    });
 });
