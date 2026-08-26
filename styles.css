@@ -11,9 +11,9 @@
         margin: 0 auto;
         border-top: 1px solid var(--border);
         position: relative;
-        background: rgba(10,10,12,0.7);
-        backdrop-filter: blur(8px);
-        -webkit-backdrop-filter: blur(8px);
+        background: rgba(10,10,12,0.94);
+        backdrop-filter: blur(24px);
+        -webkit-backdrop-filter: blur(24px);
     }
     .section-head { margin-bottom: 60px; }
     .section-head .label {
@@ -54,12 +54,12 @@
     }
     .service-card {
         position: relative;
-        background: rgba(18, 18, 21, 0.8);
+        background: rgba(18, 18, 21, 0.94);
         border: 1px solid var(--border);
         border-radius: var(--radius-md);
         padding: 40px 36px 36px;
         transition: border-color 0.3s ease, transform 0.3s ease;
-        backdrop-filter: blur(4px);
+        backdrop-filter: blur(14px);
     }
     .service-card:hover { border-color: var(--accent-dim); transform: translateY(-4px); }
     .service-card__index {
@@ -138,12 +138,12 @@
     .project-card {
         flex: 0 0 280px;
         scroll-snap-align: start;
-        background: rgba(18, 18, 21, 0.8);
+        background: rgba(18, 18, 21, 0.94);
         border: 1px solid var(--border);
         border-radius: var(--radius-md);
         padding: 30px 28px;
         transition: border-color 0.3s ease, transform 0.3s ease;
-        backdrop-filter: blur(4px);
+        backdrop-filter: blur(14px);
         display: flex;
         flex-direction: column;
     }
@@ -290,11 +290,11 @@
         align-items: start;
     }
     .contact__info {
-        background: rgba(18, 18, 21, 0.6);
+        background: rgba(18, 18, 21, 0.94);
         border: 1px solid var(--border);
         border-radius: var(--radius-md);
         padding: 36px 32px;
-        backdrop-filter: blur(4px);
+        backdrop-filter: blur(14px);
     }
     .contact__info h3 {
         font-family: var(--font-display);
@@ -334,17 +334,17 @@
         display: flex;
         align-items: center;
         gap: 12px;
-        color: var(--faint);
+        color: var(--muted);
         font-size: 14px;
     }
     .contact__info .location .icon { width: 18px; height: 18px; }
 
     .contact__form {
-        background: rgba(18, 18, 21, 0.6);
+        background: rgba(18, 18, 21, 0.94);
         border: 1px solid var(--border);
         border-radius: var(--radius-md);
         padding: 40px 36px;
-        backdrop-filter: blur(4px);
+        backdrop-filter: blur(14px);
     }
     .contact__form .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 18px; }
     .contact__form .form-group { margin-bottom: 18px; }
@@ -483,20 +483,20 @@
         display: flex;
         justify-content: space-between;
         align-items: center;
-        color: var(--faint);
+        color: var(--muted);
         font-size: 13px;
         position: relative;
-        background: rgba(10,10,12,0.7);
-        backdrop-filter: blur(8px);
-        -webkit-backdrop-filter: blur(8px);
+        background: rgba(10,10,12,0.94);
+        backdrop-filter: blur(24px);
+        -webkit-backdrop-filter: blur(24px);
     }
 
     /* Enlaces de texto (ej: "Contacto") */
-    .footer a, 
+    .footer a,
     .footer-link {
-        color: var(--faint); 
-        text-decoration: none; 
-        transition: color 0.2s ease; 
+        color: var(--muted);
+        text-decoration: none;
+        transition: color 0.2s ease;
     }
     .footer a:hover, 
     .footer-link:hover { 
@@ -575,11 +575,11 @@
     }
 
     .simulator__options {
-        background: rgba(18, 18, 21, 0.8);
+        background: rgba(18, 18, 21, 0.94);
         border: 1px solid var(--border);
         border-radius: var(--radius-md);
         padding: 36px 32px;
-        backdrop-filter: blur(4px);
+        backdrop-filter: blur(14px);
     }
 
     .sim-group {
@@ -596,7 +596,7 @@
         font-weight: 500;
         letter-spacing: 0.05em;
         text-transform: uppercase;
-        color: var(--faint);
+        color: var(--muted);
         margin-bottom: 8px;
     }
 
@@ -673,11 +673,11 @@
     }
 
     .simulator__result {
-        background: rgba(18, 18, 21, 0.8);
+        background: rgba(18, 18, 21, 0.94);
         border: 1px solid var(--border);
         border-radius: var(--radius-md);
         padding: 36px 32px;
-        backdrop-filter: blur(4px);
+        backdrop-filter: blur(14px);
         display: flex;
         flex-direction: column;
     }
@@ -694,7 +694,7 @@
         font-weight: 500;
         letter-spacing: 0.08em;
         text-transform: uppercase;
-        color: var(--faint);
+        color: var(--muted);
         margin-bottom: 6px;
     }
 
@@ -735,7 +735,7 @@
     }
 
     .sim-row__extras .sim-row__value {
-        color: var(--faint);
+        color: var(--muted);
     }
 
     .sim-row__total {
@@ -785,7 +785,7 @@
 
     .sim-note {
         font-size: 11px;
-        color: var(--faint);
+        color: var(--muted);
         margin-top: 12px;
         text-align: center;
         line-height: 1.5;
@@ -851,7 +851,7 @@
     }
 
     #btn-whatsapp {
-        background: #25D366;
+        background: #167F3D;
         color: #fff;
     }
 

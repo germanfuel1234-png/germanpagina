@@ -18,8 +18,8 @@
     <!-- ===== METAS ===== -->
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <meta name="description" content="Desarrollo web a medida en Argentina. Landing pages, sitios web corporativos, e-commerce y apps. Presupuestá tu proyecto hoy. CABA." />
-    <meta name="keywords" content="desarrollo web, landing page, página web, sitio web corporativo, e-commerce, tienda online, apps, programación, diseño web, Argentina, CABA, freelancer web, desarrollador web" />
+    <meta name="description" content="Programador freelance en Buenos Aires, Argentina. Desarrollo web a medida: landing pages, sitios corporativos, e-commerce y apps. Precios desde $100.000. Presupuestá tu proyecto hoy." />
+    <meta name="keywords" content="desarrollo web, landing page, página web, sitio web corporativo, e-commerce, tienda online, apps, programación, diseño web, Argentina, CABA, Buenos Aires, freelancer web, desarrollador web, programador freelance Argentina, cuánto cuesta una página web" />
     <meta name="author" content="Rodríguez Germán" />
     <meta name="robots" content="index, follow" />
     <meta name="theme-color" content="#0a0a0c" />
@@ -308,7 +308,65 @@
     }
     </script>
 
-    <title>Rodríguez Germán — Desarrollo Web a medida | Landing Pages, E-Commerce y Apps</title>
+    <!-- ===== DATOS ESTRUCTURADOS: FAQ ===== -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "FAQPage",
+      "mainEntity": [
+        {
+          "@type": "Question",
+          "name": "¿Cuánto cuesta una página web?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Depende del tipo de proyecto. Una landing page arranca desde $100.000 ARS, un sitio web corporativo desde $400.000 ARS, un e-commerce desde $530.000 ARS y una app o sistema interno desde $500.000 ARS. Podés simular tu presupuesto en la sección de Presupuestos."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "¿Qué me conviene, WordPress o desarrollo a medida?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Depende de tu objetivo. WordPress es una buena opción si necesitás lanzar rápido y con bajo costo inicial. El desarrollo a medida conviene cuando buscás mejor rendimiento, seguridad y una solución 100% adaptada a tu negocio, sin las limitaciones de un plugin o plantilla. Te asesoro para elegir la opción que más te convenga."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "¿Trabajás solo en Buenos Aires o en toda Argentina?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Estoy radicado en Buenos Aires (Zona Oeste), pero trabajo como programador freelance de forma remota con clientes de toda Argentina."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "¿Cuánto tarda en hacerse una página web?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Una landing page puede estar lista en 1 a 2 semanas. Un sitio web corporativo o un e-commerce suele tomar entre 3 y 6 semanas, según el alcance y los contenidos que se necesiten."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "¿Hacés páginas web para abogados, médicos, restaurantes, kinesiólogos o inmobiliarias?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Sí, desarrollo sitios web a medida para distintos rubros como estudios jurídicos, consultorios médicos, restaurantes, centros de kinesiología e inmobiliarias, adaptando el diseño y las funcionalidades a cada actividad."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "¿Cómo pido un presupuesto?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Podés usar el simulador de presupuestos de la web o escribirme por WhatsApp o correo desde la sección de contacto."
+          }
+        }
+      ]
+    }
+    </script>
+
+    <title>Rodríguez Germán — Programador Freelance en Buenos Aires, Argentina | Desarrollo Web a medida</title>
     <style>
     /* ===== ROOT / RESET ===== */
     :root {
@@ -445,6 +503,7 @@
         place-items: center;
         width: 42px;
         height: 42px;
+        flex-shrink: 0;
         background: transparent;
         border: 1px solid var(--border);
         border-radius: 8px;
@@ -694,12 +753,88 @@
         color: var(--muted);
     }
 
+    /* ===== PRECIO EN TARJETA DE SERVICIO (SEO: precios visibles) ===== */
+    .service-card__price {
+        margin-top: 10px;
+        font-family: var(--font-display);
+        font-weight: 600;
+        font-size: 15px;
+        color: var(--fg);
+    }
+    .service-card__price span { color: var(--accent); }
+
+    /* ===== SECTORES / RUBROS (SEO: long-tail por vertical) ===== */
+    .services__sectors {
+        margin-top: 44px;
+        padding-top: 32px;
+        border-top: 1px solid var(--border);
+    }
+    .services__sectors p.label {
+        font-family: var(--font-mono);
+        font-size: 12px;
+        letter-spacing: 0.24em;
+        text-transform: uppercase;
+        color: var(--accent);
+        margin-bottom: 12px;
+        display: flex;
+        align-items: center;
+        gap: 12px;
+    }
+    .services__sectors p.label::before { content: ""; width: 34px; height: 1px; background: var(--accent); }
+    .services__sectors p.sectors-text { color: var(--muted); font-size: 16px; line-height: 1.7; max-width: 70ch; }
+    .services__sectors p.sectors-text strong { color: var(--fg); font-weight: 600; }
+
+    /* ===== FAQ ===== */
+    .faq__list { max-width: 780px; }
+    .faq__item {
+        border-bottom: 1px solid var(--border);
+        padding: 20px 0;
+    }
+    .faq__item summary {
+        cursor: pointer;
+        list-style: none;
+        font-family: var(--font-display);
+        font-weight: 600;
+        font-size: 17px;
+        color: var(--fg);
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 16px;
+    }
+    .faq__item summary::-webkit-details-marker { display: none; }
+    .faq__item summary::after {
+        content: "+";
+        color: var(--accent);
+        font-size: 20px;
+        flex-shrink: 0;
+        transition: transform 0.2s ease;
+    }
+    .faq__item[open] summary::after { transform: rotate(45deg); }
+    .faq__item p {
+        margin-top: 14px;
+        color: var(--muted);
+        font-size: 15px;
+        line-height: 1.7;
+        max-width: 68ch;
+    }
+
+    /* ===== UBICACIÓN EN CONTACTO ===== */
+    .contact-area {
+        margin-top: 18px;
+        padding-top: 18px;
+        border-top: 1px solid var(--border);
+        color: var(--muted);
+        font-size: 14px;
+        line-height: 1.6;
+    }
 
     </style>
 
-    <!-- CSS no crítico: se carga sin bloquear el render -->
-    <link rel="preload" href="styles.css" as="style" onload="this.onload=null;this.rel='stylesheet'" />
-    <noscript><link rel="stylesheet" href="styles.css" /></noscript>
+    <!-- CSS cargado de forma bloqueante: evita el salto de layout (CLS) que producía
+         el patrón preload+onload, ya que .section/.service-card/.projects__carousel/
+         .simulator/.testimonials/.contact/.footer/.modal-* solo existen en este archivo. -->
+    <link rel="stylesheet" href="styles.css" />
 
     <noscript><style>.reveal{opacity:1;transform:none}</style></noscript>
     </head>
@@ -764,6 +899,7 @@
         <a href="#servicios" data-od-id="nav-link-servicios">Servicios</a>
         <a href="#proyectos" data-od-id="nav-link-proyectos">Proyectos</a>
         <a href="#simulador" data-od-id="nav-link-simulador">Presupuestos</a>
+        <a href="#faq" data-od-id="nav-link-faq">FAQ</a>
         <a href="#testimonios" data-od-id="nav-link-testimonios">Testimonios</a>
         <a href="#contacto" data-od-id="nav-link-contacto">Contacto</a>
         <a href="#" id="btn-quien-soy-nav" data-od-id="nav-link-quien-soy">¿Quién soy?</a>
@@ -783,6 +919,7 @@
                 <li><a href="#servicios">Servicios</a></li>
                 <li><a href="#proyectos">Proyectos</a></li>
                 <li><a href="#simulador">Presupuestos</a></li>
+                <li><a href="#faq">FAQ</a></li>
                 <li><a href="#testimonios">Testimonios</a></li>
                 <li><a href="#contacto">Contacto</a></li>
             </ol>
@@ -790,7 +927,7 @@
 
         <!-- ===== HERO TEXTO ===== -->
         <section class="hero-section" id="inicio" data-od-id="hero-section">
-        <p class="eyebrow" data-od-id="hero-eyebrow">Programación · Diseño · Desarrollo</p>
+        <p class="eyebrow" data-od-id="hero-eyebrow">Programador Freelance · Buenos Aires, Argentina</p>
         <h1 data-od-id="hero-title">Germán <span class="hero-h1-sub">— Desarrollo web a medida en Buenos Aires</span></h1>
         <p class="lead" data-od-id="hero-lead">Landing Page · Sitio Web Corporativo · E-Commerce · Apps.</p>
         <p class="hero-description" data-od-id="hero-description">.</p>
@@ -820,6 +957,7 @@
                 <li>Configuración lista para campañas de Ads</li>
             </ul>
             <span class="service-card__badge">Conversión</span>
+            <p class="service-card__price">Desde <span>$100.000 ARS</span></p>
             </div>
             <div class="service-card reveal" data-od-id="service-card-corporativo">
             <span class="service-card__index">02</span>
@@ -832,6 +970,7 @@
                 <li>Panel de administración sencillo</li>
             </ul>
             <span class="service-card__badge">Presencia profesional</span>
+            <p class="service-card__price">Desde <span>$400.000 ARS</span></p>
             </div>
             <div class="service-card reveal" data-od-id="service-card-ecommerce">
             <span class="service-card__index">03</span>
@@ -844,6 +983,7 @@
                 <li>Diseño responsive y rápido</li>
             </ul>
             <span class="service-card__badge">Ventas online</span>
+            <p class="service-card__price">Desde <span>$530.000 ARS</span></p>
             </div>
             <div class="service-card reveal" data-od-id="service-card-apps">
             <span class="service-card__index">04</span>
@@ -856,7 +996,14 @@
                 <li>Integración con tus herramientas existentes</li>
             </ul>
             <span class="service-card__badge">Eficiencia operativa</span>
+            <p class="service-card__price">Desde <span>$500.000 ARS</span></p>
             </div>
+        </div>
+
+        <!-- ===== SECTORES / RUBROS (SEO long-tail) ===== -->
+        <div class="services__sectors" data-od-id="services-sectors">
+            <p class="label">¿Para qué rubros trabajo?</p>
+            <p class="sectors-text">Desarrollo páginas web a medida para distintos sectores y actividades: <strong>abogados</strong> y estudios jurídicos, <strong>médicos</strong> y consultorios, <strong>restaurantes</strong>, <strong>kinesiólogos</strong> y centros de rehabilitación, e <strong>inmobiliarias</strong>. Adapto el diseño, el contenido y las funcionalidades a las necesidades de cada rubro.</p>
         </div>
         </section>
 
@@ -1107,7 +1254,7 @@
         <div class="section-head">
             <p class="label">Presupuestos</p>
             <h2>Simulá el costo de tu proyecto</h2>
-            <p>Seleccioná el tipo de servicio. Obtené un presupuesto.</p>
+            <p>¿Cuánto cuesta una página web? Depende del tipo de proyecto: los precios arrancan desde $100.000 ARS. Seleccioná el tipo de servicio y obtené un presupuesto al instante.</p>
         </div>
 
         <div class="simulator__wrapper">
@@ -1174,6 +1321,41 @@
         </div>
     </section>
 
+    <!-- ===== FAQ ===== -->
+    <section class="section faq" id="faq" data-od-id="faq">
+        <div class="section-head" data-od-id="faq-head">
+            <p class="label">Preguntas frecuentes</p>
+            <h2 data-od-id="faq-title">Lo que más me preguntan</h2>
+            <p>Todo lo que necesitás saber antes de pedir tu presupuesto.</p>
+        </div>
+        <div class="faq__list" data-od-id="faq-list">
+            <details class="faq__item" data-od-id="faq-item-precio">
+                <summary>¿Cuánto cuesta una página web?</summary>
+                <p>Depende del tipo de proyecto. Una landing page arranca desde $100.000 ARS, un sitio web corporativo desde $400.000 ARS, un e-commerce desde $530.000 ARS y una app o sistema interno desde $500.000 ARS. Podés simular tu presupuesto más arriba.</p>
+            </details>
+            <details class="faq__item" data-od-id="faq-item-wordpress">
+                <summary>¿Qué me conviene, WordPress o desarrollo a medida?</summary>
+                <p>Depende de tu objetivo. WordPress es una buena opción si necesitás lanzar rápido y con bajo costo inicial. El desarrollo a medida conviene cuando buscás mejor rendimiento, seguridad y una solución 100% adaptada a tu negocio, sin las limitaciones de un plugin o plantilla. Te asesoro para elegir la opción que más te convenga.</p>
+            </details>
+            <details class="faq__item" data-od-id="faq-item-ubicacion">
+                <summary>¿Trabajás solo en Buenos Aires o en toda Argentina?</summary>
+                <p>Estoy radicado en Buenos Aires (Zona Oeste), pero trabajo como programador freelance de forma remota con clientes de toda Argentina.</p>
+            </details>
+            <details class="faq__item" data-od-id="faq-item-tiempos">
+                <summary>¿Cuánto tarda en hacerse una página web?</summary>
+                <p>Una landing page puede estar lista en 1 a 2 semanas. Un sitio web corporativo o un e-commerce suele tomar entre 3 y 6 semanas, según el alcance y los contenidos que se necesiten.</p>
+            </details>
+            <details class="faq__item" data-od-id="faq-item-rubros">
+                <summary>¿Hacés páginas web para abogados, médicos, restaurantes, kinesiólogos o inmobiliarias?</summary>
+                <p>Sí, desarrollo sitios web a medida para distintos rubros como estudios jurídicos, consultorios médicos, restaurantes, centros de kinesiología e inmobiliarias, adaptando el diseño y las funcionalidades a cada actividad.</p>
+            </details>
+            <details class="faq__item" data-od-id="faq-item-presupuesto">
+                <summary>¿Cómo pido un presupuesto?</summary>
+                <p>Podés usar el simulador de presupuestos de la web o escribirme por WhatsApp o correo desde la sección de contacto.</p>
+            </details>
+        </div>
+    </section>
+
                 <!-- ===== TESTIMONIOS ===== -->
         <section class="section testimonials" id="testimonios" data-od-id="testimonials">
         <div class="section-head" data-od-id="testimonials-head">
@@ -1183,7 +1365,7 @@
         </div>
         <div class="testimonials__grid" data-od-id="testimonials-grid">
             <div class="testimonial-card reveal" data-od-id="testimonial-1" itemscope itemprop="review" itemtype="https://schema.org/Review">
-                <div class="testimonial__rating" aria-label="Calificación 5 de 5" data-od-id="testimonial-rating-1">
+                <div class="testimonial__rating" role="img" aria-label="Calificación 5 de 5" data-od-id="testimonial-rating-1">
                     <span aria-hidden="true">★★★★★</span>
                     <meta itemprop="reviewRating" content="5" />
                 </div>
@@ -1194,7 +1376,7 @@
                 </div>
             </div>
             <div class="testimonial-card reveal" data-od-id="testimonial-2" itemscope itemprop="review" itemtype="https://schema.org/Review">
-                <div class="testimonial__rating" aria-label="Calificación 5 de 5" data-od-id="testimonial-rating-2">
+                <div class="testimonial__rating" role="img" aria-label="Calificación 5 de 5" data-od-id="testimonial-rating-2">
                     <span aria-hidden="true">★★★★★</span>
                     <meta itemprop="reviewRating" content="5" />
                 </div>
@@ -1205,7 +1387,7 @@
                 </div>
             </div>
             <div class="testimonial-card reveal" data-od-id="testimonial-3" itemscope itemprop="review" itemtype="https://schema.org/Review">
-                <div class="testimonial__rating" aria-label="Calificación 5 de 5" data-od-id="testimonial-rating-3">
+                <div class="testimonial__rating" role="img" aria-label="Calificación 5 de 5" data-od-id="testimonial-rating-3">
                     <span aria-hidden="true">★★★★★</span>
                     <meta itemprop="reviewRating" content="5" />
                 </div>
@@ -1245,6 +1427,7 @@
                 <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 21.5s7-5.5 7-11a7 7 0 1 0-14 0c0 5.5 7 11 7 11z"/><circle cx="12" cy="10.5" r="2.5"/></svg>
                 <span>BA · Zona Oeste</span>
             </div>
+            <p class="contact-area" data-od-id="contact-area">📍 Con base en Buenos Aires (Zona Oeste), Argentina. Trabajo como programador freelance de forma remota con clientes de todo el país.</p>
             </div>
         <!-- ===== formulario ===== -->
             <form class="contact__form" id="form-contacto" novalidate data-od-id="contact-form">
@@ -1562,7 +1745,7 @@
 
 
     <!-- SDK EmailJS -->
-    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js" defer></script>
 
     <script>
         document.addEventListener('DOMContentLoaded', function() {
@@ -2831,7 +3014,7 @@ aria-label="Contactar por WhatsApp">
     <!-- Toda la lógica de interacción (formulario, simulador, y modales de
          "quién soy" / proyectos / video, antes triplicada acá) vive ahora
          en javascript.js, sección 4. -->
-    <script src="javascript.js"></script>
+    <script src="javascript.js" defer></script>
 
     </body>
     </html>
