@@ -167,6 +167,9 @@ document.addEventListener('DOMContentLoaded', function() {
             const proyecto = this.getAttribute('data-proyecto') || 'Proyecto sin nombre';
             const total = this.getAttribute('data-total') || '0';
 
+            window.dataLayer = window.dataLayer || [];
+            window.dataLayer.push({ event: 'simulador_presupuesto', proyecto: proyecto, total: total });
+
             // Llenar el campo de mensaje
             if (mensajeTextarea) {
                 mensajeTextarea.value = `Me interesa el siguiente proyecto:\n${proyecto}\nPresupuesto estimado: $${Number(total).toLocaleString('es-AR')}`;

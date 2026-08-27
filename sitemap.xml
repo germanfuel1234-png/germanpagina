@@ -17,4 +17,12 @@
     <priority>0.3</priority>
   </url>
 
+  <!-- Precios en texto plano (agentes de IA) -->
+  <url>
+    <loc>https://germanrodriguez.ar/pricing.md</loc>
+    <lastmod>2026-08-27</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.5</priority>
+  </url>
+
 </urlset>

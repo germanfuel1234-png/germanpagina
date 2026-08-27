@@ -1,0 +1,18 @@
+# Rodríguez Germán — Desarrollo Web
+
+> Programador freelance con base en Buenos Aires (Zona Oeste), Argentina. Desarrollo web a medida: landing pages, sitios corporativos, e-commerce y apps/sistemas internos. Trabaja de forma remota con clientes de toda Argentina. Precios desde $100.000 ARS.
+
+Stack principal: Python, PHP, HTML/CSS, JavaScript, Flutter. También ofrece automatización de procesos, bots, scraping y desarrollo de apps móviles.
+
+## Páginas clave
+
+- [Sitio principal](https://germanrodriguez.ar/): servicios, portafolio, simulador de presupuesto, FAQ, testimonios y contacto.
+- [Precios](https://germanrodriguez.ar/pricing.md): detalle de precios por tipo de servicio, en texto plano.
+- [Política de privacidad](https://germanrodriguez.ar/privacidad.html)
+
+## Contacto
+
+- Email: germanty123@gmail.com
+- WhatsApp: +54 11 3623 9969
+- LinkedIn: https://www.linkedin.com/in/german-rodriguez-al/
+- Workana: https://www.workana.com/freelancer/a4b17bd76520cd4cc80e6a183b90fa84

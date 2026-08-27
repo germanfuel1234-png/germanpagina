@@ -763,6 +763,25 @@
     }
     .service-card__price span { color: var(--accent); }
 
+    /* ===== TARJETA DESTACADA (CRO: reduce parálisis de elección) ===== */
+    .service-card--featured {
+        border-color: var(--accent);
+    }
+    .service-card__recommended {
+        position: absolute;
+        top: -11px;
+        left: 24px;
+        background: var(--accent);
+        color: #17130c;
+        font-family: var(--font-mono);
+        font-size: 10px;
+        font-weight: 700;
+        letter-spacing: 0.1em;
+        text-transform: uppercase;
+        padding: 4px 12px;
+        border-radius: 20px;
+    }
+
     /* ===== SECTORES / RUBROS (SEO: long-tail por vertical) ===== */
     .services__sectors {
         margin-top: 44px;
@@ -934,7 +953,7 @@
         <div class="cta" data-od-id="hero-cta">
             <a href="#servicios" class="cta__ghost" data-od-id="cta-quiensoy" id="btn-quien-soy">¿Quién soy?</a>
             <a href="#servicios" class="cta__primary" data-od-id="cta-servicios">Ver servicios</a>
-            <a href="#contacto" class="cta__ghost" data-od-id="cta-proyectos">Contactar</a>
+            <a href="#contacto" class="cta__ghost" data-od-id="cta-proyectos">Contame tu proyecto</a>
         </div>
         </section>
 
@@ -959,7 +978,8 @@
             <span class="service-card__badge">Conversión</span>
             <p class="service-card__price">Desde <span>$100.000 ARS</span></p>
             </div>
-            <div class="service-card reveal" data-od-id="service-card-corporativo">
+            <div class="service-card service-card--featured reveal" data-od-id="service-card-corporativo">
+            <span class="service-card__recommended">Más elegido</span>
             <span class="service-card__index">02</span>
             <h3>Sitio Web Corporativo</h3>
             <p>Tu identidad digital completa. Ideal para empresas que necesitan presencia profesional, mostrar su equipo, servicios y generar confianza.</p>
@@ -1492,7 +1512,7 @@
 
         <!-- ===== FOOTER ===== -->
         <footer class="footer" data-od-id="footer">
-        <span>© 2026 Rodríguez Germán · <span style="color: var(--accent);">Web Designer & Developer</span></span>
+        <span>© 2026 Rodríguez Germán · <span style="color: var(--accent);">Web Designer & Developer</span> · <span style="opacity: 0.6;">Actualizado agosto 2026</span></span>
         
         <div class="footer__socials" data-od-id="footer-socials">
             <!-- Enlaces de texto -->
@@ -1844,6 +1864,9 @@
                 const numeroWhatsApp = '5491136239969';
                 window.open(`https://wa.me/${numeroWhatsApp}?text=${encodeURIComponent(mensaje)}`, '_blank');
                 mostrarExito();
+
+                window.dataLayer = window.dataLayer || [];
+                window.dataLayer.push({ event: 'contacto_whatsapp', servicio: datos.servicio });
             });
 
             // ============================================================
@@ -1916,6 +1939,10 @@
                         .then(function() {
                             btnGmail.innerHTML = '✅ ¡Enviado!';
                             mostrarExito();
+
+                            window.dataLayer = window.dataLayer || [];
+                            window.dataLayer.push({ event: 'contacto_formulario', servicio: datos.servicio });
+
                             setTimeout(function() {
                                 window.location.href = 'gracias.html';
                             }, 1500);
