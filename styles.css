@@ -355,7 +355,7 @@
         font-weight: 500;
         letter-spacing: 0.05em;
         text-transform: uppercase;
-        color: var(--faint);
+        color: var(--muted);
         margin-bottom: 8px;
     }
     .contact__form label .optional {
