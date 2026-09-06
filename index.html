@@ -220,6 +220,25 @@
     }
     </script>
 
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "Service",
+      "serviceType": "Desarrollo Web White Label para Agencias",
+      "provider": {
+        "@type": "LocalBusiness",
+        "name": "Rodríguez Germán - Desarrollo Web"
+      },
+      "name": "Subcontratación de Desarrollo Web (Marca Blanca)",
+      "description": "Desarrollo y maquetación web tercerizada para agencias, bajo la identidad de la agencia contratante. Maquetación pixel-perfect desde Figma, integración de APIs y absorción de picos de trabajo.",
+      "areaServed": ["Argentina", "CABA"],
+      "audience": {
+        "@type": "BusinessAudience",
+        "audienceType": "Agencias de diseño y marketing"
+      }
+    }
+    </script>
+
     <!-- ===== DATOS ESTRUCTURADOS: PROYECTOS ===== -->
     <script type="application/ld+json">
     {
@@ -844,6 +863,30 @@
     .trust-bar__source a { color: var(--accent); text-decoration: none; }
     .trust-bar__source a:hover { text-decoration: underline; }
 
+    /* ===== BADGE "SOS UNA AGENCIA?" ===== */
+    .agency-badge {
+        margin-top: 20px;
+        display: inline-flex;
+        align-items: center;
+        gap: 10px;
+        font-family: var(--font-mono);
+        font-size: 13px;
+        color: var(--muted);
+        text-decoration: none;
+        border: 1px solid var(--border);
+        border-radius: 20px;
+        padding: 8px 16px 8px 12px;
+        transition: border-color 0.2s ease, color 0.2s ease;
+    }
+    .agency-badge:hover { border-color: var(--accent-dim); color: var(--fg); }
+    .agency-badge__dot {
+        width: 7px;
+        height: 7px;
+        border-radius: 50%;
+        background: var(--accent);
+        flex-shrink: 0;
+    }
+
     /* ===== TÍTULO DE RUBROS ===== */
     .services__sectors-title {
         font-family: var(--font-display);
@@ -917,6 +960,7 @@
         gap: 10px;
         margin-top: 20px;
     }
+    .sector-panel__features--three { grid-template-columns: repeat(3, 1fr); }
     .sector-panel__feature {
         background: var(--surface);
         border: 1px solid var(--border);
@@ -1139,15 +1183,15 @@
             <div class="trust-item reveal">
                 <span class="trust-item__label">Rendimiento Lighthouse</span>
                 <div class="trust-item__value" data-count-to="99" data-suffix="/100">0/100</div>
-                <span class="trust-item__desc">Medido en Google PageSpeed</span>
+                <span class="trust-item__desc">Fuente Google PageSpeed</span>
             </div>
             <div class="trust-item reveal">
                 <span class="trust-item__label">SEO técnico</span>
                 <div class="trust-item__value" data-count-to="100" data-suffix="/100">0/100</div>
-                <span class="trust-item__desc">Medido en Google PageSpeed</span>
+                <span class="trust-item__desc">Fuente Google PageSpeed</span>
             </div>
         </div>
-        <p class="trust-bar__source">Medido el 06/09/2026 · <a href="https://pagespeed.web.dev/report?url=https%3A%2F%2Fgermanrodriguez.ar%2F" target="_blank" rel="noopener">ver reporte en vivo →</a></p>
+        <p class="trust-bar__source">Medido el <span id="lighthouse-date">06/09/2026</span> · <a href="https://pagespeed.web.dev/report?url=https%3A%2F%2Fgermanrodriguez.ar%2F" target="_blank" rel="noopener">reporte actual</a></p>
         </section>
 
         <!-- ===== SERVICIOS ===== -->
@@ -1156,6 +1200,10 @@
             <p class="label">Lo que hago</p>
             <h2 data-od-id="services-title">Soluciones a medida para tu negocio</h2>
             <p>Te ofrezco un enfoque personalizado con resultados.</p>
+            <a class="agency-badge" href="#rubros" data-od-id="agency-badge-services">
+                <span class="agency-badge__dot"></span>
+                ¿Sos una agencia buscando partner técnico? Ver soluciones marca blanca ↓
+            </a>
         </div>
         <div class="services__grid" data-od-id="services-grid">
             <div class="service-card reveal" data-od-id="service-card-landing">
@@ -1214,20 +1262,41 @@
         </div>
 
         <!-- ===== SECTORES / RUBROS (SEO long-tail, interactivo) ===== -->
-        <div class="services__sectors" data-od-id="services-sectors">
+        <div class="services__sectors" id="rubros" data-od-id="services-sectors">
             <p class="label">Especialización sectorial</p>
             <h3 class="services__sectors-title">Arquitectura adaptada a su modelo de negocio</h3>
             <p class="sectors-text">No aplico plantillas genéricas: cada rubro necesita una estructura y un mecanismo de contacto distinto. Elegí el tuyo.</p>
 
             <div class="sector-tabs" data-od-id="sector-tabs">
-                <button class="sector-tab is-active" type="button" data-sector="legal">Abogados</button>
+                <button class="sector-tab is-active" type="button" data-sector="agencias">Agencias</button>
+                <button class="sector-tab" type="button" data-sector="legal">Abogados</button>
                 <button class="sector-tab" type="button" data-sector="medico">Médicos</button>
                 <button class="sector-tab" type="button" data-sector="inmobiliaria">Inmobiliarias</button>
                 <button class="sector-tab" type="button" data-sector="gastronomia">Restaurantes</button>
             </div>
 
             <div id="sector-panels" data-od-id="sector-panels">
-                <div class="sector-panel is-active" id="panel-legal">
+                <div class="sector-panel is-active" id="panel-agencias">
+                    <div>
+                        <p class="sector-panel__eyebrow">
+                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2 2 7l10 5 10-5-10-5z"/><path d="M2 17l10 5 10-5"/><path d="M2 12l10 5 10-5"/></svg>
+                            Agencias &amp; partners
+                        </p>
+                        <h3>Desarrollo Web · Agencias · Marcas</h3>
+                        <p class="sector-panel__text">Absorbo el desarrollo web y la maquetación de tus clientes para que vos te enfoques en vender y posicionar.</p>
+                        <div class="sector-panel__features sector-panel__features--three">
+                            <div class="sector-panel__feature"><strong>Partners</strong><span>Programo bajo la marca de tu agencia. Tus clientes reciben una web profesional y rápida sin saber que subcontrataste la parte técnica.</span></div>
+                            <div class="sector-panel__feature"><strong>Flexibilidad de stack y prototipado</strong><span>Me das el diseño o la idea comercial y la transformo en una web funcional, optimizada y lista para recibir tráfico de tus campañas.</span></div>
+                            <div class="sector-panel__feature"><strong>Destrezas técnicas</strong><span>Me encargo del código, integraciones de APIs y velocidad de carga para que no reniegues con bugs ni entregas fuera de término.</span></div>
+                        </div>
+                        <a class="sector-panel__cta" href="#contacto">Agendar llamada para partners →</a>
+                    </div>
+                    <div class="sector-panel__visual">
+                        <img src="agencias.jpeg" alt="Agencia y desarrollador coordinando un proyecto de desarrollo web con marca blanca" loading="lazy" />
+                    </div>
+                </div>
+
+                <div class="sector-panel" id="panel-legal">
                     <div>
                         <p class="sector-panel__eyebrow">
                             <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3v18M5 7l-3 6a3 3 0 0 0 6 0l-3-6zM19 7l-3 6a3 3 0 0 0 6 0l-3-6zM5 7h14M9 21h6"/></svg>
@@ -1785,7 +1854,7 @@
 
         <!-- ===== FOOTER ===== -->
         <footer class="footer" data-od-id="footer">
-        <span>© 2026 Rodríguez Germán · <span style="color: var(--accent);">Web Designer & Developer</span> · Actualizado agosto 2026</span>
+        <span>© 2026 Rodríguez Germán · <span style="color: var(--accent);">Web Designer & Developer</span> · Actualizado Septiembre 2026</span>
         
         <div class="footer__socials" data-od-id="footer-socials">
             <!-- Enlaces de texto -->
@@ -2056,6 +2125,20 @@
                 });
             });
         });
+    })();
+    </script>
+
+    <!-- ===== FECHA AUTOMÁTICA DEL REPORTE LIGHTHOUSE ===== -->
+    <script>
+    (function () {
+        'use strict';
+        var el = document.getElementById('lighthouse-date');
+        if (!el) return;
+        var hoy = new Date();
+        var dd = String(hoy.getDate()).padStart(2, '0');
+        var mm = String(hoy.getMonth() + 1).padStart(2, '0');
+        var yyyy = hoy.getFullYear();
+        el.textContent = dd + '/' + mm + '/' + yyyy;
     })();
     </script>
 

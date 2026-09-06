@@ -27,4 +27,4 @@ Programador freelance en Buenos Aires, Argentina. Precios en pesos argentinos (A
 - WhatsApp: +54 11 3623 9969
 - Web: https://germanrodriguez.ar/
 
-Última actualización: agosto 2026.
+Última actualización: septiembre 2026.
