@@ -23,7 +23,7 @@ Programador freelance en Buenos Aires, Argentina. Precios en pesos argentinos (A
 - Ideal para: empresas que necesitan herramientas a medida.
 
 ## Contacto
-- Email: germanty123@gmail.com
+- Email: rodriguezg.dev@gmail.com
 - WhatsApp: +54 11 3623 9969
 - Web: https://germanrodriguez.ar/
 

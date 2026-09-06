@@ -11,7 +11,7 @@
   PROPIO
   Desarrollador web:      Germán Rodríguez
   Web:                    https://germanrodriguez.ar
-  Correo:                 germanrodriguez@gmail.com
+  Correo:                 rodriguezg.dev@gmail.com
   WhatsApp:               +54 11 36239969
 
   TECNOLOGÍAS
