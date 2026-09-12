@@ -521,6 +521,25 @@
         padding: 4px 0;
     }
     .nav__links a:hover { color: var(--fg); }
+    .nav__right { display: flex; align-items: center; gap: 18px; }
+    .lang-toggle {
+        display: flex;
+        align-items: center;
+        gap: 6px;
+        background: transparent;
+        border: 1px solid var(--border);
+        border-radius: 20px;
+        padding: 7px 13px;
+        color: var(--fg);
+        font-size: 12px;
+        font-family: var(--font-body);
+        letter-spacing: 0.03em;
+        cursor: pointer;
+        transition: border-color 0.2s ease, color 0.2s ease;
+        flex-shrink: 0;
+    }
+    .lang-toggle:hover { border-color: var(--accent); color: var(--accent); }
+    .lang-toggle__flag { font-size: 14px; line-height: 1; }
     .nav__toggle {
         display: none;
         place-items: center;
@@ -1046,6 +1065,7 @@
         .nav__links a { padding: 15px 0; font-size: 15px; border-top: 1px solid var(--border); }
         .nav__links a:first-child { border-top: none; }
         .nav__toggle { display: grid; }
+        .lang-toggle { padding: 6px 10px; font-size: 11px; }
     }
     @media (max-width: 600px) {
         .contact__info { grid-template-columns: 1fr; }
@@ -1079,12 +1099,12 @@
 
     <!-- ===== COOKIE CONSENT BANNER ===== -->
     <div id="cookie-consent" role="dialog" aria-live="polite" data-od-id="cookie-consent">
-        <div class="cookie-text">
+        <div class="cookie-text" data-i18n="cookie.text">
             Utilizo cookies propias y de terceros para mejorar tu experiencia de navegación. Al aceptar, consientes el uso de cookies conforme a mi <a href="privacidad.html" class="cookie-link">Política de Privacidad</a>.
         </div>
         <div class="cookie-actions">
-            <button class="cookie-btn-accept" id="btn-accept-cookies" aria-label="Aceptar cookies">Aceptar</button>
-            <button class="cookie-btn-reject" id="btn-reject-cookies" aria-label="Rechazar cookies">Rechazar</button>
+            <button class="cookie-btn-accept" id="btn-accept-cookies" aria-label="Aceptar cookies" data-i18n="cookie.accept">Aceptar</button>
+            <button class="cookie-btn-reject" id="btn-reject-cookies" aria-label="Rechazar cookies" data-i18n="cookie.reject">Rechazar</button>
         </div>
     </div>
     <script>
@@ -1126,18 +1146,24 @@
         Rodríguez Germán
     </a>
     <nav class="nav__links" data-od-id="nav-links" id="nav-links">
-        <a href="#inicio">Inicio</a>
-        <a href="#servicios" data-od-id="nav-link-servicios">Servicios</a>
-        <a href="#proyectos" data-od-id="nav-link-proyectos">Proyectos</a>
-        <a href="#simulador" data-od-id="nav-link-simulador">Presupuestos</a>
+        <a href="#inicio" data-i18n="nav.inicio">Inicio</a>
+        <a href="#servicios" data-od-id="nav-link-servicios" data-i18n="nav.servicios">Servicios</a>
+        <a href="#proyectos" data-od-id="nav-link-proyectos" data-i18n="nav.proyectos">Proyectos</a>
+        <a href="#simulador" data-od-id="nav-link-simulador" data-i18n="nav.simulador">Presupuestos</a>
         <a href="#faq" data-od-id="nav-link-faq">FAQ</a>
-        <a href="#testimonios" data-od-id="nav-link-testimonios">Testimonios</a>
-        <a href="#contacto" data-od-id="nav-link-contacto">Contacto</a>
-        <a href="#" id="btn-quien-soy-nav" data-od-id="nav-link-quien-soy">¿Quién soy?</a>
+        <a href="#testimonios" data-od-id="nav-link-testimonios" data-i18n="nav.testimonios">Testimonios</a>
+        <a href="#contacto" data-od-id="nav-link-contacto" data-i18n="nav.contacto">Contacto</a>
+        <a href="#" id="btn-quien-soy-nav" data-od-id="nav-link-quien-soy" data-i18n="nav.quiensoy">¿Quién soy?</a>
     </nav>
-    <button class="nav__toggle" id="nav-toggle" type="button" aria-label="Abrir menú" aria-expanded="false" aria-controls="nav-links">
-        <span></span><span></span>
-    </button>
+    <div class="nav__right">
+        <button class="lang-toggle" id="lang-toggle" type="button" aria-label="Cambiar idioma / Change language">
+            <span class="lang-toggle__flag" id="lang-toggle-flag" aria-hidden="true">🇦🇷</span>
+            <span id="lang-toggle-label">ES</span>
+        </button>
+        <button class="nav__toggle" id="nav-toggle" type="button" aria-label="Abrir menú" aria-expanded="false" aria-controls="nav-links">
+            <span></span><span></span>
+        </button>
+    </div>
 </header>
 
     <!-- ===== CONTENIDO CON SCROLL ===== -->
@@ -1158,49 +1184,49 @@
 
         <!-- ===== HERO TEXTO ===== -->
         <section class="hero-section" id="inicio" data-od-id="hero-section">
-        <p class="eyebrow" data-od-id="hero-eyebrow">Programador Freelance · Buenos Aires, Argentina</p>
-        <h1 data-od-id="hero-title">Germán <span class="hero-h1-sub">— Desarrollo web a medida en Buenos Aires</span></h1>
-        <p class="lead" data-od-id="hero-lead">Landing Page · Sitio Web Corporativo · E-Commerce · Apps.</p>
+        <p class="eyebrow" data-od-id="hero-eyebrow" data-i18n="hero.eyebrow">Programador Freelance · Buenos Aires, Argentina</p>
+        <h1 data-od-id="hero-title" data-i18n="hero.title">Germán <span class="hero-h1-sub">— Desarrollo web a medida en Buenos Aires</span></h1>
+        <p class="lead" data-od-id="hero-lead" data-i18n="hero.lead">Landing Page · Sitio Web Corporativo · E-Commerce · Apps.</p>
         <p class="hero-description" data-od-id="hero-description">.</p>
         <div class="cta" data-od-id="hero-cta">
-            <a href="#servicios" class="cta__ghost" data-od-id="cta-quiensoy" id="btn-quien-soy">¿Quién soy?</a>
-            <a href="#servicios" class="cta__primary" data-od-id="cta-servicios">Ver servicios</a>
-            <a href="#contacto" class="cta__ghost" data-od-id="cta-proyectos">Contame tu proyecto</a>
+            <a href="#servicios" class="cta__ghost" data-od-id="cta-quiensoy" id="btn-quien-soy" data-i18n="hero.cta.quiensoy">¿Quién soy?</a>
+            <a href="#servicios" class="cta__primary" data-od-id="cta-servicios" data-i18n="hero.cta.servicios">Ver servicios</a>
+            <a href="#contacto" class="cta__ghost" data-od-id="cta-proyectos" data-i18n="hero.cta.proyecto">Contame tu proyecto</a>
         </div>
 
         <!-- ===== TRUST BAR (stats) ===== -->
         <div class="trust-bar" data-od-id="trust-bar">
             <div class="trust-item reveal">
-                <span class="trust-item__label">Track record</span>
-                <div class="trust-item__value" data-count-to="15" data-suffix=" Proyectos">0 Proyectos</div>
-                <span class="trust-item__desc">Entregados con éxito</span>
+                <span class="trust-item__label" data-i18n="trust.track.label">Track record</span>
+                <div class="trust-item__value" data-count-to="15" data-suffix=" Proyectos" data-suffix-en=" Projects">0 Proyectos</div>
+                <span class="trust-item__desc" data-i18n="trust.track.desc">Entregados con éxito</span>
             </div>
             <div class="trust-item reveal">
-                <span class="trust-item__label">Arquitectura</span>
-                <div class="trust-item__value" data-count-to="100" data-suffix="% Código">0% Código</div>
-                <span class="trust-item__desc">A medida, sin ataduras</span>
+                <span class="trust-item__label" data-i18n="trust.arch.label">Arquitectura</span>
+                <div class="trust-item__value" data-count-to="100" data-suffix="% Código" data-suffix-en="% Code">0% Código</div>
+                <span class="trust-item__desc" data-i18n="trust.arch.desc">A medida, sin ataduras</span>
             </div>
             <div class="trust-item reveal">
-                <span class="trust-item__label">Rendimiento Lighthouse</span>
+                <span class="trust-item__label" data-i18n="trust.perf.label">Rendimiento Lighthouse</span>
                 <div class="trust-item__value" data-count-to="99" data-suffix="/100">0/100</div>
-                <span class="trust-item__desc">Fuente Google PageSpeed</span>
+                <span class="trust-item__desc" data-i18n="trust.source">Fuente Google PageSpeed</span>
             </div>
             <div class="trust-item reveal">
-                <span class="trust-item__label">SEO técnico</span>
+                <span class="trust-item__label" data-i18n="trust.seo.label">SEO técnico</span>
                 <div class="trust-item__value" data-count-to="100" data-suffix="/100">0/100</div>
-                <span class="trust-item__desc">Fuente Google PageSpeed</span>
+                <span class="trust-item__desc" data-i18n="trust.source">Fuente Google PageSpeed</span>
             </div>
         </div>
-        <p class="trust-bar__source">Medido el <span id="lighthouse-date">06/09/2026</span> · <a href="https://pagespeed.web.dev/report?url=https%3A%2F%2Fgermanrodriguez.ar%2F" target="_blank" rel="noopener">reporte actual</a></p>
+        <p class="trust-bar__source"><span data-i18n="trust.measured">Medido el</span> <span id="lighthouse-date">06/09/2026</span> · <a href="https://pagespeed.web.dev/report?url=https%3A%2F%2Fgermanrodriguez.ar%2F" target="_blank" rel="noopener" data-i18n="trust.report">reporte actual</a></p>
         </section>
 
         <!-- ===== SERVICIOS ===== -->
         <section class="section services" id="servicios" data-od-id="services">
         <div class="section-head" data-od-id="services-head">
-            <p class="label">Lo que hago</p>
-            <h2 data-od-id="services-title">Soluciones a medida para tu negocio</h2>
-            <p>Te ofrezco un enfoque personalizado con resultados.</p>
-            <a class="agency-badge" href="#rubros" data-od-id="agency-badge-services">
+            <p class="label" data-i18n="services.label">Lo que hago</p>
+            <h2 data-od-id="services-title" data-i18n="services.title">Soluciones a medida para tu negocio</h2>
+            <p data-i18n="services.subtitle">Te ofrezco un enfoque personalizado con resultados.</p>
+            <a class="agency-badge" href="#rubros" data-od-id="agency-badge-services" data-i18n="services.agencybadge">
                 <span class="agency-badge__dot"></span>
                 ¿Sos una agencia buscando partner técnico? Ver soluciones ↓
             </a>
@@ -1208,71 +1234,71 @@
         <div class="services__grid" data-od-id="services-grid">
             <div class="service-card reveal" data-od-id="service-card-landing">
             <span class="service-card__index">01</span>
-            <h3>Landing Page</h3>
-            <p>Una sola página construida para convertir. Ideal para campañas puntuales, lanzamientos o profesionales que necesitan un punto de contacto digital directo.</p>
-            <ul>
+            <h3 data-i18n="services.landing.title">Landing Page</h3>
+            <p data-i18n="services.landing.desc">Una sola página construida para convertir. Ideal para campañas puntuales, lanzamientos o profesionales que necesitan un punto de contacto digital directo.</p>
+            <ul data-i18n="services.landing.list">
                 <li>Foco en una sola acción del visitante</li>
                 <li>Carga liviana y rápida en móvil</li>
                 <li>Formulario integrado a tu CRM o correo</li>
                 <li>Configuración lista para campañas de Ads</li>
             </ul>
-            <span class="service-card__badge">Conversión</span>
-            <p class="service-card__price">Desde <span>$100.000 ARS</span></p>
+            <span class="service-card__badge" data-i18n="services.landing.badge">Conversión</span>
+            <p class="service-card__price" data-i18n="price.landing">Desde <span>$100.000 ARS</span></p>
             </div>
             <div class="service-card service-card--featured reveal" data-od-id="service-card-corporativo">
-            <span class="service-card__recommended">Más elegido</span>
+            <span class="service-card__recommended" data-i18n="services.mostchosen">Más elegido</span>
             <span class="service-card__index">02</span>
-            <h3>Sitio Web Corporativo</h3>
-            <p>Tu identidad digital completa. Ideal para empresas que necesitan presencia profesional, mostrar su equipo, servicios y generar confianza.</p>
-            <ul>
+            <h3 data-i18n="services.corp.title">Sitio Web Corporativo</h3>
+            <p data-i18n="services.corp.desc">Tu identidad digital completa. Ideal para empresas que necesitan presencia profesional, mostrar su equipo, servicios y generar confianza.</p>
+            <ul data-i18n="services.corp.list">
                 <li>Diseño de marca y experiencia de usuario</li>
                 <li>Estructura multi-página (nosotros, servicios, blog)</li>
                 <li>Optimizado para SEO y velocidad</li>
                 <li>Panel de administración sencillo</li>
             </ul>
-            <span class="service-card__badge">Presencia profesional</span>
-            <p class="service-card__price">Desde <span>$400.000 ARS</span></p>
+            <span class="service-card__badge" data-i18n="services.corp.badge">Presencia profesional</span>
+            <p class="service-card__price" data-i18n="price.corp">Desde <span>$400.000 ARS</span></p>
             </div>
             <div class="service-card reveal" data-od-id="service-card-ecommerce">
             <span class="service-card__index">03</span>
-            <h3>E-Commerce</h3>
-            <p>Tu tienda online lista para vender. Desde la experiencia de compra hasta el pago, todo optimizado para convertir visitantes en clientes.</p>
-            <ul>
+            <h3 data-i18n="services.ecommerce.title">E-Commerce</h3>
+            <p data-i18n="services.ecommerce.desc">Tu tienda online lista para vender. Desde la experiencia de compra hasta el pago, todo optimizado para convertir visitantes en clientes.</p>
+            <ul data-i18n="services.ecommerce.list">
                 <li>Catálogo de productos con filtros</li>
                 <li>Carrito de compras y pasarela de pago</li>
                 <li>Gestión de inventario y pedidos</li>
                 <li>Diseño responsive y rápido</li>
             </ul>
-            <span class="service-card__badge">Ventas online</span>
-            <p class="service-card__price">Desde <span>$530.000 ARS</span></p>
+            <span class="service-card__badge" data-i18n="services.ecommerce.badge">Ventas online</span>
+            <p class="service-card__price" data-i18n="price.ecommerce">Desde <span>$530.000 ARS</span></p>
             </div>
             <div class="service-card reveal" data-od-id="service-card-apps">
             <span class="service-card__index">04</span>
-            <h3>Apps y Sistemas Internos</h3>
-            <p>Herramientas digitales para optimizar tu operación. Desde paneles de control hasta flujos de trabajo a medida.</p>
-            <ul>
+            <h3 data-i18n="services.apps.title">Apps y Sistemas Internos</h3>
+            <p data-i18n="services.apps.desc">Herramientas digitales para optimizar tu operación. Desde paneles de control hasta flujos de trabajo a medida.</p>
+            <ul data-i18n="services.apps.list">
                 <li>Dashboards y reportes en tiempo real</li>
                 <li>Automatización de procesos internos</li>
                 <li>Gestión de usuarios y roles</li>
                 <li>Integración con tus herramientas existentes</li>
             </ul>
-            <span class="service-card__badge">Eficiencia operativa</span>
-            <p class="service-card__price">Desde <span>$500.000 ARS</span></p>
+            <span class="service-card__badge" data-i18n="services.apps.badge">Eficiencia operativa</span>
+            <p class="service-card__price" data-i18n="price.apps">Desde <span>$500.000 ARS</span></p>
             </div>
         </div>
 
         <!-- ===== SECTORES / RUBROS (SEO long-tail, interactivo) ===== -->
         <div class="services__sectors" id="rubros" data-od-id="services-sectors">
-            <p class="label">Especialización sectorial</p>
-            <h3 class="services__sectors-title">Arquitectura adaptada a su modelo de negocio</h3>
-            <p class="sectors-text">No aplico plantillas genéricas: cada rubro necesita una estructura y un mecanismo de contacto distinto. Elegí el tuyo.</p>
+            <p class="label" data-i18n="sectors.label">Especialización sectorial</p>
+            <h3 class="services__sectors-title" data-i18n="sectors.title">Arquitectura adaptada a su modelo de negocio</h3>
+            <p class="sectors-text" data-i18n="sectors.text">No aplico plantillas genéricas: cada rubro necesita una estructura y un mecanismo de contacto distinto. Elegí el tuyo.</p>
 
             <div class="sector-tabs" data-od-id="sector-tabs">
-                <button class="sector-tab is-active" type="button" data-sector="agencias">Agencias</button>
-                <button class="sector-tab" type="button" data-sector="legal">Abogados</button>
-                <button class="sector-tab" type="button" data-sector="medico">Médicos</button>
-                <button class="sector-tab" type="button" data-sector="inmobiliaria">Inmobiliarias</button>
-                <button class="sector-tab" type="button" data-sector="gastronomia">Restaurantes</button>
+                <button class="sector-tab is-active" type="button" data-sector="agencias" data-i18n="sectors.tab.agencias">Agencias</button>
+                <button class="sector-tab" type="button" data-sector="legal" data-i18n="sectors.tab.legal">Abogados</button>
+                <button class="sector-tab" type="button" data-sector="medico" data-i18n="sectors.tab.medico">Médicos</button>
+                <button class="sector-tab" type="button" data-sector="inmobiliaria" data-i18n="sectors.tab.inmobiliaria">Inmobiliarias</button>
+                <button class="sector-tab" type="button" data-sector="gastronomia" data-i18n="sectors.tab.gastronomia">Restaurantes</button>
             </div>
 
             <div id="sector-panels" data-od-id="sector-panels">
@@ -1280,16 +1306,16 @@
                     <div>
                         <p class="sector-panel__eyebrow">
                             <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2 2 7l10 5 10-5-10-5z"/><path d="M2 17l10 5 10-5"/><path d="M2 12l10 5 10-5"/></svg>
-                            Agencias &amp; partners
+                            <span data-i18n="sectors.agencias.eyebrow">Agencias &amp; partners</span>
                         </p>
-                        <h3>Desarrollo Web · Agencias · Marcas</h3>
-                        <p class="sector-panel__text">Absorbo el desarrollo web y la maquetación de tus clientes para que vos te enfoques en vender y posicionar.</p>
+                        <h3 data-i18n="sectors.agencias.title">Desarrollo Web · Agencias · Marcas</h3>
+                        <p class="sector-panel__text" data-i18n="sectors.agencias.text">Absorbo el desarrollo web y la maquetación de tus clientes para que vos te enfoques en vender y posicionar.</p>
                         <div class="sector-panel__features sector-panel__features--three">
-                            <div class="sector-panel__feature"><strong>Partners</strong><span>Programo bajo la marca de tu agencia. Tus clientes reciben una web profesional y rápida sin saber que subcontrataste la parte técnica.</span></div>
-                            <div class="sector-panel__feature"><strong>Flexibilidad de stack y prototipado</strong><span>Me das el diseño o la idea comercial y la transformo en una web funcional, optimizada y lista para recibir tráfico de tus campañas.</span></div>
-                            <div class="sector-panel__feature"><strong>Destrezas técnicas</strong><span>Me encargo del código, integraciones de APIs y velocidad de carga para que no reniegues con bugs ni entregas fuera de término.</span></div>
+                            <div class="sector-panel__feature" data-i18n="sectors.agencias.f1"><strong>Partners</strong><span>Programo bajo la marca de tu agencia. Tus clientes reciben una web profesional y rápida sin saber que subcontrataste la parte técnica.</span></div>
+                            <div class="sector-panel__feature" data-i18n="sectors.agencias.f2"><strong>Flexibilidad de stack y prototipado</strong><span>Me das el diseño o la idea comercial y la transformo en una web funcional, optimizada y lista para recibir tráfico de tus campañas.</span></div>
+                            <div class="sector-panel__feature" data-i18n="sectors.agencias.f3"><strong>Destrezas técnicas</strong><span>Me encargo del código, integraciones de APIs y velocidad de carga para que no reniegues con bugs ni entregas fuera de término.</span></div>
                         </div>
-                        <a class="sector-panel__cta" href="#contacto">Agendar llamada para partners →</a>
+                        <a class="sector-panel__cta" href="#contacto" data-i18n="sectors.agencias.cta">Agendar llamada para partners →</a>
                     </div>
                     <div class="sector-panel__visual">
                         <img src="agencias.jpeg" alt="Agencia y desarrollador coordinando un proyecto de desarrollo web" loading="lazy" />
@@ -1300,15 +1326,15 @@
                     <div>
                         <p class="sector-panel__eyebrow">
                             <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3v18M5 7l-3 6a3 3 0 0 0 6 0l-3-6zM19 7l-3 6a3 3 0 0 0 6 0l-3-6zM5 7h14M9 21h6"/></svg>
-                            Práctica legal
+                            <span data-i18n="sectors.legal.eyebrow">Práctica legal</span>
                         </p>
-                        <h3>Autoridad institucional y captación calificada</h3>
-                        <p class="sector-panel__text">Sitios para estudios jurídicos y peritos que proyectan solvencia profesional desde el primer segundo, con formularios que filtran consultas antes de que lleguen a tu escritorio.</p>
+                        <h3 data-i18n="sectors.legal.title">Autoridad institucional y captación calificada</h3>
+                        <p class="sector-panel__text" data-i18n="sectors.legal.text">Sitios para estudios jurídicos y peritos que proyectan solvencia profesional desde el primer segundo, con formularios que filtran consultas antes de que lleguen a tu escritorio.</p>
                         <div class="sector-panel__features">
-                            <div class="sector-panel__feature"><strong>Filtro de casos</strong><span>Formularios guiados para calificar consultas antes de la primera reunión.</span></div>
-                            <div class="sector-panel__feature"><strong>Agenda sincronizada</strong><span>Reserva de consultas online conectada a tu calendario.</span></div>
+                            <div class="sector-panel__feature" data-i18n="sectors.legal.f1"><strong>Filtro de casos</strong><span>Formularios guiados para calificar consultas antes de la primera reunión.</span></div>
+                            <div class="sector-panel__feature" data-i18n="sectors.legal.f2"><strong>Agenda sincronizada</strong><span>Reserva de consultas online conectada a tu calendario.</span></div>
                         </div>
-                        <a class="sector-panel__cta" href="#contacto">Consultar propuesta para estudios jurídicos →</a>
+                        <a class="sector-panel__cta" href="#contacto" data-i18n="sectors.legal.cta">Consultar propuesta para estudios jurídicos →</a>
                     </div>
                     <div class="sector-panel__visual">
                         <img src="estudio juridico.jpg" alt="Oficina de un estudio jurídico en Buenos Aires" loading="lazy" />
@@ -1319,15 +1345,15 @@
                     <div>
                         <p class="sector-panel__eyebrow">
                             <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M12 8v8M8 12h8"/></svg>
-                            Salud y consultorios
+                            <span data-i18n="sectors.medico.eyebrow">Salud y consultorios</span>
                         </p>
-                        <h3>Turnero digital y claridad en coberturas</h3>
-                        <p class="sector-panel__text">Portales para consultorios y centros de salud donde los pacientes ven las obras sociales aceptadas y reservan turno sin necesidad de llamar por teléfono.</p>
+                        <h3 data-i18n="sectors.medico.title">Turnero digital y claridad en coberturas</h3>
+                        <p class="sector-panel__text" data-i18n="sectors.medico.text">Portales para consultorios y centros de salud donde los pacientes ven las obras sociales aceptadas y reservan turno sin necesidad de llamar por teléfono.</p>
                         <div class="sector-panel__features">
-                            <div class="sector-panel__feature"><strong>Turnero 24/7</strong><span>Reserva de turnos online con confirmación automática.</span></div>
-                            <div class="sector-panel__feature"><strong>Obras sociales</strong><span>Listado claro de coberturas aceptadas por especialidad.</span></div>
+                            <div class="sector-panel__feature" data-i18n="sectors.medico.f1"><strong>Turnero 24/7</strong><span>Reserva de turnos online con confirmación automática.</span></div>
+                            <div class="sector-panel__feature" data-i18n="sectors.medico.f2"><strong>Obras sociales</strong><span>Listado claro de coberturas aceptadas por especialidad.</span></div>
                         </div>
-                        <a class="sector-panel__cta" href="#contacto">Consultar propuesta para centros de salud →</a>
+                        <a class="sector-panel__cta" href="#contacto" data-i18n="sectors.medico.cta">Consultar propuesta para centros de salud →</a>
                     </div>
                     <div class="sector-panel__visual">
                         <img src="centro medico.jpg" alt="Recepción de un centro médico" loading="lazy" />
@@ -1338,15 +1364,15 @@
                     <div>
                         <p class="sector-panel__eyebrow">
                             <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M3 11l9-8 9 8"/><path d="M5 10v10h14V10"/><path d="M9 20v-6h6v6"/></svg>
-                            Real estate
+                            <span data-i18n="sectors.inmobiliaria.eyebrow">Real estate</span>
                         </p>
-                        <h3>Buscador de propiedades sin depender de portales de terceros</h3>
-                        <p class="sector-panel__text">Catálogo propio con filtros por zona, tipología y precio, para dejar de pagar comisiones a portales externos y captar consultas directo por WhatsApp.</p>
+                        <h3 data-i18n="sectors.inmobiliaria.title">Buscador de propiedades sin depender de portales de terceros</h3>
+                        <p class="sector-panel__text" data-i18n="sectors.inmobiliaria.text">Catálogo propio con filtros por zona, tipología y precio, para dejar de pagar comisiones a portales externos y captar consultas directo por WhatsApp.</p>
                         <div class="sector-panel__features">
-                            <div class="sector-panel__feature"><strong>Filtros dinámicos</strong><span>Búsqueda instantánea por ambientes, barrio y valores.</span></div>
-                            <div class="sector-panel__feature"><strong>Ficha de consulta</strong><span>WhatsApp prellenado con el código exacto de la propiedad.</span></div>
+                            <div class="sector-panel__feature" data-i18n="sectors.inmobiliaria.f1"><strong>Filtros dinámicos</strong><span>Búsqueda instantánea por ambientes, barrio y valores.</span></div>
+                            <div class="sector-panel__feature" data-i18n="sectors.inmobiliaria.f2"><strong>Ficha de consulta</strong><span>WhatsApp prellenado con el código exacto de la propiedad.</span></div>
                         </div>
-                        <a class="sector-panel__cta" href="#contacto">Consultar propuesta inmobiliaria →</a>
+                        <a class="sector-panel__cta" href="#contacto" data-i18n="sectors.inmobiliaria.cta">Consultar propuesta inmobiliaria →</a>
                     </div>
                     <div class="sector-panel__visual">
                         <img src="inmobilaria.jpg" alt="Interior de una propiedad moderna con vista a la ciudad" loading="lazy" />
@@ -1357,15 +1383,15 @@
                     <div>
                         <p class="sector-panel__eyebrow">
                             <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M7 3v7a2 2 0 0 0 2 2v9M7 3v7M9 3v7M11 3v7"/><path d="M17 3c-2 0-3 2-3 5v4h3v9M17 3v16"/></svg>
-                            Gastronomía
+                            <span data-i18n="sectors.gastronomia.eyebrow">Gastronomía</span>
                         </p>
-                        <h3>Carta digital y pedidos sin comisiones de apps</h3>
-                        <p class="sector-panel__text">Cartas digitales con acceso por QR, reservas de mesa y pedidos directos por WhatsApp, sin las comisiones de las apps de delivery.</p>
+                        <h3 data-i18n="sectors.gastronomia.title">Carta digital y pedidos sin comisiones de apps</h3>
+                        <p class="sector-panel__text" data-i18n="sectors.gastronomia.text">Cartas digitales con acceso por QR, reservas de mesa y pedidos directos por WhatsApp, sin las comisiones de las apps de delivery.</p>
                         <div class="sector-panel__features">
-                            <div class="sector-panel__feature"><strong>Menú QR liviano</strong><span>Carga en segundos, sin descargar PDFs pesados.</span></div>
-                            <div class="sector-panel__feature"><strong>Pedidos por WhatsApp</strong><span>El pedido llega formateado directo a cocina.</span></div>
+                            <div class="sector-panel__feature" data-i18n="sectors.gastronomia.f1"><strong>Menú QR liviano</strong><span>Carga en segundos, sin descargar PDFs pesados.</span></div>
+                            <div class="sector-panel__feature" data-i18n="sectors.gastronomia.f2"><strong>Pedidos por WhatsApp</strong><span>El pedido llega formateado directo a cocina.</span></div>
                         </div>
-                        <a class="sector-panel__cta" href="#contacto">Consultar propuesta para gastronomía →</a>
+                        <a class="sector-panel__cta" href="#contacto" data-i18n="sectors.gastronomia.cta">Consultar propuesta para gastronomía →</a>
                     </div>
                     <div class="sector-panel__visual">
                         <img src="gastronomia.jpeg" alt="Salón de un restaurante moderno" loading="lazy" />
@@ -1378,9 +1404,9 @@
     <!-- ===== PROYECTOS ===== -->
     <section class="section projects" id="proyectos" data-od-id="projects">
         <div class="section-head" data-od-id="projects-head">
-            <p class="label">Portafolio</p>
-            <h2 data-od-id="projects-title">Proyectos</h2>
-            <p>Desde aplicaciones web hasta soluciones empresariales.</p>
+            <p class="label" data-i18n="projects.label">Portafolio</p>
+            <h2 data-od-id="projects-title" data-i18n="projects.title">Proyectos</h2>
+            <p data-i18n="projects.subtitle">Desde aplicaciones web hasta soluciones empresariales.</p>
         </div>
         
         <!-- Contenedor del carrusel -->
@@ -1620,9 +1646,9 @@
     <!-- ===== SIMULADOR DE PRESUPUESTOS ===== -->
     <section class="section simulator" id="simulador">
         <div class="section-head">
-            <p class="label">Presupuestos</p>
-            <h2>Simulá el costo de tu proyecto</h2>
-            <p>¿Cuánto cuesta una página web? Depende del tipo de proyecto: los precios arrancan desde $100.000 ARS. Seleccioná el tipo de servicio y obtené un presupuesto al instante.</p>
+            <p class="label" data-i18n="sim.label">Presupuestos</p>
+            <h2 data-i18n="sim.title">Simulá el costo de tu proyecto</h2>
+            <p data-i18n="sim.subtitle">¿Cuánto cuesta una página web? Depende del tipo de proyecto: los precios arrancan desde $100.000 ARS. Seleccioná el tipo de servicio y obtené un presupuesto al instante.</p>
         </div>
 
         <div class="simulator__wrapper">
@@ -1630,18 +1656,18 @@
             <div class="simulator__options">
                 <!-- Tipo de servicio -->
                 <div class="sim-group">
-                    <label for="sim-service-type">Tipo de servicio</label>
+                    <label for="sim-service-type" data-i18n="sim.servicetype">Tipo de servicio</label>
                     <select id="sim-service-type">
-                        <option value="programacion">Programación Web (WordPress/Elementor + SEO)</option>
-                        <option value="diseno">Diseño Web (Figma + WordPress/Elementor + SEO)</option>
-                        <option value="plantilla">Implementación sobre Plantilla Premium (Envato)</option>
-                        <option value="apps">Aplicaciones (Móvil / Escritorio)</option>
+                        <option value="programacion" data-i18n="sim.opt.programacion">Programación Web (WordPress/Elementor + SEO)</option>
+                        <option value="diseno" data-i18n="sim.opt.diseno">Diseño Web (Figma + WordPress/Elementor + SEO)</option>
+                        <option value="plantilla" data-i18n="sim.opt.plantilla">Implementación sobre Plantilla Premium (Envato)</option>
+                        <option value="apps" data-i18n="sim.opt.apps">Aplicaciones (Móvil / Escritorio)</option>
                     </select>
                 </div>
 
                 <!-- Tipo de proyecto -->
                 <div class="sim-group">
-                    <label for="sim-project-type">Tipo de proyecto</label>
+                    <label for="sim-project-type" data-i18n="sim.projecttype">Tipo de proyecto</label>
                     <select id="sim-project-type">
                         <!-- Se llena dinámicamente según el servicio seleccionado -->
                     </select>
@@ -1649,12 +1675,12 @@
 
                 <!-- Extras -->
                 <div class="sim-group">
-                    <label>Extras (opcionales)</label>
+                    <label data-i18n="sim.extras.label">Extras (opcionales)</label>
                     <div class="sim-checkboxes">
-                        <label><input type="checkbox" id="sim-extra-seo" value="seo"> Optimización SEO avanzada (+15%)</label>
-                        <label><input type="checkbox" id="sim-extra-analytics" value="analytics"> Google Analytics / Tag Manager (+10%)</label>
-                        <label><input type="checkbox" id="sim-extra-crm" value="crm"> Integración con CRM (+12%)</label>
-                        <label><input type="checkbox" id="sim-extra-mantenimiento" value="mantenimiento"> Mantenimiento 3 meses (+18%)</label>
+                        <label><input type="checkbox" id="sim-extra-seo" value="seo"> <span data-i18n="sim.extra.seo">Optimización SEO avanzada (+15%)</span></label>
+                        <label><input type="checkbox" id="sim-extra-analytics" value="analytics"> <span data-i18n="sim.extra.analytics">Google Analytics / Tag Manager (+10%)</span></label>
+                        <label><input type="checkbox" id="sim-extra-crm" value="crm"> <span data-i18n="sim.extra.crm">Integración con CRM (+12%)</span></label>
+                        <label><input type="checkbox" id="sim-extra-mantenimiento" value="mantenimiento"> <span data-i18n="sim.extra.mantenimiento">Mantenimiento 3 meses (+18%)</span></label>
                     </div>
                 </div>
             </div>
@@ -1662,28 +1688,28 @@
             <!-- Panel derecho: resultado -->
             <div class="simulator__result">
                 <div class="sim-result__header">
-                    <span class="sim-label">Presupuesto estimado</span>
+                    <span class="sim-label" data-i18n="sim.estimated">Presupuesto estimado</span>
                     <span class="sim-price" id="sim-price">$0</span>
                 </div>
 
                 <div class="sim-result__breakdown">
                     <div class="sim-row">
-                        <span class="sim-row__label">Base</span>
+                        <span class="sim-row__label" data-i18n="sim.base">Base</span>
                         <span class="sim-row__value" id="sim-base">$0</span>
                     </div>
                     <div class="sim-row sim-row__extras">
-                        <span class="sim-row__label">Extras</span>
+                        <span class="sim-row__label" data-i18n="sim.extras.row">Extras</span>
                         <span class="sim-row__value" id="sim-extras">$0</span>
                     </div>
                     <div class="sim-row sim-row__total">
-                        <span class="sim-row__label">Total</span>
+                        <span class="sim-row__label" data-i18n="sim.total">Total</span>
                         <span class="sim-row__value" id="sim-total">$0</span>
                     </div>
                 </div>
 
                 <div class="sim-result__actions">
-                    <a href="#contacto" class="cta__primary" id="sim-cta">Solicitar presupuesto</a>
-                    <p class="sim-note">* Los precios son estimativos y pueden variar según requerimientos específicos.</p>
+                    <a href="#contacto" class="cta__primary" id="sim-cta" data-i18n="sim.cta">Solicitar presupuesto</a>
+                    <p class="sim-note" data-i18n="sim.note">* Los precios son estimativos y pueden variar según requerimientos específicos.</p>
                 </div>
             </div>
         </div>
@@ -1692,34 +1718,34 @@
     <!-- ===== FAQ ===== -->
     <section class="section faq" id="faq" data-od-id="faq">
         <div class="section-head" data-od-id="faq-head">
-            <p class="label">Preguntas frecuentes</p>
-            <h2 data-od-id="faq-title">Lo que más me preguntan</h2>
-            <p>Todo lo que necesitás saber antes de pedir tu presupuesto.</p>
+            <p class="label" data-i18n="faq.label">Preguntas frecuentes</p>
+            <h2 data-od-id="faq-title" data-i18n="faq.title">Lo que más me preguntan</h2>
+            <p data-i18n="faq.subtitle">Todo lo que necesitás saber antes de pedir tu presupuesto.</p>
         </div>
         <div class="faq__list" data-od-id="faq-list">
             <details class="faq__item" data-od-id="faq-item-precio">
-                <summary>¿Cuánto cuesta una página web?</summary>
-                <p>Depende del tipo de proyecto. Una landing page arranca desde $100.000 ARS, un sitio web corporativo desde $400.000 ARS, un e-commerce desde $530.000 ARS y una app o sistema interno desde $500.000 ARS. Podés simular tu presupuesto más arriba.</p>
+                <summary data-i18n="faq.precio.q">¿Cuánto cuesta una página web?</summary>
+                <p data-i18n="faq.precio.a">Depende del tipo de proyecto. Una landing page arranca desde $100.000 ARS, un sitio web corporativo desde $400.000 ARS, un e-commerce desde $530.000 ARS y una app o sistema interno desde $500.000 ARS. Podés simular tu presupuesto más arriba.</p>
             </details>
             <details class="faq__item" data-od-id="faq-item-wordpress">
-                <summary>¿Qué me conviene, WordPress o desarrollo a medida?</summary>
-                <p>Depende de tu objetivo. WordPress es una buena opción si necesitás lanzar rápido y con bajo costo inicial. El desarrollo a medida conviene cuando buscás mejor rendimiento, seguridad y una solución 100% adaptada a tu negocio, sin las limitaciones de un plugin o plantilla. Te asesoro para elegir la opción que más te convenga.</p>
+                <summary data-i18n="faq.wordpress.q">¿Qué me conviene, WordPress o desarrollo a medida?</summary>
+                <p data-i18n="faq.wordpress.a">Depende de tu objetivo. WordPress es una buena opción si necesitás lanzar rápido y con bajo costo inicial. El desarrollo a medida conviene cuando buscás mejor rendimiento, seguridad y una solución 100% adaptada a tu negocio, sin las limitaciones de un plugin o plantilla. Te asesoro para elegir la opción que más te convenga.</p>
             </details>
             <details class="faq__item" data-od-id="faq-item-ubicacion">
-                <summary>¿Trabajás solo en Buenos Aires o en toda Argentina?</summary>
-                <p>Estoy radicado en Buenos Aires (Zona Oeste), pero trabajo como programador freelance de forma remota con clientes de toda Argentina.</p>
+                <summary data-i18n="faq.ubicacion.q">¿Trabajás solo en Buenos Aires o en toda Argentina?</summary>
+                <p data-i18n="faq.ubicacion.a">Estoy radicado en Buenos Aires (Zona Oeste), pero trabajo como programador freelance de forma remota con clientes de toda Argentina.</p>
             </details>
             <details class="faq__item" data-od-id="faq-item-tiempos">
-                <summary>¿Cuánto tarda en hacerse una página web?</summary>
-                <p>Una landing page puede estar lista en 1 a 2 semanas. Un sitio web corporativo o un e-commerce suele tomar entre 3 y 6 semanas, según el alcance y los contenidos que se necesiten.</p>
+                <summary data-i18n="faq.tiempos.q">¿Cuánto tarda en hacerse una página web?</summary>
+                <p data-i18n="faq.tiempos.a">Una landing page puede estar lista en 1 a 2 semanas. Un sitio web corporativo o un e-commerce suele tomar entre 3 y 6 semanas, según el alcance y los contenidos que se necesiten.</p>
             </details>
             <details class="faq__item" data-od-id="faq-item-rubros">
-                <summary>¿Hacés páginas web para abogados, médicos, restaurantes, kinesiólogos o inmobiliarias?</summary>
-                <p>Sí, desarrollo sitios web a medida para distintos rubros como estudios jurídicos, consultorios médicos, restaurantes, centros de kinesiología e inmobiliarias, adaptando el diseño y las funcionalidades a cada actividad.</p>
+                <summary data-i18n="faq.rubros.q">¿Hacés páginas web para abogados, médicos, restaurantes, kinesiólogos o inmobiliarias?</summary>
+                <p data-i18n="faq.rubros.a">Sí, desarrollo sitios web a medida para distintos rubros como estudios jurídicos, consultorios médicos, restaurantes, centros de kinesiología e inmobiliarias, adaptando el diseño y las funcionalidades a cada actividad.</p>
             </details>
             <details class="faq__item" data-od-id="faq-item-presupuesto">
-                <summary>¿Cómo pido un presupuesto?</summary>
-                <p>Podés usar el simulador de presupuestos de la web o escribirme por WhatsApp o correo desde la sección de contacto.</p>
+                <summary data-i18n="faq.presupuesto.q">¿Cómo pido un presupuesto?</summary>
+                <p data-i18n="faq.presupuesto.a">Podés usar el simulador de presupuestos de la web o escribirme por WhatsApp o correo desde la sección de contacto.</p>
             </details>
         </div>
     </section>
@@ -1727,39 +1753,39 @@
                 <!-- ===== TESTIMONIOS ===== -->
         <section class="section testimonials" id="testimonios" data-od-id="testimonials">
         <div class="section-head" data-od-id="testimonials-head">
-            <p class="label">Testimonios</p>
-            <h2 data-od-id="testimonials-title">Lo que dicen mis clientes</h2>
-            <p>Trabajos reales con resultados comprobados.</p>
+            <p class="label" data-i18n="testi.label">Testimonios</p>
+            <h2 data-od-id="testimonials-title" data-i18n="testi.title">Lo que dicen mis clientes</h2>
+            <p data-i18n="testi.subtitle">Trabajos reales con resultados comprobados.</p>
         </div>
         <div class="testimonials__grid" data-od-id="testimonials-grid">
             <div class="testimonial-card reveal" data-od-id="testimonial-1">
                 <div class="testimonial__rating" role="img" aria-label="Calificación 5 de 5" data-od-id="testimonial-rating-1">
                     <span aria-hidden="true">★★★★★</span>
                 </div>
-                <p class="testimonial__text">Implementó un sistema para organizar y responder las consultas por mail automáticamente. Ahora no pierdo ningún cliente</p>
+                <p class="testimonial__text" data-i18n="testi.1.text">Implementó un sistema para organizar y responder las consultas por mail automáticamente. Ahora no pierdo ningún cliente</p>
                 <div class="testimonial__author">
                     <span class="testimonial__name">María Fernández</span>
-                    <span class="testimonial__role">CEO, Agencia Marketing</span>
+                    <span class="testimonial__role" data-i18n="testi.1.role">CEO, Agencia Marketing</span>
                 </div>
             </div>
             <div class="testimonial-card reveal" data-od-id="testimonial-2">
                 <div class="testimonial__rating" role="img" aria-label="Calificación 5 de 5" data-od-id="testimonial-rating-2">
                     <span aria-hidden="true">★★★★★</span>
                 </div>
-                <p class="testimonial__text">trabajamos con Germán en la optimización seo de mi web, y logramos mejorar ampliamente el posicionamiento orgánico como le gusta a google.</p>
+                <p class="testimonial__text" data-i18n="testi.2.text">trabajamos con Germán en la optimización seo de mi web, y logramos mejorar ampliamente el posicionamiento orgánico como le gusta a google.</p>
                 <div class="testimonial__author">
                     <span class="testimonial__name">Carlos Mendoza</span>
-                    <span class="testimonial__role">Titular, Marketcorp</span>
+                    <span class="testimonial__role" data-i18n="testi.2.role">Titular, Marketcorp</span>
                 </div>
             </div>
             <div class="testimonial-card reveal" data-od-id="testimonial-3">
                 <div class="testimonial__rating" role="img" aria-label="Calificación 5 de 5" data-od-id="testimonial-rating-3">
                     <span aria-hidden="true">★★★★★</span>
                 </div>
-                <p class="testimonial__text">soy especialista en seguros, y llegué a Germán buscando mejorar mis procesos y eficientizar mi día día. Logró superar mis expectativas ampliamente</p>
+                <p class="testimonial__text" data-i18n="testi.3.text">soy especialista en seguros, y llegué a Germán buscando mejorar mis procesos y eficientizar mi día día. Logró superar mis expectativas ampliamente</p>
                 <div class="testimonial__author">
                     <span class="testimonial__name">Lucía Gómez</span>
-                    <span class="testimonial__role">Productora seguros</span>
+                    <span class="testimonial__role" data-i18n="testi.3.role">Productora seguros</span>
                 </div>
             </div>
         </div>
@@ -1768,14 +1794,14 @@
         <!-- ===== CONTACTO ===== -->
         <section class="section contact" id="contacto" data-od-id="contact">
         <div class="section-head" data-od-id="contact-head">
-            <p class="label">Contacto</p>
-            <h2 data-od-id="contact-title">Comencemos a trabajar hoy</h2>
-            <p>Esperamos tu mensaje</p>
+            <p class="label" data-i18n="contact.label">Contacto</p>
+            <h2 data-od-id="contact-title" data-i18n="contact.title">Comencemos a trabajar hoy</h2>
+            <p data-i18n="contact.subtitle">Esperamos tu mensaje</p>
         </div>
         <div class="contact__wrapper">
             <div class="contact__info" data-od-id="contact-info">
             <h3>Rodríguez Germán</h3>
-            <p class="sub">Desarrollador Web · Apps · E-Commerce</p>
+            <p class="sub" data-i18n="contact.role">Desarrollador Web · Apps · E-Commerce</p>
             <div class="contact-item" data-od-id="contact-mail">
                 <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="M3 7.5l9 6 9-6"/></svg>
                 <a href="mailto:rodriguezg.dev@gmail.com">rodriguezg.dev@gmail.com</a>
@@ -1786,80 +1812,80 @@
             </div>
             <div class="contact-item" data-od-id="contact-agenda">
                 <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3.5" y="5" width="17" height="16" rx="2"/><path d="M3.5 10h17M8 3v4M16 3v4"/></svg>
-                <a href="#contacto">Agendar reunión</a>
+                <a href="#contacto" data-i18n="contact.agenda">Agendar reunión</a>
             </div>
             <div class="location" data-od-id="contact-location">
                 <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 21.5s7-5.5 7-11a7 7 0 1 0-14 0c0 5.5 7 11 7 11z"/><circle cx="12" cy="10.5" r="2.5"/></svg>
                 <span>BA · Zona Oeste</span>
             </div>
-            <p class="contact-area" data-od-id="contact-area">📍 Con base en Buenos Aires (Zona Oeste), Argentina. Trabajo como programador freelance de forma remota con clientes de todo el país.</p>
+            <p class="contact-area" data-od-id="contact-area" data-i18n="contact.area">📍 Con base en Buenos Aires (Zona Oeste), Argentina. Trabajo como programador freelance de forma remota con clientes de todo el país.</p>
             </div>
         <!-- ===== formulario ===== -->
             <form class="contact__form" id="form-contacto" novalidate data-od-id="contact-form">
                 <div class="form-row">
                 <div class="form-group">
-                    <label for="nombre">Nombre</label>
-                    <input type="text" id="nombre" name="nombre" placeholder="Tu nombre" required />
-                    <p class="field-error">Este campo es obligatorio.</p>
+                    <label for="nombre" data-i18n="form.nombre">Nombre</label>
+                    <input type="text" id="nombre" name="nombre" placeholder="Tu nombre" data-i18n-placeholder="form.nombre.ph" required />
+                    <p class="field-error" data-i18n="form.nombre.error">Este campo es obligatorio.</p>
                 </div>
                 <div class="form-group">
-                    <label for="correo">Correo</label>
+                    <label for="correo" data-i18n="form.correo">Correo</label>
                     <input type="email" id="correo" name="email" placeholder="tu@correo.com" required />
-                    <p class="field-error">Ingresá un correo válido.</p>
+                    <p class="field-error" data-i18n="form.correo.error">Ingresá un correo válido.</p>
                 </div>
             </div>
             <div class="form-group">
-                <label for="servicio">¿Qué necesitás?</label>
+                <label for="servicio" data-i18n="form.servicio">¿Qué necesitás?</label>
                 <select id="servicio" name="servicio">
-                    <option value="">Seleccioná una opción</option>
-                    <option value="software">Software a medida</option>
-                    <option value="web">Página web</option>
+                    <option value="" data-i18n="form.servicio.select">Seleccioná una opción</option>
+                    <option value="software" data-i18n="form.servicio.software">Software a medida</option>
+                    <option value="web" data-i18n="form.servicio.web">Página web</option>
                     <option value="ecommerce">E-commerce</option>
-                    <option value="otro">Otro</option>
+                    <option value="otro" data-i18n="form.servicio.otro">Otro</option>
                 </select>
             </div>
             <div class="form-row">
                 <div class="form-group">
-                    <label for="empresa">Empresa <span class="optional">(opcional)</span></label>
-                    <input type="text" id="empresa" name="empresa" placeholder="Nombre de tu empresa" />
+                    <label for="empresa" data-i18n="form.empresa">Empresa <span class="optional">(opcional)</span></label>
+                    <input type="text" id="empresa" name="empresa" placeholder="Nombre de tu empresa" data-i18n-placeholder="form.empresa.ph" />
                 </div>
                 <div class="form-group">
-                    <label for="whatsapp">WhatsApp / Teléfono</label>
+                    <label for="whatsapp" data-i18n="form.whatsapp">WhatsApp / Teléfono</label>
                     <input type="tel" id="whatsapp" name="whatsapp" placeholder="+54 11 5555 5555" />
                 </div>
             </div>
             <div class="form-group">
-                <label>¿Cómo te contactamos?</label>
+                <label data-i18n="form.comocontacto">¿Cómo te contactamos?</label>
                 <div class="checkbox-group">
-                    <label><input type="checkbox" name="contacto" value="correo" /> Correo</label>
+                    <label><input type="checkbox" name="contacto" value="correo" /> <span data-i18n="form.correo.label">Correo</span></label>
                     <label><input type="checkbox" name="contacto" value="whatsapp" /> WhatsApp</label>
-                    <label><input type="checkbox" name="contacto" value="llamada" /> Llamada</label>
+                    <label><input type="checkbox" name="contacto" value="llamada" /> <span data-i18n="form.llamada">Llamada</span></label>
                 </div>
             </div>
             <div class="form-group">
-                <label for="mensaje">Mensaje <span class="optional">(opcional)</span></label>
-                <textarea id="mensaje" name="mensaje" placeholder="Contanos un poco sobre tu proyecto..."></textarea>
+                <label for="mensaje" data-i18n="form.mensaje">Mensaje <span class="optional">(opcional)</span></label>
+                <textarea id="mensaje" name="mensaje" placeholder="Contanos un poco sobre tu proyecto..." data-i18n-placeholder="form.mensaje.ph"></textarea>
             </div>
 
             <!-- ===== BOTONES ===== -->
             <div class="form-actions">
-                <button type="submit" id="btn-gmail">
+                <button type="submit" id="btn-gmail" data-i18n="form.enviar">
                     ➤ Enviar
                 </button>
             </div>
 
-            <p class="form-success" id="form-success">¡Gracias! Tu mensaje se envió correctamente.</p>
+            <p class="form-success" id="form-success" data-i18n="form.success">¡Gracias! Tu mensaje se envió correctamente.</p>
             </form>
                 </section>
 
         <!-- ===== FOOTER ===== -->
         <footer class="footer" data-od-id="footer">
-        <span>© 2026 Rodríguez Germán · <span style="color: var(--accent);">Web Designer & Developer</span> · Actualizado Septiembre 2026</span>
-        
+        <span>© 2026 Rodríguez Germán · <span style="color: var(--accent);">Web Designer & Developer</span> · <span data-i18n="footer.updated">Actualizado Septiembre 2026</span></span>
+
         <div class="footer__socials" data-od-id="footer-socials">
             <!-- Enlaces de texto -->
-            <a href="#contacto" class="footer-link">Contacto</a>
-            <a href="privacidad.html" class="footer-link">Aviso legal y privacidad</a>
+            <a href="#contacto" class="footer-link" data-i18n="nav.contacto">Contacto</a>
+            <a href="privacidad.html" class="footer-link" data-i18n="footer.legal">Aviso legal y privacidad</a>
             
             <!-- LinkedIn -->
             <a href="https://www.linkedin.com/in/german-rodriguez-al/" target="_blank" rel="noopener noreferrer" class="footer-icon" aria-label="LinkedIn">
@@ -2467,13 +2493,43 @@
                     'web-institucional-plantilla': 'Web institucional sobre plantilla',
                     'web-woocommerce-plantilla': 'Web institucional + WooCommerce sobre plantilla'
                 },
-                // 👇 AGREGADO: Nombres para Apps con el precio "Desde" 👇
+                // 👇 AGREGADO: Nombres para Apps 👇
                 apps: {
-                    'movil-basico': 'App Móvil (Catálogo) - Desde $500.000',
-                    'movil-database': 'App Móvil (Login / Base de Datos) - Desde $1.200.000',
-                    'movil-compleja': 'App Móvil Premium (Pagos / GPS) - Desde $2.500.000',
-                    'escritorio-basico': 'App Escritorio (Gestión básica) - Desde $600.000',
-                    'escritorio-profesional': 'App Escritorio Profesional - Desde $1.500.000'
+                    'movil-basico': 'App Móvil (Catálogo)',
+                    'movil-database': 'App Móvil (Login / Base de Datos)',
+                    'movil-compleja': 'App Móvil Premium (Pagos / GPS)',
+                    'escritorio-basico': 'App Escritorio (Gestión básica)',
+                    'escritorio-profesional': 'App Escritorio Profesional'
+                }
+            };
+
+            const PROJECT_NAMES_EN = {
+                programacion: {
+                    'landing-replica': 'Landing page replica (based on existing site)',
+                    'landing-nueva': 'New landing page',
+                    'one-page': 'One Page',
+                    'web-institucional': 'Institutional website (up to 6 subpages + Home + Contact)',
+                    'web-woocommerce': 'Institutional website + WooCommerce'
+                },
+                diseno: {
+                    'landing-replica': 'Landing page replica',
+                    'landing-nueva': 'New landing page',
+                    'one-page-funnel': 'One Page funnel-style (5 blocks)',
+                    'web-institucional': 'Institutional website (up to 6 subpages + Home + Contact)',
+                    'web-compleja': 'Complex website (Store + Payment gateway + Custom features)'
+                },
+                plantilla: {
+                    'landing-plantilla': 'Landing page on template',
+                    'one-page-plantilla': 'One Page on template',
+                    'web-institucional-plantilla': 'Institutional website on template',
+                    'web-woocommerce-plantilla': 'Institutional website + WooCommerce on template'
+                },
+                apps: {
+                    'movil-basico': 'Mobile App (Catalog)',
+                    'movil-database': 'Mobile App (Login / Database)',
+                    'movil-compleja': 'Premium Mobile App (Payments / GPS)',
+                    'escritorio-basico': 'Desktop App (Basic management)',
+                    'escritorio-profesional': 'Professional Desktop App'
                 }
             };
 
@@ -2491,28 +2547,45 @@
                 mantenimiento: 'Mantenimiento 3 meses'
             };
 
+            const EXTRA_NAMES_EN = {
+                seo: 'Advanced SEO optimization',
+                analytics: 'Google Analytics / Tag Manager',
+                crm: 'CRM integration',
+                mantenimiento: '3-month maintenance'
+            };
+
             let currentTotal = 0;
             let currentProjectName = '';
 
+            function currentLang() {
+                return document.documentElement.lang === 'en' ? 'en' : 'es';
+            }
+
             function formatPrice(value) {
+                if (currentLang() === 'en') {
+                    var usd = Math.round((value / 1500) / 10) * 10;
+                    return '$' + usd.toLocaleString('en-US') + ' USD';
+                }
                 return '$' + value.toLocaleString('es-AR');
             }
 
             function updateProjectOptions() {
                 const service = serviceType.value;
                 const projects = PRICES[service];
-                const names = PROJECT_NAMES[service];
+                const names = currentLang() === 'en' ? PROJECT_NAMES_EN[service] : PROJECT_NAMES[service];
 
                 projectType.innerHTML = '';
                 Object.keys(projects).forEach(key => {
                     const option = document.createElement('option');
                     option.value = key;
-                    option.textContent = names[key];
+                    option.textContent = names[key] + ' — ' + (currentLang() === 'en' ? 'From ' : 'Desde ') + formatPrice(projects[key]);
                     projectType.appendChild(option);
                 });
 
                 updatePrice();
             }
+
+            window.addEventListener('siteLangChange', updateProjectOptions);
 
             function updatePrice() {
                 const service = serviceType.value;
@@ -2530,7 +2603,7 @@
                         const percent = EXTRA_PERCENTS[cb.value] || 0;
                         const extra = Math.round(basePrice * percent);
                         extraTotal += extra;
-                        extrasList.push(EXTRA_NAMES[cb.value]);
+                        extrasList.push((currentLang() === 'en' ? EXTRA_NAMES_EN : EXTRA_NAMES)[cb.value]);
                     }
                 });
 
@@ -2632,23 +2705,23 @@
                     </div>
                     <div style="text-align: center;">
                         <p style="font-family: var(--font-display); font-size: 14px; font-weight: 600; color: var(--fg); margin: 0;">Germán Rodríguez</p>
-                        <p style="font-size: 12px; color: var(--muted); margin: 2px 0 0;">Desarrollador Backend · Docente</p>
+                        <p style="font-size: 12px; color: var(--muted); margin: 2px 0 0;" data-i18n="cv.role.short">Desarrollador Backend · Docente</p>
                     </div>
                 </div>
 
                 <!-- ===== COLUMNA DERECHA: TEXTO ===== -->
                 <div style="flex: 1; min-width: 0;">
-                    <p class="modal-subtitle" style="margin-bottom: 16px;">Desarrollador Backend · Analista de Sistemas · Docente</p>
-                    
-                    <p class="modal-text" style="font-size: 14px; line-height: 1.7;">
+                    <p class="modal-subtitle" style="margin-bottom: 16px;" data-i18n="cv.role.full">Desarrollador Backend · Analista de Sistemas · Docente</p>
+
+                    <p class="modal-text" style="font-size: 14px; line-height: 1.7;" data-i18n="cv.p1">
                         Soy desarrollador backend, vivo en Buenos Aires, especializado en automatizar procesos y optimizar infraestructura IT. Trabajo principalmente con Python y bases de datos para construir herramientas estables, modulares y pensadas para durar.
                     </p>
-                    
-                    <p class="modal-text" style="font-size: 14px; line-height: 1.7;">
+
+                    <p class="modal-text" style="font-size: 14px; line-height: 1.7;" data-i18n="cv.p2">
                         Mi combo es un poco particular: vengo del mundo de la docencia en informática, y hoy en día combino esa experiencia con un presente enfocado en programación y diseño web. Esa mezcla me da una ventaja clave a la hora de traducir necesidades reales en soluciones tecnológicas concretas. No programo por programar, entiendo el problema antes de escribir la primera línea de código.
                     </p>
-                    
-                    <p class="modal-text" style="font-size: 14px; line-height: 1.7;">
+
+                    <p class="modal-text" style="font-size: 14px; line-height: 1.7;" data-i18n="cv.p3">
                         Trabajo con un stack que incluye <strong>Python, PHP y HTML/CSS</strong> para desarrollo backend y web. Tengo experiencia en apps móviles (Android/Flutter), visión computacional con Python, también en infraestructura y redes (Ubuntu, MikroTik, Cisco), lo que me permite abordar proyectos de principio a fin.
                     </p>
 
@@ -2657,17 +2730,17 @@
                         <span class="skill-tag">📱 Flutter / Android</span>
                         <span class="skill-tag">🌐 Web Full Stack</span>
                         <span class="skill-tag">👁️ OpenCV / MediaPipe</span>
-                        <span class="skill-tag">🖥️ Redes / Infraestructura</span>
-                        <span class="skill-tag">🗄️ Bases de Datos</span>
+                        <span class="skill-tag" data-i18n="cv.skill.redes">🖥️ Redes / Infraestructura</span>
+                        <span class="skill-tag" data-i18n="cv.skill.bd">🗄️ Bases de Datos</span>
                         <span class="skill-tag">🐘 PHP</span>
-                        <span class="skill-tag">📊 Gestión de Proyectos</span>
+                        <span class="skill-tag" data-i18n="cv.skill.gestion">📊 Gestión de Proyectos</span>
                     </div>
 
                     <div class="modal-actions">
-                        <a href="cv-german-rodriguez.pdf" download class="modal-download" target="_blank">
+                        <a href="cv-german-rodriguez.pdf" download class="modal-download" target="_blank" data-i18n="cv.download">
                             ⬇️ Descargar CV (PDF)
                         </a>
-                        <a href="#contacto" class="modal-contact" id="modal-contact-btn">
+                        <a href="#contacto" class="modal-contact" id="modal-contact-btn" data-i18n="cv.contact">
                             ✉️ Contactar
                         </a>
                     </div>
@@ -3465,6 +3538,284 @@ aria-label="Contactar por WhatsApp">
 
 
     
+    <!-- ===== TOGGLE DE IDIOMA / MONEDA (ES-ARS / EN-USD) ===== -->
+    <script>
+    (function () {
+        'use strict';
+
+        var I18N_EN = {
+            "nav.inicio": "Home",
+            "nav.servicios": "Services",
+            "nav.proyectos": "Projects",
+            "nav.simulador": "Pricing",
+            "nav.testimonios": "Testimonials",
+            "nav.contacto": "Contact",
+            "nav.quiensoy": "About me",
+
+            "hero.eyebrow": "Freelance Web Developer · Buenos Aires, Argentina",
+            "hero.title": 'Germán <span class="hero-h1-sub">— Custom web development, remote from Argentina</span>',
+            "hero.lead": "Landing Page · Corporate Website · E-Commerce · Apps.",
+            "hero.cta.quiensoy": "About me",
+            "hero.cta.servicios": "See services",
+            "hero.cta.proyecto": "Tell me about your project",
+
+            "trust.track.label": "Track record",
+            "trust.track.desc": "Delivered successfully",
+            "trust.arch.label": "Architecture",
+            "trust.arch.desc": "Custom-built, no lock-in",
+            "trust.perf.label": "Lighthouse Performance",
+            "trust.seo.label": "Technical SEO",
+            "trust.source": "Source: Google PageSpeed",
+            "trust.measured": "Measured on",
+            "trust.report": "current report",
+
+            "services.label": "What I do",
+            "services.title": "Custom solutions for your business",
+            "services.subtitle": "A personalized approach with real results.",
+            "services.agencybadge": '<span class="agency-badge__dot"></span>Are you an agency looking for a technical partner? See solutions ↓',
+            "services.mostchosen": "Most popular",
+            "services.landing.title": "Landing Page",
+            "services.landing.desc": "A single page built to convert. Ideal for specific campaigns, launches, or professionals who need a direct digital point of contact.",
+            "services.landing.list": "<li>Focused on a single visitor action</li><li>Lightweight, fast mobile loading</li><li>Form integrated with your CRM or email</li><li>Ready to plug into Ads campaigns</li>",
+            "services.landing.badge": "Conversion",
+            "services.corp.title": "Corporate Website",
+            "services.corp.desc": "Your complete digital identity. Ideal for companies that need a professional presence, to showcase their team and services, and build trust.",
+            "services.corp.list": "<li>Brand design and user experience</li><li>Multi-page structure (about, services, blog)</li><li>Optimized for SEO and speed</li><li>Simple admin panel</li>",
+            "services.corp.badge": "Professional presence",
+            "services.ecommerce.title": "E-Commerce",
+            "services.ecommerce.desc": "Your online store, ready to sell. From the shopping experience to checkout, everything optimized to turn visitors into customers.",
+            "services.ecommerce.list": "<li>Product catalog with filters</li><li>Shopping cart and payment gateway</li><li>Inventory and order management</li><li>Fast, responsive design</li>",
+            "services.ecommerce.badge": "Online sales",
+            "services.apps.title": "Apps & Internal Systems",
+            "services.apps.desc": "Digital tools to optimize your operation. From dashboards to custom workflows.",
+            "services.apps.list": "<li>Real-time dashboards and reports</li><li>Internal process automation</li><li>User and role management</li><li>Integration with your existing tools</li>",
+            "services.apps.badge": "Operational efficiency",
+
+            "price.landing": 'From <span>$70 USD</span>',
+            "price.corp": 'From <span>$270 USD</span>',
+            "price.ecommerce": 'From <span>$350 USD</span>',
+            "price.apps": 'From <span>$330 USD</span>',
+
+            "sectors.label": "Industry specialization",
+            "sectors.title": "Architecture tailored to your business model",
+            "sectors.text": "I don't use generic templates: every industry needs a different structure and contact flow. Pick yours.",
+            "sectors.tab.agencias": "Agencies",
+            "sectors.tab.legal": "Lawyers",
+            "sectors.tab.medico": "Doctors",
+            "sectors.tab.inmobiliaria": "Real Estate",
+            "sectors.tab.gastronomia": "Restaurants",
+
+            "sectors.agencias.eyebrow": "Agencies & partners",
+            "sectors.agencias.title": "Web Development · Agencies · Brands",
+            "sectors.agencias.text": "I take on the web development and layout for your clients, so you can focus on selling and positioning.",
+            "sectors.agencias.f1": "<strong>White-label partner</strong><span>I build under your agency's own brand. Your clients get a fast, professional website without knowing you subcontracted the technical side.</span>",
+            "sectors.agencias.f2": "<strong>Flexible stack & prototyping</strong><span>You give me the design or the business idea, and I turn it into a functional, optimized website ready to handle traffic from your campaigns.</span>",
+            "sectors.agencias.f3": "<strong>Technical skills</strong><span>I handle the code, API integrations, and load speed so you don't have to deal with bugs or late deliveries.</span>",
+            "sectors.agencias.cta": "Book a call for partners →",
+
+            "sectors.legal.eyebrow": "Legal practice",
+            "sectors.legal.title": "Institutional authority and qualified lead capture",
+            "sectors.legal.text": "Websites for law firms and expert witnesses that project professional credibility from the first second, with forms that filter inquiries before they reach your desk.",
+            "sectors.legal.f1": "<strong>Case filtering</strong><span>Guided forms to qualify inquiries before the first meeting.</span>",
+            "sectors.legal.f2": "<strong>Synced calendar</strong><span>Online consultation booking connected to your calendar.</span>",
+            "sectors.legal.cta": "Request a proposal for law firms →",
+
+            "sectors.medico.eyebrow": "Healthcare & clinics",
+            "sectors.medico.title": "Digital scheduling and clear insurance coverage",
+            "sectors.medico.text": "Portals for clinics and health centers where patients see accepted insurance plans and book appointments without calling.",
+            "sectors.medico.f1": "<strong>24/7 booking</strong><span>Online appointment booking with automatic confirmation.</span>",
+            "sectors.medico.f2": "<strong>Insurance plans</strong><span>Clear listing of accepted coverage by specialty.</span>",
+            "sectors.medico.cta": "Request a proposal for health centers →",
+
+            "sectors.inmobiliaria.eyebrow": "Real estate",
+            "sectors.inmobiliaria.title": "Property search without relying on third-party listing sites",
+            "sectors.inmobiliaria.text": "Your own catalog with filters by area, property type, and price, so you stop paying commissions to external listing sites and capture inquiries directly on WhatsApp.",
+            "sectors.inmobiliaria.f1": "<strong>Dynamic filters</strong><span>Instant search by rooms, neighborhood, and price.</span>",
+            "sectors.inmobiliaria.f2": "<strong>Inquiry card</strong><span>Pre-filled WhatsApp message with the property's exact listing code.</span>",
+            "sectors.inmobiliaria.cta": "Request a real estate proposal →",
+
+            "sectors.gastronomia.eyebrow": "Food & restaurants",
+            "sectors.gastronomia.title": "Digital menu and commission-free ordering",
+            "sectors.gastronomia.text": "Digital menus with QR access, table reservations, and direct WhatsApp orders, without delivery-app commissions.",
+            "sectors.gastronomia.f1": "<strong>Lightweight QR menu</strong><span>Loads in seconds, no heavy PDF downloads.</span>",
+            "sectors.gastronomia.f2": "<strong>WhatsApp orders</strong><span>The order arrives formatted straight to the kitchen.</span>",
+            "sectors.gastronomia.cta": "Request a proposal for restaurants →",
+
+            "projects.label": "Portfolio",
+            "projects.title": "Projects",
+            "projects.subtitle": "From web applications to enterprise solutions.",
+
+            "sim.label": "Pricing",
+            "sim.title": "Estimate the cost of your project",
+            "sim.subtitle": "How much does a website cost? It depends on the project type: prices start from $70 USD. Select the service type and get an instant estimate.",
+            "sim.servicetype": "Service type",
+            "sim.opt.programacion": "Web Programming (WordPress/Elementor + SEO)",
+            "sim.opt.diseno": "Web Design (Figma + WordPress/Elementor + SEO)",
+            "sim.opt.plantilla": "Premium Template Implementation (Envato)",
+            "sim.opt.apps": "Applications (Mobile / Desktop)",
+            "sim.projecttype": "Project type",
+            "sim.extras.label": "Extras (optional)",
+            "sim.extra.seo": "Advanced SEO optimization (+15%)",
+            "sim.extra.analytics": "Google Analytics / Tag Manager (+10%)",
+            "sim.extra.crm": "CRM integration (+12%)",
+            "sim.extra.mantenimiento": "3-month maintenance (+18%)",
+            "sim.estimated": "Estimated budget",
+            "sim.base": "Base",
+            "sim.extras.row": "Extras",
+            "sim.total": "Total",
+            "sim.cta": "Request a quote",
+            "sim.note": "* Prices are estimates and may vary depending on specific requirements.",
+
+            "faq.label": "FAQ",
+            "faq.title": "What people ask me most",
+            "faq.subtitle": "Everything you need to know before requesting your quote.",
+            "faq.precio.q": "How much does a website cost?",
+            "faq.precio.a": "It depends on the project type. A landing page starts from $70 USD, a corporate website from $270 USD, an e-commerce store from $350 USD, and an app or internal system from $330 USD. You can run the simulator above.",
+            "faq.wordpress.q": "What's better for me, WordPress or custom development?",
+            "faq.wordpress.a": "It depends on your goal. WordPress is a good option if you need to launch quickly with a low upfront cost. Custom development is better when you're looking for better performance, security, and a solution 100% tailored to your business, without the limitations of a plugin or template. I'll help you choose the option that fits you best.",
+            "faq.ubicacion.q": "Do you only work with clients in Argentina?",
+            "faq.ubicacion.a": "I'm based in Buenos Aires, Argentina, and I work remotely with clients across Argentina and abroad, including the US.",
+            "faq.tiempos.q": "How long does it take to build a website?",
+            "faq.tiempos.a": "A landing page can be ready in 1 to 2 weeks. A corporate website or e-commerce store usually takes between 3 and 6 weeks, depending on scope and content needed.",
+            "faq.rubros.q": "Do you build websites for lawyers, doctors, restaurants, or real estate agencies?",
+            "faq.rubros.a": "Yes, I develop custom websites for different industries such as law firms, medical practices, restaurants, and real estate agencies, adapting the design and functionality to each business.",
+            "faq.presupuesto.q": "How do I request a quote?",
+            "faq.presupuesto.a": "You can use the pricing simulator on the site, or reach out via WhatsApp or email in the contact section.",
+
+            "testi.label": "Testimonials",
+            "testi.title": "What my clients say",
+            "testi.subtitle": "Real work with proven results.",
+            "testi.1.text": "He built a system to organize and automatically respond to email inquiries. Now I don't lose a single client.",
+            "testi.1.role": "CEO, Marketing Agency",
+            "testi.2.text": "We worked with Germán on the SEO optimization of my website, and significantly improved organic rankings, just the way Google likes it.",
+            "testi.2.role": "Owner, Marketcorp",
+            "testi.3.text": "I specialize in insurance, and I came to Germán looking to improve my processes and be more efficient day to day. He exceeded my expectations by far.",
+            "testi.3.role": "Insurance Agent",
+
+            "contact.label": "Contact",
+            "contact.title": "Let's start working today",
+            "contact.subtitle": "Looking forward to your message",
+            "contact.role": "Web Developer · Apps · E-Commerce",
+            "contact.agenda": "Book a meeting",
+            "contact.area": "📍 Based in Buenos Aires, Argentina. I work as a freelance developer remotely with clients across the country and abroad.",
+
+            "form.nombre": "Name",
+            "form.nombre.ph": "Your name",
+            "form.nombre.error": "This field is required.",
+            "form.correo": "Email",
+            "form.correo.error": "Enter a valid email.",
+            "form.servicio": "What do you need?",
+            "form.servicio.select": "Select an option",
+            "form.servicio.software": "Custom software",
+            "form.servicio.web": "Website",
+            "form.servicio.otro": "Other",
+            "form.empresa": 'Company <span class="optional">(optional)</span>',
+            "form.empresa.ph": "Your company name",
+            "form.whatsapp": "WhatsApp / Phone",
+            "form.comocontacto": "How should I contact you?",
+            "form.correo.label": "Email",
+            "form.llamada": "Call",
+            "form.mensaje": 'Message <span class="optional">(optional)</span>',
+            "form.mensaje.ph": "Tell me a bit about your project...",
+            "form.enviar": "➤ Send",
+            "form.success": "Thanks! Your message was sent successfully.",
+
+            "footer.updated": "Updated September 2026",
+            "footer.legal": "Legal notice & privacy",
+
+            "cookie.text": "I use my own and third-party cookies to improve your browsing experience. By accepting, you consent to the use of cookies according to my <a href='privacidad.html' class='cookie-link'>Privacy Policy</a>.",
+            "cookie.accept": "Accept",
+            "cookie.reject": "Reject",
+
+            "cv.role.short": "Backend Developer · Educator",
+            "cv.role.full": "Backend Developer · Systems Analyst · Educator",
+            "cv.p1": "I'm a backend developer based in Buenos Aires, specialized in automating processes and optimizing IT infrastructure. I work mainly with Python and databases to build stable, modular tools built to last.",
+            "cv.p2": "My background is a bit unusual: I come from a teaching background in computer science, and today I combine that experience with a focus on programming and web design. That mix gives me a key edge when it comes to translating real needs into concrete tech solutions. I don't code just to code — I understand the problem before writing the first line.",
+            "cv.p3": "I work with a stack that includes <strong>Python, PHP, and HTML/CSS</strong> for backend and web development. I have experience with mobile apps (Android/Flutter), computer vision with Python, and also networking/infrastructure (Ubuntu, MikroTik, Cisco), which lets me handle projects end to end.",
+            "cv.skill.redes": "🖥️ Networking / Infrastructure",
+            "cv.skill.bd": "🗄️ Databases",
+            "cv.skill.gestion": "📊 Project Management",
+            "cv.download": "⬇️ Download Resume (PDF)",
+            "cv.contact": "✉️ Contact"
+        };
+
+        var esCache = new Map();
+        var esPlaceholderCache = new Map();
+
+        document.querySelectorAll('[data-i18n]').forEach(function (el) {
+            esCache.set(el, el.innerHTML);
+        });
+        document.querySelectorAll('[data-i18n-placeholder]').forEach(function (el) {
+            esPlaceholderCache.set(el, el.getAttribute('placeholder'));
+        });
+
+        var toggleBtn = document.getElementById('lang-toggle');
+        var flagEl = document.getElementById('lang-toggle-flag');
+        var labelEl = document.getElementById('lang-toggle-label');
+
+        var TITLE_ES = document.title;
+        var TITLE_EN = "Germán Rodríguez — Custom Web Development, Remote from Argentina";
+        var DESC_ES = null;
+        var DESC_EN = "Freelance web developer based in Argentina, working remotely with clients in the US. Landing pages, corporate websites, e-commerce and custom apps.";
+        var metaDesc = document.querySelector('meta[name="description"]');
+        if (metaDesc) DESC_ES = metaDesc.getAttribute('content');
+
+        function applyLang(lang) {
+            document.documentElement.lang = lang === 'en' ? 'en' : 'es';
+
+            document.querySelectorAll('[data-i18n]').forEach(function (el) {
+                var key = el.getAttribute('data-i18n');
+                if (lang === 'en' && I18N_EN[key] !== undefined) {
+                    el.innerHTML = I18N_EN[key];
+                } else {
+                    el.innerHTML = esCache.get(el);
+                }
+            });
+
+            document.querySelectorAll('[data-i18n-placeholder]').forEach(function (el) {
+                var key = el.getAttribute('data-i18n-placeholder');
+                if (lang === 'en' && I18N_EN[key] !== undefined) {
+                    el.setAttribute('placeholder', I18N_EN[key]);
+                } else {
+                    el.setAttribute('placeholder', esPlaceholderCache.get(el));
+                }
+            });
+
+            document.querySelectorAll('[data-count-to]').forEach(function (el) {
+                var val = el.getAttribute('data-count-to');
+                var suffix = (lang === 'en' && el.getAttribute('data-suffix-en'))
+                    ? el.getAttribute('data-suffix-en')
+                    : el.getAttribute('data-suffix') || '';
+                el.textContent = val + suffix;
+            });
+
+            if (flagEl && labelEl) {
+                flagEl.textContent = lang === 'en' ? '🇺🇸' : '🇦🇷';
+                labelEl.textContent = lang === 'en' ? 'EN' : 'ES';
+            }
+            if (toggleBtn) {
+                toggleBtn.setAttribute('aria-label', lang === 'en' ? 'Switch to Spanish / Argentina' : 'Cambiar a inglés / EEUU');
+            }
+
+            document.title = lang === 'en' ? TITLE_EN : TITLE_ES;
+            if (metaDesc) metaDesc.setAttribute('content', lang === 'en' ? DESC_EN : DESC_ES);
+
+            window.dispatchEvent(new CustomEvent('siteLangChange', { detail: { lang: lang } }));
+        }
+
+        var savedLang = localStorage.getItem('siteLang') || 'es';
+        applyLang(savedLang);
+
+        if (toggleBtn) {
+            toggleBtn.addEventListener('click', function () {
+                var next = document.documentElement.lang === 'en' ? 'es' : 'en';
+                localStorage.setItem('siteLang', next);
+                applyLang(next);
+            });
+        }
+    })();
+    </script>
+
     <!-- Toda la lógica de interacción (formulario, simulador, y modales de
          "quién soy" / proyectos / video, antes triplicada acá) vive ahora
          en javascript.js, sección 4. -->
