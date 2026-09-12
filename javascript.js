@@ -75,11 +75,41 @@ document.addEventListener('DOMContentLoaded', function() {
                 'web-woocommerce-plantilla': 'Web institucional + WooCommerce sobre plantilla'
             },
             apps: {
-                'movil-basico': 'App Móvil (Catálogo) - Desde $500.000',
-                'movil-database': 'App Móvil (Login / Base de Datos) - Desde $1.200.000',
-                'movil-compleja': 'App Móvil Premium (Pagos / GPS) - Desde $2.500.000',
-                'escritorio-basico': 'App Escritorio (Gestión básica) - Desde $600.000',
-                'escritorio-profesional': 'App Escritorio Profesional - Desde $1.500.000'
+                'movil-basico': 'App Móvil (Catálogo)',
+                'movil-database': 'App Móvil (Login / Base de Datos)',
+                'movil-compleja': 'App Móvil Premium (Pagos / GPS)',
+                'escritorio-basico': 'App Escritorio (Gestión básica)',
+                'escritorio-profesional': 'App Escritorio Profesional'
+            }
+        };
+
+        const PROJECT_NAMES_EN = {
+            programacion: {
+                'landing-replica': 'Landing page replica (based on existing site)',
+                'landing-nueva': 'New landing page',
+                'one-page': 'One Page',
+                'web-institucional': 'Institutional website (up to 6 subpages + Home + Contact)',
+                'web-woocommerce': 'Institutional website + WooCommerce'
+            },
+            diseno: {
+                'landing-replica': 'Landing page replica',
+                'landing-nueva': 'New landing page',
+                'one-page-funnel': 'One Page funnel-style (5 blocks)',
+                'web-institucional': 'Institutional website (up to 6 subpages + Home + Contact)',
+                'web-compleja': 'Complex website (Store + Payment gateway + Custom features)'
+            },
+            plantilla: {
+                'landing-plantilla': 'Landing page on template',
+                'one-page-plantilla': 'One Page on template',
+                'web-institucional-plantilla': 'Institutional website on template',
+                'web-woocommerce-plantilla': 'Institutional website + WooCommerce on template'
+            },
+            apps: {
+                'movil-basico': 'Mobile App (Catalog)',
+                'movil-database': 'Mobile App (Login / Database)',
+                'movil-compleja': 'Premium Mobile App (Payments / GPS)',
+                'escritorio-basico': 'Desktop App (Basic management)',
+                'escritorio-profesional': 'Professional Desktop App'
             }
         };
 
@@ -97,28 +127,45 @@ document.addEventListener('DOMContentLoaded', function() {
             mantenimiento: 'Mantenimiento 3 meses'
         };
 
+        const EXTRA_NAMES_EN = {
+            seo: 'Advanced SEO optimization',
+            analytics: 'Google Analytics / Tag Manager',
+            crm: 'CRM integration',
+            mantenimiento: '3-month maintenance'
+        };
+
         let currentTotal = 0;
         let currentProjectName = '';
 
+        function currentLang() {
+            return document.documentElement.lang === 'en' ? 'en' : 'es';
+        }
+
         function formatPrice(value) {
+            if (currentLang() === 'en') {
+                const usd = Math.round((value / 1500) / 10) * 10;
+                return '$' + usd.toLocaleString('en-US') + ' USD';
+            }
             return '$' + value.toLocaleString('es-AR');
         }
 
         function updateProjectOptions() {
             const service = serviceType.value;
             const projects = PRICES[service];
-            const names = PROJECT_NAMES[service];
+            const names = currentLang() === 'en' ? PROJECT_NAMES_EN[service] : PROJECT_NAMES[service];
 
             projectType.innerHTML = '';
             Object.keys(projects).forEach(key => {
                 const option = document.createElement('option');
                 option.value = key;
-                option.textContent = names[key];
+                option.textContent = names[key] + ' — ' + (currentLang() === 'en' ? 'From ' : 'Desde ') + formatPrice(projects[key]);
                 projectType.appendChild(option);
             });
 
             updatePrice();
         }
+
+        window.addEventListener('siteLangChange', updateProjectOptions);
 
         function updatePrice() {
             const service = serviceType.value;
@@ -135,7 +182,7 @@ document.addEventListener('DOMContentLoaded', function() {
                     const percent = EXTRA_PERCENTS[cb.value] || 0;
                     const extra = Math.round(basePrice * percent);
                     extraTotal += extra;
-                    extrasList.push(EXTRA_NAMES[cb.value]);
+                    extrasList.push((currentLang() === 'en' ? EXTRA_NAMES_EN : EXTRA_NAMES)[cb.value]);
                 }
             });
 
@@ -172,7 +219,9 @@ document.addEventListener('DOMContentLoaded', function() {
 
             // Llenar el campo de mensaje
             if (mensajeTextarea) {
-                mensajeTextarea.value = `Me interesa el siguiente proyecto:\n${proyecto}\nPresupuesto estimado: $${Number(total).toLocaleString('es-AR')}`;
+                mensajeTextarea.value = currentLang() === 'en'
+                    ? `I'm interested in the following project:\n${proyecto}\nEstimated budget: ${formatPrice(Number(total))}`
+                    : `Me interesa el siguiente proyecto:\n${proyecto}\nPresupuesto estimado: ${formatPrice(Number(total))}`;
             }
 
             // Hacer scroll a la sección de contacto
@@ -184,7 +233,7 @@ document.addEventListener('DOMContentLoaded', function() {
             // Campo oculto para el presupuesto (opcional)
             const presupuestoInput = document.getElementById('presupuesto-input');
             if (presupuestoInput) {
-                presupuestoInput.value = `${proyecto} - $${Number(total).toLocaleString('es-AR')}`;
+                presupuestoInput.value = `${proyecto} - ${formatPrice(Number(total))}`;
             }
 
             // Enfocar el primer campo del formulario
