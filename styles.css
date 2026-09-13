@@ -122,12 +122,10 @@
         transition: animation-play-state 0.2s ease;
     }
 
-    .projects__carousel:hover .projects__track {
-        animation-play-state: paused;
-    }
-
-    .projects__carousel:not(:hover) .projects__track {
-        animation-play-state: running;
+    @media (hover: hover) and (pointer: fine) {
+        .projects__carousel:hover .projects__track {
+            animation-play-state: paused;
+        }
     }
 
     @keyframes scroll-carousel {
