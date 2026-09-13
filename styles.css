@@ -1032,6 +1032,19 @@
 
 
     /* ===== MODAL - CONTENIDO ===== */
+    .cv-modal__layout {
+        display: flex;
+        flex-direction: row;
+        gap: 32px;
+        align-items: flex-start;
+    }
+    .cv-modal__photo-col {
+        flex: 0 0 220px;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 16px;
+    }
     .modal-content {
         max-width: 780px;
         margin: 0 auto;
@@ -1139,20 +1152,30 @@
         .modal-content {
             padding: 0;
         }
-        
+
+        .cv-modal__layout {
+            flex-direction: column;
+            gap: 20px;
+        }
+
+        .cv-modal__photo-col {
+            flex: 0 0 auto;
+            width: 100%;
+        }
+
         .modal-subtitle {
             font-size: 11px;
         }
-        
+
         .modal-text {
             font-size: 14px;
             line-height: 1.7;
         }
-        
+
         .modal-actions {
             flex-direction: column;
         }
-        
+
         .modal-actions .modal-download,
         .modal-actions .modal-contact {
             justify-content: center;
