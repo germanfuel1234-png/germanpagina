@@ -3,7 +3,7 @@
 Programador freelance en Buenos Aires, Argentina. Precios en pesos argentinos (ARS), sin IVA discriminado. Los valores son un punto de partida; el presupuesto final depende del alcance real del proyecto.
 
 ## Landing Page
-- Precio: desde $100.000 ARS
+- Precio: desde $200.000 ARS
 - Incluye: una sola página orientada a conversión, formulario integrado a CRM/correo, carga rápida en móvil, configuración lista para campañas de Ads.
 - Ideal para: campañas puntuales, lanzamientos, profesionales que necesitan un punto de contacto digital directo.
 
@@ -18,7 +18,7 @@ Programador freelance en Buenos Aires, Argentina. Precios en pesos argentinos (A
 - Ideal para: negocios que venden productos online.
 
 ## Apps y Sistemas Internos
-- Precio: desde $500.000 ARS
+- Precio: desde $1.500.000 ARS
 - Incluye: dashboards y reportes en tiempo real, automatización de procesos, gestión de usuarios y roles, integración con herramientas existentes.
 - Ideal para: empresas que necesitan herramientas a medida.
 
