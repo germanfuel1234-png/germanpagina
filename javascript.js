@@ -45,10 +45,10 @@ document.addEventListener('DOMContentLoaded', function() {
                 'web-woocommerce-plantilla': 450000
             },
             apps: {
-                'movil-basico': 500000,
+                'movil-basico': 1500000,
                 'movil-database': 1200000,
                 'movil-compleja': 2500000,
-                'escritorio-basico': 600000,
+                'escritorio-basico': 1600000,
                 'escritorio-profesional': 1500000
             }
         };
