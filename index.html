@@ -1041,7 +1041,6 @@
          (mismo selector, sin media query) y el mobile se rompe silenciosamente. -->
     <style>
     @media (max-width: 1024px) {
-        .projects__grid { grid-template-columns: repeat(2, 1fr); }
         .contact__wrapper { grid-template-columns: 1fr; gap: 30px; }
         .contact__info { display: grid; grid-template-columns: 1fr 1fr; gap: 10px 30px; }
         .contact__info .contact-item:first-of-type { padding-top: 0; }
@@ -1049,7 +1048,6 @@
     }
     @media (max-width: 820px) {
         .services__grid { grid-template-columns: 1fr; }
-        .projects__grid { grid-template-columns: 1fr; }
         .hero-section { padding: 100px 24px 0; }
         .section { padding: 60px 24px; }
         .contact__form { padding: 28px 22px; }
@@ -1425,235 +1423,668 @@
         </div>
         
         <!-- Contenedor del carrusel -->
-        <div class="projects__carousel" data-od-id="projects-carousel">
-            <div class="projects__track">
-                
-                <!-- ===== TARJETAS ORIGINALES (COPIA 1) ===== -->
+        <div class="projects__carousel-wrap">
+        <button class="carousel-arrow carousel-arrow--prev" data-carousel-prev aria-label="Proyecto anterior">‹</button>
+        <button class="carousel-arrow carousel-arrow--next" data-carousel-next aria-label="Proyecto siguiente">›</button>
+        <div class="projects__grid" data-od-id="projects-carousel">
+
                 <div class="project-card reveal" data-od-id="project-card-bot" data-modal="modal-proyecto-bot">
-                    <svg class="project-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><rect x="5" y="8" width="14" height="10" rx="2"/><circle cx="9" cy="13" r="1.1"/><circle cx="15" cy="13" r="1.1"/><path d="M12 8V5M9 3.5h6M9 18v1.5M15 18v1.5"/></svg>
-                    <h3>Asistente Automatizado</h3>
-                    <p>Asistente automatizado con integración de APIs y sistemas de mensajería.</p>
-                    <span class="project-tag">Python · Bot · API</span>
+                    <span class="project-card__badge">Proyecto personal</span>
+                    <h3 class="project-card__title">Asistente Automatizado</h3>
+                    <p class="project-card__desc">Asistente automatizado con integración de APIs y sistemas de mensajería.</p>
+                    <div class="project-card__browser">
+                        <div class="browser__bar">
+                            <span class="browser__dot browser__dot--red"></span>
+                            <span class="browser__dot browser__dot--yellow"></span>
+                            <span class="browser__dot browser__dot--green"></span>
+                            <span class="browser__url">asistente-automatizado.local</span>
+                        </div>
+                        <div class="browser__body">
+                            <div class="browser__slide is-active">
+                                <svg class="project-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="5" y="8" width="14" height="10" rx="2"/><circle cx="9" cy="13" r="1.1"/><circle cx="15" cy="13" r="1.1"/><path d="M12 8V5M9 3.5h6M9 18v1.5M15 18v1.5"/></svg>
+                            </div>
+                            <div class="browser__slide browser__slide--code">
+                                <p><span class="code-kw">const</span> proyecto = {</p>
+                                <p>&nbsp;&nbsp;stack: [<span class="code-str">'Python'</span>, <span class="code-str">'Bot'</span>],</p>
+                                <p>&nbsp;&nbsp;tipo: <span class="code-str">'personal'</span></p>
+                                <p>}</p>
+                            </div>
+                            <div class="browser__slide browser__slide--terminal">
+                                <p><span class="term-prompt">$</span> iniciar "Asistente Automatizado"</p>
+                                <p class="term-ok">✓ listo para revisar</p>
+                            </div>
+                        </div>
+                        <div class="browser__dots">
+                            <button class="carousel__dot is-active" aria-label="Vista 1"></button>
+                            <button class="carousel__dot" aria-label="Vista 2"></button>
+                            <button class="carousel__dot" aria-label="Vista 3"></button>
+                        </div>
+                    </div>
+                    <div class="project-card__tags">
+                        <span class="tag-pill">Python</span>
+                        <span class="tag-pill">Bot</span>
+                        <span class="tag-pill">API</span>
+                    </div>
                 </div>
 
                 <div class="project-card reveal" data-od-id="project-card-tec1" data-modal="modal-proyecto-web">
-                    <svg class="project-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><rect x="7" y="7" width="10" height="10" rx="2"/><path d="M12 2.5v3M12 18.5v3M2.5 12h3M18.5 12h3M5 5l2.1 2.1M16.9 16.9 19 19M19 5l-2.1 2.1M7.1 16.9 5 19"/></svg>
-                    <h3>Sitio Web Corporativo</h3>
-                    <p>Sitio web corporativo con diseño moderno y enfoque en experiencia de usuario.</p>
-                    <span class="project-tag">HTML · Web</span>
+                    <span class="project-card__badge">Proyecto personal</span>
+                    <h3 class="project-card__title">Sitio Web Corporativo</h3>
+                    <p class="project-card__desc">Sitio web corporativo con diseño moderno y enfoque en experiencia de usuario.</p>
+                    <div class="project-card__browser">
+                        <div class="browser__bar">
+                            <span class="browser__dot browser__dot--red"></span>
+                            <span class="browser__dot browser__dot--yellow"></span>
+                            <span class="browser__dot browser__dot--green"></span>
+                            <span class="browser__url">sitio-web-corporativo.local</span>
+                        </div>
+                        <div class="browser__body">
+                            <div class="browser__slide is-active">
+                                <svg class="project-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="7" y="7" width="10" height="10" rx="2"/><path d="M12 2.5v3M12 18.5v3M2.5 12h3M18.5 12h3M5 5l2.1 2.1M16.9 16.9 19 19M19 5l-2.1 2.1M7.1 16.9 5 19"/></svg>
+                            </div>
+                            <div class="browser__slide browser__slide--code">
+                                <p><span class="code-kw">const</span> proyecto = {</p>
+                                <p>&nbsp;&nbsp;stack: [<span class="code-str">'HTML'</span>, <span class="code-str">'Web'</span>],</p>
+                                <p>&nbsp;&nbsp;tipo: <span class="code-str">'personal'</span></p>
+                                <p>}</p>
+                            </div>
+                            <div class="browser__slide browser__slide--terminal">
+                                <p><span class="term-prompt">$</span> iniciar "Sitio Web Corporativo"</p>
+                                <p class="term-ok">✓ listo para revisar</p>
+                            </div>
+                        </div>
+                        <div class="browser__dots">
+                            <button class="carousel__dot is-active" aria-label="Vista 1"></button>
+                            <button class="carousel__dot" aria-label="Vista 2"></button>
+                            <button class="carousel__dot" aria-label="Vista 3"></button>
+                        </div>
+                    </div>
+                    <div class="project-card__tags">
+                        <span class="tag-pill">HTML</span>
+                        <span class="tag-pill">Web</span>
+                    </div>
                 </div>
 
                 <div class="project-card reveal" data-od-id="project-card-python" data-modal="modal-proyecto-automation">
-                    <svg class="project-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><polygon points="12 2 22 7 22 17 12 22 2 17 2 7 12 2"/><path d="M12 12v6"/><path d="M9 10.5l3-1.5 3 1.5"/></svg>
-                    <h3>Automatización de Tareas</h3>
-                    <p>Colección de scripts y utilidades en Python para automatización.</p>
-                    <span class="project-tag">Python · Scripts</span>
+                    <span class="project-card__badge">Proyecto personal</span>
+                    <h3 class="project-card__title">Automatización de Tareas</h3>
+                    <p class="project-card__desc">Colección de scripts y utilidades en Python para automatización.</p>
+                    <div class="project-card__browser">
+                        <div class="browser__bar">
+                            <span class="browser__dot browser__dot--red"></span>
+                            <span class="browser__dot browser__dot--yellow"></span>
+                            <span class="browser__dot browser__dot--green"></span>
+                            <span class="browser__url">automatizacion-tareas.local</span>
+                        </div>
+                        <div class="browser__body">
+                            <div class="browser__slide is-active">
+                                <svg class="project-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><polygon points="12 2 22 7 22 17 12 22 2 17 2 7 12 2"/><path d="M12 12v6"/><path d="M9 10.5l3-1.5 3 1.5"/></svg>
+                            </div>
+                            <div class="browser__slide browser__slide--code">
+                                <p><span class="code-kw">const</span> proyecto = {</p>
+                                <p>&nbsp;&nbsp;stack: [<span class="code-str">'Python'</span>, <span class="code-str">'Scripts'</span>],</p>
+                                <p>&nbsp;&nbsp;tipo: <span class="code-str">'personal'</span></p>
+                                <p>}</p>
+                            </div>
+                            <div class="browser__slide browser__slide--terminal">
+                                <p><span class="term-prompt">$</span> iniciar "Automatización de Tareas"</p>
+                                <p class="term-ok">✓ listo para revisar</p>
+                            </div>
+                        </div>
+                        <div class="browser__dots">
+                            <button class="carousel__dot is-active" aria-label="Vista 1"></button>
+                            <button class="carousel__dot" aria-label="Vista 2"></button>
+                            <button class="carousel__dot" aria-label="Vista 3"></button>
+                        </div>
+                    </div>
+                    <div class="project-card__tags">
+                        <span class="tag-pill">Python</span>
+                        <span class="tag-pill">Scripts</span>
+                    </div>
                 </div>
 
                 <div class="project-card reveal" data-od-id="project-card-drive" data-modal="modal-proyecto-cloud">
-                    <svg class="project-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M3 7a2 2 0 0 1 2-2h4l2 2h8a2 2 0 0 1 2 2v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V7z"/></svg>
-                    <h3>Almacenamiento en la Nube</h3>
-                    <p>Plataforma de almacenamiento y gestión de archivos con interfaz intuitiva.</p>
-                    <span class="project-tag">Python · Cloud</span>
+                    <span class="project-card__badge">Proyecto personal</span>
+                    <h3 class="project-card__title">Almacenamiento en la Nube</h3>
+                    <p class="project-card__desc">Plataforma de almacenamiento y gestión de archivos con interfaz intuitiva.</p>
+                    <div class="project-card__browser">
+                        <div class="browser__bar">
+                            <span class="browser__dot browser__dot--red"></span>
+                            <span class="browser__dot browser__dot--yellow"></span>
+                            <span class="browser__dot browser__dot--green"></span>
+                            <span class="browser__url">almacenamiento-nube.local</span>
+                        </div>
+                        <div class="browser__body">
+                            <div class="browser__slide is-active">
+                                <svg class="project-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M3 7a2 2 0 0 1 2-2h4l2 2h8a2 2 0 0 1 2 2v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V7z"/></svg>
+                            </div>
+                            <div class="browser__slide browser__slide--code">
+                                <p><span class="code-kw">const</span> proyecto = {</p>
+                                <p>&nbsp;&nbsp;stack: [<span class="code-str">'Python'</span>, <span class="code-str">'Cloud'</span>],</p>
+                                <p>&nbsp;&nbsp;tipo: <span class="code-str">'personal'</span></p>
+                                <p>}</p>
+                            </div>
+                            <div class="browser__slide browser__slide--terminal">
+                                <p><span class="term-prompt">$</span> iniciar "Almacenamiento en la Nube"</p>
+                                <p class="term-ok">✓ listo para revisar</p>
+                            </div>
+                        </div>
+                        <div class="browser__dots">
+                            <button class="carousel__dot is-active" aria-label="Vista 1"></button>
+                            <button class="carousel__dot" aria-label="Vista 2"></button>
+                            <button class="carousel__dot" aria-label="Vista 3"></button>
+                        </div>
+                    </div>
+                    <div class="project-card__tags">
+                        <span class="tag-pill">Python</span>
+                        <span class="tag-pill">Cloud</span>
+                    </div>
                 </div>
 
                 <div class="project-card reveal" data-od-id="project-card-botman" data-modal="modal-proyecto-games">
-                    <svg class="project-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M12 8V5M9 3.5h6M4 8h16M5 8v11a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V8"/><circle cx="9" cy="13" r="1.1"/><circle cx="15" cy="13" r="1.1"/></svg>
-                    <h3>Automatización para juegos</h3>
-                    <p>Bot inteligente para automatización de tareas en videojuegos.</p>
-                    <span class="project-tag">Juegos · Automatización</span>
+                    <span class="project-card__badge">Proyecto personal</span>
+                    <h3 class="project-card__title">Automatización para juegos</h3>
+                    <p class="project-card__desc">Bot inteligente para automatización de tareas en videojuegos.</p>
+                    <div class="project-card__browser">
+                        <div class="browser__bar">
+                            <span class="browser__dot browser__dot--red"></span>
+                            <span class="browser__dot browser__dot--yellow"></span>
+                            <span class="browser__dot browser__dot--green"></span>
+                            <span class="browser__url">automatizacion-juegos.local</span>
+                        </div>
+                        <div class="browser__body">
+                            <div class="browser__slide is-active">
+                                <svg class="project-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 8V5M9 3.5h6M4 8h16M5 8v11a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V8"/><circle cx="9" cy="13" r="1.1"/><circle cx="15" cy="13" r="1.1"/></svg>
+                            </div>
+                            <div class="browser__slide browser__slide--code">
+                                <p><span class="code-kw">const</span> proyecto = {</p>
+                                <p>&nbsp;&nbsp;stack: [<span class="code-str">'Juegos'</span>, <span class="code-str">'Automatización'</span>],</p>
+                                <p>&nbsp;&nbsp;tipo: <span class="code-str">'personal'</span></p>
+                                <p>}</p>
+                            </div>
+                            <div class="browser__slide browser__slide--terminal">
+                                <p><span class="term-prompt">$</span> iniciar "Automatización para juegos"</p>
+                                <p class="term-ok">✓ listo para revisar</p>
+                            </div>
+                        </div>
+                        <div class="browser__dots">
+                            <button class="carousel__dot is-active" aria-label="Vista 1"></button>
+                            <button class="carousel__dot" aria-label="Vista 2"></button>
+                            <button class="carousel__dot" aria-label="Vista 3"></button>
+                        </div>
+                    </div>
+                    <div class="project-card__tags">
+                        <span class="tag-pill">Juegos</span>
+                        <span class="tag-pill">Automatización</span>
+                    </div>
                 </div>
 
                 <div class="project-card reveal" data-od-id="project-card-cenet" data-modal="modal-proyecto-extractor">
-                    <svg class="project-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3l7 3v5c0 4.3-3 7.8-7 9.5C8 18.8 5 15.3 5 11V6l7-3z"/></svg>
-                    <h3>Extractor Automático de Datos Web</h3>
-                    <p>Sistema que visita sitios web y extrae información automáticamente para procesarla.</p>
-                    <span class="project-tag">Java · Web</span>
+                    <span class="project-card__badge">Proyecto personal</span>
+                    <h3 class="project-card__title">Extractor Automático de Datos Web</h3>
+                    <p class="project-card__desc">Sistema que visita sitios web y extrae información automáticamente para procesarla.</p>
+                    <div class="project-card__browser">
+                        <div class="browser__bar">
+                            <span class="browser__dot browser__dot--red"></span>
+                            <span class="browser__dot browser__dot--yellow"></span>
+                            <span class="browser__dot browser__dot--green"></span>
+                            <span class="browser__url">extractor-datos-web.local</span>
+                        </div>
+                        <div class="browser__body">
+                            <div class="browser__slide is-active">
+                                <svg class="project-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3l7 3v5c0 4.3-3 7.8-7 9.5C8 18.8 5 15.3 5 11V6l7-3z"/></svg>
+                            </div>
+                            <div class="browser__slide browser__slide--code">
+                                <p><span class="code-kw">const</span> proyecto = {</p>
+                                <p>&nbsp;&nbsp;stack: [<span class="code-str">'Java'</span>, <span class="code-str">'Web'</span>],</p>
+                                <p>&nbsp;&nbsp;tipo: <span class="code-str">'personal'</span></p>
+                                <p>}</p>
+                            </div>
+                            <div class="browser__slide browser__slide--terminal">
+                                <p><span class="term-prompt">$</span> iniciar "Extractor Automático de Datos Web"</p>
+                                <p class="term-ok">✓ listo para revisar</p>
+                            </div>
+                        </div>
+                        <div class="browser__dots">
+                            <button class="carousel__dot is-active" aria-label="Vista 1"></button>
+                            <button class="carousel__dot" aria-label="Vista 2"></button>
+                            <button class="carousel__dot" aria-label="Vista 3"></button>
+                        </div>
+                    </div>
+                    <div class="project-card__tags">
+                        <span class="tag-pill">Java</span>
+                        <span class="tag-pill">Web</span>
+                    </div>
                 </div>
 
                 <div class="project-card reveal" data-od-id="project-card-futbol" data-modal="modal-proyecto-deportes">
-                    <svg class="project-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3c2.6 2.6 2.6 15.4 0 18M12 3c-2.6 2.6-2.6 15.4 0 18"/></svg>
-                    <h3>Gestión Deportiva</h3>
-                    <p>Simulador de gestión deportiva con estadísticas, ligas y manejo de equipos.</p>
-                    <span class="project-tag">Mobile · Gestión</span>
+                    <span class="project-card__badge">Proyecto personal</span>
+                    <h3 class="project-card__title">Gestión Deportiva</h3>
+                    <p class="project-card__desc">Simulador de gestión deportiva con estadísticas, ligas y manejo de equipos.</p>
+                    <div class="project-card__browser">
+                        <div class="browser__bar">
+                            <span class="browser__dot browser__dot--red"></span>
+                            <span class="browser__dot browser__dot--yellow"></span>
+                            <span class="browser__dot browser__dot--green"></span>
+                            <span class="browser__url">gestion-deportiva.local</span>
+                        </div>
+                        <div class="browser__body">
+                            <div class="browser__slide is-active">
+                                <svg class="project-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3c2.6 2.6 2.6 15.4 0 18M12 3c-2.6 2.6-2.6 15.4 0 18"/></svg>
+                            </div>
+                            <div class="browser__slide browser__slide--code">
+                                <p><span class="code-kw">const</span> proyecto = {</p>
+                                <p>&nbsp;&nbsp;stack: [<span class="code-str">'Mobile'</span>, <span class="code-str">'Gestión'</span>],</p>
+                                <p>&nbsp;&nbsp;tipo: <span class="code-str">'personal'</span></p>
+                                <p>}</p>
+                            </div>
+                            <div class="browser__slide browser__slide--terminal">
+                                <p><span class="term-prompt">$</span> iniciar "Gestión Deportiva"</p>
+                                <p class="term-ok">✓ listo para revisar</p>
+                            </div>
+                        </div>
+                        <div class="browser__dots">
+                            <button class="carousel__dot is-active" aria-label="Vista 1"></button>
+                            <button class="carousel__dot" aria-label="Vista 2"></button>
+                            <button class="carousel__dot" aria-label="Vista 3"></button>
+                        </div>
+                    </div>
+                    <div class="project-card__tags">
+                        <span class="tag-pill">Mobile</span>
+                        <span class="tag-pill">Gestión</span>
+                    </div>
                 </div>
 
                 <div class="project-card reveal" data-od-id="project-card-redes" data-modal="modal-proyecto-redes">
-                    <svg class="project-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="5" r="2.4"/><circle cx="5" cy="19" r="2.4"/><circle cx="19" cy="19" r="2.4"/><path d="M7.5 17.3L14 7.7M16.5 17.3L10 7.7"/></svg>
-                    <h3>Análisis de Redes</h3>
-                    <p>Simulación de redes y protocolos de comunicación con análisis de rendimiento.</p>
-                    <span class="project-tag">Algoritmo · Redes</span>
+                    <span class="project-card__badge">Proyecto personal</span>
+                    <h3 class="project-card__title">Análisis de Redes</h3>
+                    <p class="project-card__desc">Simulación de redes y protocolos de comunicación con análisis de rendimiento.</p>
+                    <div class="project-card__browser">
+                        <div class="browser__bar">
+                            <span class="browser__dot browser__dot--red"></span>
+                            <span class="browser__dot browser__dot--yellow"></span>
+                            <span class="browser__dot browser__dot--green"></span>
+                            <span class="browser__url">analisis-redes.local</span>
+                        </div>
+                        <div class="browser__body">
+                            <div class="browser__slide is-active">
+                                <svg class="project-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="5" r="2.4"/><circle cx="5" cy="19" r="2.4"/><circle cx="19" cy="19" r="2.4"/><path d="M7.5 17.3L14 7.7M16.5 17.3L10 7.7"/></svg>
+                            </div>
+                            <div class="browser__slide browser__slide--code">
+                                <p><span class="code-kw">const</span> proyecto = {</p>
+                                <p>&nbsp;&nbsp;stack: [<span class="code-str">'Algoritmo'</span>, <span class="code-str">'Redes'</span>],</p>
+                                <p>&nbsp;&nbsp;tipo: <span class="code-str">'personal'</span></p>
+                                <p>}</p>
+                            </div>
+                            <div class="browser__slide browser__slide--terminal">
+                                <p><span class="term-prompt">$</span> iniciar "Análisis de Redes"</p>
+                                <p class="term-ok">✓ listo para revisar</p>
+                            </div>
+                        </div>
+                        <div class="browser__dots">
+                            <button class="carousel__dot is-active" aria-label="Vista 1"></button>
+                            <button class="carousel__dot" aria-label="Vista 2"></button>
+                            <button class="carousel__dot" aria-label="Vista 3"></button>
+                        </div>
+                    </div>
+                    <div class="project-card__tags">
+                        <span class="tag-pill">Algoritmo</span>
+                        <span class="tag-pill">Redes</span>
+                    </div>
                 </div>
 
                 <div class="project-card reveal" data-od-id="project-card-classroom" data-modal="modal-proyecto-educacion">
-                    <svg class="project-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4h16v16H4z"/><path d="M8 8h8M8 12h6M8 16h4"/></svg>
-                    <h3>Plataforma educativa</h3>
-                    <p>Plataforma educativa con gestión de cursos, tareas y seguimiento.</p>
-                    <span class="project-tag">Web · Educación</span>
+                    <span class="project-card__badge">Proyecto personal</span>
+                    <h3 class="project-card__title">Plataforma educativa</h3>
+                    <p class="project-card__desc">Plataforma educativa con gestión de cursos, tareas y seguimiento.</p>
+                    <div class="project-card__browser">
+                        <div class="browser__bar">
+                            <span class="browser__dot browser__dot--red"></span>
+                            <span class="browser__dot browser__dot--yellow"></span>
+                            <span class="browser__dot browser__dot--green"></span>
+                            <span class="browser__url">plataforma-educativa.local</span>
+                        </div>
+                        <div class="browser__body">
+                            <div class="browser__slide is-active">
+                                <svg class="project-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4h16v16H4z"/><path d="M8 8h8M8 12h6M8 16h4"/></svg>
+                            </div>
+                            <div class="browser__slide browser__slide--code">
+                                <p><span class="code-kw">const</span> proyecto = {</p>
+                                <p>&nbsp;&nbsp;stack: [<span class="code-str">'Web'</span>, <span class="code-str">'Educación'</span>],</p>
+                                <p>&nbsp;&nbsp;tipo: <span class="code-str">'personal'</span></p>
+                                <p>}</p>
+                            </div>
+                            <div class="browser__slide browser__slide--terminal">
+                                <p><span class="term-prompt">$</span> iniciar "Plataforma educativa"</p>
+                                <p class="term-ok">✓ listo para revisar</p>
+                            </div>
+                        </div>
+                        <div class="browser__dots">
+                            <button class="carousel__dot is-active" aria-label="Vista 1"></button>
+                            <button class="carousel__dot" aria-label="Vista 2"></button>
+                            <button class="carousel__dot" aria-label="Vista 3"></button>
+                        </div>
+                    </div>
+                    <div class="project-card__tags">
+                        <span class="tag-pill">Web</span>
+                        <span class="tag-pill">Educación</span>
+                    </div>
                 </div>
 
                 <div class="project-card reveal" data-od-id="project-card-bonanno" data-modal="modal-proyecto-devweb">
-                    <svg class="project-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><rect x="2.5" y="3.5" width="19" height="17" rx="2"/><path d="M8 9h8M8 13h6"/></svg>
-                    <h3>Desarrollo Web Profesional</h3>
-                    <p>Desarrollo web con enfoque en HTML semántico y accesibilidad.</p>
-                    <span class="project-tag">Python · Flet</span>
+                    <span class="project-card__badge">Proyecto personal</span>
+                    <h3 class="project-card__title">Desarrollo Web Profesional</h3>
+                    <p class="project-card__desc">Desarrollo web con enfoque en HTML semántico y accesibilidad.</p>
+                    <div class="project-card__browser">
+                        <div class="browser__bar">
+                            <span class="browser__dot browser__dot--red"></span>
+                            <span class="browser__dot browser__dot--yellow"></span>
+                            <span class="browser__dot browser__dot--green"></span>
+                            <span class="browser__url">desarrollo-web.local</span>
+                        </div>
+                        <div class="browser__body">
+                            <div class="browser__slide is-active">
+                                <svg class="project-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="2.5" y="3.5" width="19" height="17" rx="2"/><path d="M8 9h8M8 13h6"/></svg>
+                            </div>
+                            <div class="browser__slide browser__slide--code">
+                                <p><span class="code-kw">const</span> proyecto = {</p>
+                                <p>&nbsp;&nbsp;stack: [<span class="code-str">'Python'</span>, <span class="code-str">'Flet'</span>],</p>
+                                <p>&nbsp;&nbsp;tipo: <span class="code-str">'personal'</span></p>
+                                <p>}</p>
+                            </div>
+                            <div class="browser__slide browser__slide--terminal">
+                                <p><span class="term-prompt">$</span> iniciar "Desarrollo Web Profesional"</p>
+                                <p class="term-ok">✓ listo para revisar</p>
+                            </div>
+                        </div>
+                        <div class="browser__dots">
+                            <button class="carousel__dot is-active" aria-label="Vista 1"></button>
+                            <button class="carousel__dot" aria-label="Vista 2"></button>
+                            <button class="carousel__dot" aria-label="Vista 3"></button>
+                        </div>
+                    </div>
+                    <div class="project-card__tags">
+                        <span class="tag-pill">Python</span>
+                        <span class="tag-pill">Flet</span>
+                    </div>
                 </div>
 
                 <div class="project-card reveal" data-od-id="project-card-mano" data-modal="modal-proyecto-gestos">
-                    <svg class="project-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M7 12V8a2 2 0 0 1 4 0v4M11 12V6a2 2 0 0 1 4 0v6M15 12V4a2 2 0 0 1 4 0v8"/><path d="M19 12v5a6 6 0 0 1-12 0v-5"/></svg>
-                    <h3>Control por Gestos</h3>
-                    <p>Aplicación interactiva con interfaz gráfica para control de gestos.</p>
-                    <span class="project-tag">Mobile · GUI</span>
+                    <span class="project-card__badge">Proyecto personal</span>
+                    <h3 class="project-card__title">Control por Gestos</h3>
+                    <p class="project-card__desc">Aplicación interactiva con interfaz gráfica para control de gestos.</p>
+                    <div class="project-card__browser">
+                        <div class="browser__bar">
+                            <span class="browser__dot browser__dot--red"></span>
+                            <span class="browser__dot browser__dot--yellow"></span>
+                            <span class="browser__dot browser__dot--green"></span>
+                            <span class="browser__url">control-gestos.local</span>
+                        </div>
+                        <div class="browser__body">
+                            <div class="browser__slide is-active">
+                                <svg class="project-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M7 12V8a2 2 0 0 1 4 0v4M11 12V6a2 2 0 0 1 4 0v6M15 12V4a2 2 0 0 1 4 0v8"/><path d="M19 12v5a6 6 0 0 1-12 0v-5"/></svg>
+                            </div>
+                            <div class="browser__slide browser__slide--code">
+                                <p><span class="code-kw">const</span> proyecto = {</p>
+                                <p>&nbsp;&nbsp;stack: [<span class="code-str">'Mobile'</span>, <span class="code-str">'GUI'</span>],</p>
+                                <p>&nbsp;&nbsp;tipo: <span class="code-str">'personal'</span></p>
+                                <p>}</p>
+                            </div>
+                            <div class="browser__slide browser__slide--terminal">
+                                <p><span class="term-prompt">$</span> iniciar "Control por Gestos"</p>
+                                <p class="term-ok">✓ listo para revisar</p>
+                            </div>
+                        </div>
+                        <div class="browser__dots">
+                            <button class="carousel__dot is-active" aria-label="Vista 1"></button>
+                            <button class="carousel__dot" aria-label="Vista 2"></button>
+                            <button class="carousel__dot" aria-label="Vista 3"></button>
+                        </div>
+                    </div>
+                    <div class="project-card__tags">
+                        <span class="tag-pill">Mobile</span>
+                        <span class="tag-pill">GUI</span>
+                    </div>
                 </div>
 
                 <div class="project-card reveal" data-od-id="project-card-android" data-modal="modal-proyecto-app">
-                    <svg class="project-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><rect x="7" y="2" width="10" height="20" rx="2"/><path d="M11 18h2"/></svg>
-                    <h3>App Móvil</h3>
-                    <p>Aplicación móvil nativa con funcionalidades avanzadas y sincronización en la nube.</p>
-                    <span class="project-tag">Python · Mobile</span>
+                    <span class="project-card__badge">Proyecto personal</span>
+                    <h3 class="project-card__title">App Móvil</h3>
+                    <p class="project-card__desc">Aplicación móvil nativa con funcionalidades avanzadas y sincronización en la nube.</p>
+                    <div class="project-card__browser">
+                        <div class="browser__bar">
+                            <span class="browser__dot browser__dot--red"></span>
+                            <span class="browser__dot browser__dot--yellow"></span>
+                            <span class="browser__dot browser__dot--green"></span>
+                            <span class="browser__url">app-movil.local</span>
+                        </div>
+                        <div class="browser__body">
+                            <div class="browser__slide is-active">
+                                <svg class="project-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="7" y="2" width="10" height="20" rx="2"/><path d="M11 18h2"/></svg>
+                            </div>
+                            <div class="browser__slide browser__slide--code">
+                                <p><span class="code-kw">const</span> proyecto = {</p>
+                                <p>&nbsp;&nbsp;stack: [<span class="code-str">'Python'</span>, <span class="code-str">'Mobile'</span>],</p>
+                                <p>&nbsp;&nbsp;tipo: <span class="code-str">'personal'</span></p>
+                                <p>}</p>
+                            </div>
+                            <div class="browser__slide browser__slide--terminal">
+                                <p><span class="term-prompt">$</span> iniciar "App Móvil"</p>
+                                <p class="term-ok">✓ listo para revisar</p>
+                            </div>
+                        </div>
+                        <div class="browser__dots">
+                            <button class="carousel__dot is-active" aria-label="Vista 1"></button>
+                            <button class="carousel__dot" aria-label="Vista 2"></button>
+                            <button class="carousel__dot" aria-label="Vista 3"></button>
+                        </div>
+                    </div>
+                    <div class="project-card__tags">
+                        <span class="tag-pill">Python</span>
+                        <span class="tag-pill">Mobile</span>
+                    </div>
                 </div>
 
                 <div class="project-card reveal" data-od-id="project-card-poxedex" data-modal="modal-proyecto-enciclopedia">
-                    <svg class="project-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="8"/><path d="M4 12h3M17 12h3M12 4v3M12 17v3"/></svg>
-                    <h3>Enciclopedia Digital</h3>
-                    <p>Enciclopedia digital con base de datos de Pokémon y filtros interactivos.</p>
-                    <span class="project-tag">Python · Flet</span>
+                    <span class="project-card__badge">Proyecto personal</span>
+                    <h3 class="project-card__title">Enciclopedia Digital</h3>
+                    <p class="project-card__desc">Enciclopedia digital con base de datos de Pokémon y filtros interactivos.</p>
+                    <div class="project-card__browser">
+                        <div class="browser__bar">
+                            <span class="browser__dot browser__dot--red"></span>
+                            <span class="browser__dot browser__dot--yellow"></span>
+                            <span class="browser__dot browser__dot--green"></span>
+                            <span class="browser__url">enciclopedia-digital.local</span>
+                        </div>
+                        <div class="browser__body">
+                            <div class="browser__slide is-active">
+                                <svg class="project-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="8"/><path d="M4 12h3M17 12h3M12 4v3M12 17v3"/></svg>
+                            </div>
+                            <div class="browser__slide browser__slide--code">
+                                <p><span class="code-kw">const</span> proyecto = {</p>
+                                <p>&nbsp;&nbsp;stack: [<span class="code-str">'Python'</span>, <span class="code-str">'Flet'</span>],</p>
+                                <p>&nbsp;&nbsp;tipo: <span class="code-str">'personal'</span></p>
+                                <p>}</p>
+                            </div>
+                            <div class="browser__slide browser__slide--terminal">
+                                <p><span class="term-prompt">$</span> iniciar "Enciclopedia Digital"</p>
+                                <p class="term-ok">✓ listo para revisar</p>
+                            </div>
+                        </div>
+                        <div class="browser__dots">
+                            <button class="carousel__dot is-active" aria-label="Vista 1"></button>
+                            <button class="carousel__dot" aria-label="Vista 2"></button>
+                            <button class="carousel__dot" aria-label="Vista 3"></button>
+                        </div>
+                    </div>
+                    <div class="project-card__tags">
+                        <span class="tag-pill">Python</span>
+                        <span class="tag-pill">Flet</span>
+                    </div>
                 </div>
 
                 <div class="project-card reveal" data-od-id="project-card-djdistrack" data-modal="modal-proyecto-geo">
-                    <svg class="project-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2v8M12 10l4-4M12 10l-4-4"/><circle cx="12" cy="18" r="4"/><path d="M12 14v4"/></svg>
-                    <h3>Algoritmo</h3>
-                    <p>"lgoritmo de geolocalización para seguimiento de ubicaciones..</p>
-                    <span class="project-tag">HTML · geolocalización</span>
+                    <span class="project-card__badge">Proyecto personal</span>
+                    <h3 class="project-card__title">Algoritmo de Geolocalización</h3>
+                    <p class="project-card__desc">Algoritmo de geolocalización para seguimiento de ubicaciones.</p>
+                    <div class="project-card__browser">
+                        <div class="browser__bar">
+                            <span class="browser__dot browser__dot--red"></span>
+                            <span class="browser__dot browser__dot--yellow"></span>
+                            <span class="browser__dot browser__dot--green"></span>
+                            <span class="browser__url">geolocalizacion.local</span>
+                        </div>
+                        <div class="browser__body">
+                            <div class="browser__slide is-active">
+                                <svg class="project-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2v8M12 10l4-4M12 10l-4-4"/><circle cx="12" cy="18" r="4"/><path d="M12 14v4"/></svg>
+                            </div>
+                            <div class="browser__slide browser__slide--code">
+                                <p><span class="code-kw">const</span> proyecto = {</p>
+                                <p>&nbsp;&nbsp;stack: [<span class="code-str">'HTML'</span>, <span class="code-str">'Geo'</span>],</p>
+                                <p>&nbsp;&nbsp;tipo: <span class="code-str">'personal'</span></p>
+                                <p>}</p>
+                            </div>
+                            <div class="browser__slide browser__slide--terminal">
+                                <p><span class="term-prompt">$</span> iniciar "Algoritmo de Geolocalización"</p>
+                                <p class="term-ok">✓ listo para revisar</p>
+                            </div>
+                        </div>
+                        <div class="browser__dots">
+                            <button class="carousel__dot is-active" aria-label="Vista 1"></button>
+                            <button class="carousel__dot" aria-label="Vista 2"></button>
+                            <button class="carousel__dot" aria-label="Vista 3"></button>
+                        </div>
+                    </div>
+                    <div class="project-card__tags">
+                        <span class="tag-pill">HTML</span>
+                        <span class="tag-pill">Geolocalización</span>
+                    </div>
                 </div>
 
                 <div class="project-card reveal" data-od-id="project-card-sur" data-modal="modal-proyecto-gestion">
-                    <svg class="project-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M3 6h18M3 12h18M3 18h18"/></svg>
-                    <h3>Sistema de Gestión</h3>
-                    <p>Aplicación Movil para gestión de recursos y seguimiento de proyectos.</p>
-                    <span class="project-tag">Python · Web</span>
+                    <span class="project-card__badge">Proyecto personal</span>
+                    <h3 class="project-card__title">Sistema de Gestión</h3>
+                    <p class="project-card__desc">Aplicación móvil para gestión de recursos y seguimiento de proyectos.</p>
+                    <div class="project-card__browser">
+                        <div class="browser__bar">
+                            <span class="browser__dot browser__dot--red"></span>
+                            <span class="browser__dot browser__dot--yellow"></span>
+                            <span class="browser__dot browser__dot--green"></span>
+                            <span class="browser__url">sistema-gestion.local</span>
+                        </div>
+                        <div class="browser__body">
+                            <div class="browser__slide is-active">
+                                <svg class="project-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M3 6h18M3 12h18M3 18h18"/></svg>
+                            </div>
+                            <div class="browser__slide browser__slide--code">
+                                <p><span class="code-kw">const</span> proyecto = {</p>
+                                <p>&nbsp;&nbsp;stack: [<span class="code-str">'Python'</span>, <span class="code-str">'Web'</span>],</p>
+                                <p>&nbsp;&nbsp;tipo: <span class="code-str">'personal'</span></p>
+                                <p>}</p>
+                            </div>
+                            <div class="browser__slide browser__slide--terminal">
+                                <p><span class="term-prompt">$</span> iniciar "Sistema de Gestión"</p>
+                                <p class="term-ok">✓ listo para revisar</p>
+                            </div>
+                        </div>
+                        <div class="browser__dots">
+                            <button class="carousel__dot is-active" aria-label="Vista 1"></button>
+                            <button class="carousel__dot" aria-label="Vista 2"></button>
+                            <button class="carousel__dot" aria-label="Vista 3"></button>
+                        </div>
+                    </div>
+                    <div class="project-card__tags">
+                        <span class="tag-pill">Python</span>
+                        <span class="tag-pill">Web</span>
+                    </div>
                 </div>
 
                 <div class="project-card reveal" data-od-id="project-card-php" data-modal="modal-proyecto-bd">
-                    <svg class="project-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><ellipse cx="12" cy="5" rx="8" ry="3"/><path d="M4 5v14c0 1.7 3.6 3 8 3s8-1.3 8-3V5"/><path d="M4 12c0 1.7 3.6 3 8 3s8-1.3 8-3"/></svg>
-                    <h3>Sistema de Base de Datos</h3>
-                    <p>Sistema backend con PHP para gestión de usuarios y bases de datos.</p>
-                    <span class="project-tag">PHP · Backend</span>
+                    <span class="project-card__badge">Proyecto personal</span>
+                    <h3 class="project-card__title">Sistema de Base de Datos</h3>
+                    <p class="project-card__desc">Sistema backend con PHP para gestión de usuarios y bases de datos.</p>
+                    <div class="project-card__browser">
+                        <div class="browser__bar">
+                            <span class="browser__dot browser__dot--red"></span>
+                            <span class="browser__dot browser__dot--yellow"></span>
+                            <span class="browser__dot browser__dot--green"></span>
+                            <span class="browser__url">sistema-bd.local</span>
+                        </div>
+                        <div class="browser__body">
+                            <div class="browser__slide is-active">
+                                <svg class="project-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><ellipse cx="12" cy="5" rx="8" ry="3"/><path d="M4 5v14c0 1.7 3.6 3 8 3s8-1.3 8-3V5"/><path d="M4 12c0 1.7 3.6 3 8 3s8-1.3 8-3"/></svg>
+                            </div>
+                            <div class="browser__slide browser__slide--code">
+                                <p><span class="code-kw">const</span> proyecto = {</p>
+                                <p>&nbsp;&nbsp;stack: [<span class="code-str">'PHP'</span>, <span class="code-str">'Backend'</span>],</p>
+                                <p>&nbsp;&nbsp;tipo: <span class="code-str">'personal'</span></p>
+                                <p>}</p>
+                            </div>
+                            <div class="browser__slide browser__slide--terminal">
+                                <p><span class="term-prompt">$</span> iniciar "Sistema de Base de Datos"</p>
+                                <p class="term-ok">✓ listo para revisar</p>
+                            </div>
+                        </div>
+                        <div class="browser__dots">
+                            <button class="carousel__dot is-active" aria-label="Vista 1"></button>
+                            <button class="carousel__dot" aria-label="Vista 2"></button>
+                            <button class="carousel__dot" aria-label="Vista 3"></button>
+                        </div>
+                    </div>
+                    <div class="project-card__tags">
+                        <span class="tag-pill">PHP</span>
+                        <span class="tag-pill">Backend</span>
+                    </div>
                 </div>
 
-                <!-- ===== TARJETAS DUPLICADAS (COPIA 2 - Para efecto infinito) ===== -->
-                <div class="project-card reveal" data-od-id="project-card-bot-copy"data-modal="modal-proyecto-bot">
-                    <svg class="project-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><rect x="5" y="8" width="14" height="10" rx="2"/><circle cx="9" cy="13" r="1.1"/><circle cx="15" cy="13" r="1.1"/><path d="M12 8V5M9 3.5h6M9 18v1.5M15 18v1.5"/></svg>
-                    <h3>Asistente Automatizado</h3>
-                    <p>Asistente automatizado con integración de APIs y sistemas de mensajería.</p>
-                    <span class="project-tag">Python · Bot · API</span>
-                </div>
+        </div>
+        </div>
 
-                <div class="project-card reveal" data-od-id="project-card-tec1-copy" data-modal="modal-proyecto-web">
-                    <svg class="project-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><rect x="7" y="7" width="10" height="10" rx="2"/><path d="M12 2.5v3M12 18.5v3M2.5 12h3M18.5 12h3M5 5l2.1 2.1M16.9 16.9 19 19M19 5l-2.1 2.1M7.1 16.9 5 19"/></svg>
-                    <h3>Sitio Web Corporativo</h3>
-                    <p>Sitio web corporativo con diseño moderno y enfoque en experiencia de usuario.</p>
-                    <span class="project-tag">HTML · Web</span>
-                </div>
+        <!-- ===== HABILIDADES: pegado debajo de las tarjetas, sin título propio ===== -->
+        <div class="skills__carousel" id="habilidades" data-od-id="skills">
+            <div class="skills__track">
+                <span class="skill-badge">🐍 Python</span>
+                <span class="skill-badge">📱 Flutter</span>
+                <span class="skill-badge">🤖 Android</span>
+                <span class="skill-badge">🍎 iOS</span>
+                <span class="skill-badge">🌐 HTML5</span>
+                <span class="skill-badge">🎨 CSS3</span>
+                <span class="skill-badge">⚡ JavaScript</span>
+                <span class="skill-badge">⚛️ React</span>
+                <span class="skill-badge">🔷 TypeScript</span>
+                <span class="skill-badge">🐘 PHP</span>
+                <span class="skill-badge">🗄️ MySQL</span>
+                <span class="skill-badge">🔌 REST API</span>
+                <span class="skill-badge" data-i18n="skills.automation">🤖 Automatización</span>
+                <span class="skill-badge">🕸️ Web Scraping</span>
+                <span class="skill-badge">📊 WordPress</span>
+                <span class="skill-badge">🎨 Figma</span>
+                <span class="skill-badge">🔍 SEO</span>
+                <span class="skill-badge">📈 Analytics</span>
+                <span class="skill-badge" data-i18n="skills.security">🔒 Seguridad</span>
+                <span class="skill-badge">☁️ Cloud</span>
 
-                <div class="project-card reveal" data-od-id="project-card-python-copy" data-modal="modal-proyecto-automation">
-                    <svg class="project-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><polygon points="12 2 22 7 22 17 12 22 2 17 2 7 12 2"/><path d="M12 12v6"/><path d="M9 10.5l3-1.5 3 1.5"/></svg>
-                    <h3>Automatización de Tareas</h3>
-                    <p>Colección de scripts y utilidades en Python para automatización.</p>
-                    <span class="project-tag">Python · Scripts</span>
-                </div>
-
-                <div class="project-card reveal" data-od-id="project-card-drive-copy" data-modal="modal-proyecto-cloud">
-                    <svg class="project-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M3 7a2 2 0 0 1 2-2h4l2 2h8a2 2 0 0 1 2 2v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V7z"/></svg>
-                    <h3>Almacenamiento en la Nube</h3>
-                    <p>Plataforma de almacenamiento y gestión de archivos con interfaz intuitiva.</p>
-                    <span class="project-tag">Python · Cloud</span>
-                </div>
-
-                <div class="project-card reveal" data-od-id="project-card-botman-copy" data-modal="modal-proyecto-games">
-                    <svg class="project-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M12 8V5M9 3.5h6M4 8h16M5 8v11a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V8"/><circle cx="9" cy="13" r="1.1"/><circle cx="15" cy="13" r="1.1"/></svg>
-                    <h3>Automatización para juegos</h3>
-                    <p>Bot inteligente para automatización de tareas en videojuegos.</p>
-                    <span class="project-tag">Python · Automatización</span>
-                </div>
-
-                <div class="project-card reveal" data-od-id="project-card-cenet-copy" data-modal="modal-proyecto-extractor">
-                    <svg class="project-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3l7 3v5c0 4.3-3 7.8-7 9.5C8 18.8 5 15.3 5 11V6l7-3z"/></svg>
-                    <h3>Extractor Automático de Datos Web</h3>
-                    <p>Sistema que visita sitios web y extrae información automáticamente para procesarla.</p>
-                    <span class="project-tag">Python · Industria</span>
-                </div>
-
-                <div class="project-card reveal" data-od-id="project-card-futbol-copy" data-modal="modal-proyecto-deportes">
-                    <svg class="project-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3c2.6 2.6 2.6 15.4 0 18M12 3c-2.6 2.6-2.6 15.4 0 18"/></svg>
-                    <h3>Gestión Deportiva</h3>
-                    <p>Simulador de gestión deportiva con estadísticas, ligas y manejo de equipos.</p>
-                    <span class="project-tag">Python · Gestión</span>
-                </div>
-
-                <div class="project-card reveal" data-od-id="project-card-redes-copy" data-modal="modal-proyecto-redes">
-                    <svg class="project-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="5" r="2.4"/><circle cx="5" cy="19" r="2.4"/><circle cx="19" cy="19" r="2.4"/><path d="M7.5 17.3L14 7.7M16.5 17.3L10 7.7"/></svg>
-                    <h3>Análisis de Redes</h3>
-                    <p>Simulación de redes y protocolos de comunicación con análisis de rendimiento.</p>
-                    <span class="project-tag">Python · Redes</span>
-                </div>
-
-                <div class="project-card reveal" data-od-id="project-card-classroom-copy" data-modal="modal-proyecto-educacion">
-                    <svg class="project-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4h16v16H4z"/><path d="M8 8h8M8 12h6M8 16h4"/></svg>
-                    <h3>Plataforma educativa</h3>
-                    <p>Plataforma educativa con gestión de cursos, tareas y seguimiento.</p>
-                    <span class="project-tag">Rich Text · Educación</span>
-                </div>
-
-                <div class="project-card reveal" data-od-id="project-card-bonanno-copy" data-modal="modal-proyecto-devweb">
-                    <svg class="project-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><rect x="2.5" y="3.5" width="19" height="17" rx="2"/><path d="M8 9h8M8 13h6"/></svg>
-                    <h3>Desarrollo Web Profesional</h3>
-                    <p>Desarrollo web con enfoque en HTML semántico y accesibilidad.</p>
-                    <span class="project-tag">Python · HTML</span>
-                </div>
-
-                <div class="project-card reveal" data-od-id="project-card-mano-copy" data-modal="modal-proyecto-gestos">
-                    <svg class="project-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M7 12V8a2 2 0 0 1 4 0v4M11 12V6a2 2 0 0 1 4 0v6M15 12V4a2 2 0 0 1 4 0v8"/><path d="M19 12v5a6 6 0 0 1-12 0v-5"/></svg>
-                    <h3>Control por Gestos</h3>
-                    <p>Aplicación interactiva con interfaz gráfica para control de gestos.</p>
-                    <span class="project-tag">Python · GUI</span>
-                </div>
-
-                <div class="project-card reveal" data-od-id="project-card-android-copy" data-modal="modal-proyecto-app">
-                    <svg class="project-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><rect x="7" y="2" width="10" height="20" rx="2"/><path d="M11 18h2"/></svg>
-                    <h3>App Móvil</h3>
-                    <p>Aplicación móvil nativa con funcionalidades avanzadas y sincronización en la nube.</p>
-                    <span class="project-tag">Python · Mobile</span>
-                </div>
-
-                <div class="project-card reveal" data-od-id="project-card-poxedex-copy" data-modal="modal-proyecto-enciclopedia">
-                    <svg class="project-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="8"/><path d="M4 12h3M17 12h3M12 4v3M12 17v3"/></svg>
-                    <h3>Enciclopedia Digital</h3>
-                    <p>Enciclopedia digital con base de datos de Pokémon y filtros interactivos.</p>
-                    <span class="project-tag">Python · HTML</span>
-                </div>
-
-                <div class="project-card reveal" data-od-id="project-card-djdistrack-copy" data-modal="modal-proyecto-geo">
-                    <svg class="project-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2v8M12 10l4-4M12 10l-4-4"/><circle cx="12" cy="18" r="4"/><path d="M12 14v4"/></svg>
-                    <h3>Algoritmo de Geolocalización</h3>
-                    <p>Algoritmo de geolocalización para seguimiento de ubicaciones.</p>
-                    <span class="project-tag">HTML · Geolocalización</span>
-                </div>
-
-                <div class="project-card reveal" data-od-id="project-card-sur-copy" data-modal="modal-proyecto-gestion">
-                    <svg class="project-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M3 6h18M3 12h18M3 18h18"/></svg>
-                    <h3>Aplicación Movil</h3>
-                    <p>Aplicación web para gestión de recursos y seguimiento de proyectos.</p>
-                    <span class="project-tag">Python · Web</span>
-                </div>
-
-                <div class="project-card reveal" data-od-id="project-card-php-copy" data-modal="modal-proyecto-bd">
-                    <svg class="project-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><ellipse cx="12" cy="5" rx="8" ry="3"/><path d="M4 5v14c0 1.7 3.6 3 8 3s8-1.3 8-3V5"/><path d="M4 12c0 1.7 3.6 3 8 3s8-1.3 8-3"/></svg>
-                    <h3>Sistema de Base de Datos </h3>
-                    <p>Sistema backend con PHP para gestión de usuarios y bases de datos.</p>
-                    <span class="project-tag">PHP · Backend</span>
-                </div>
-
+                <!-- duplicado para el loop infinito sin salto -->
+                <span class="skill-badge">🐍 Python</span>
+                <span class="skill-badge">📱 Flutter</span>
+                <span class="skill-badge">🤖 Android</span>
+                <span class="skill-badge">🍎 iOS</span>
+                <span class="skill-badge">🌐 HTML5</span>
+                <span class="skill-badge">🎨 CSS3</span>
+                <span class="skill-badge">⚡ JavaScript</span>
+                <span class="skill-badge">⚛️ React</span>
+                <span class="skill-badge">🔷 TypeScript</span>
+                <span class="skill-badge">🐘 PHP</span>
+                <span class="skill-badge">🗄️ MySQL</span>
+                <span class="skill-badge">🔌 REST API</span>
+                <span class="skill-badge" data-i18n="skills.automation">🤖 Automatización</span>
+                <span class="skill-badge">🕸️ Web Scraping</span>
+                <span class="skill-badge">📊 WordPress</span>
+                <span class="skill-badge">🎨 Figma</span>
+                <span class="skill-badge">🔍 SEO</span>
+                <span class="skill-badge">📈 Analytics</span>
+                <span class="skill-badge" data-i18n="skills.security">🔒 Seguridad</span>
+                <span class="skill-badge">☁️ Cloud</span>
             </div>
         </div>
     </section>
@@ -3270,7 +3701,8 @@
 </div>
 
 <!-- ===== BOTÓN FLOTANTE DE WHATSAPP ===== -->
-<a href="https://wa.me/5491136239969?text=Hola%20Rodriguez%20German,%20quiero%20consultar%20por%20un%20proyecto..." 
+<a id="btn-whatsapp"
+href="https://wa.me/5491136239969?text=Hola%20Rodriguez%20German,%20quiero%20consultar%20por%20un%20proyecto..." 
 target="_blank" 
 rel="noopener noreferrer"
 class="whatsapp-float" 
@@ -3363,6 +3795,12 @@ aria-label="Contactar por WhatsApp">
             "price.corp": 'From <span>$320 USD</span>',
             "price.ecommerce": 'From <span>$350 USD</span>',
             "price.apps": 'From <span>$1330 USD</span>',
+
+            "skills.label": "Stack",
+            "skills.title": "Skills",
+            "skills.subtitle": "The technologies I work with day to day, for apps and for the web.",
+            "skills.automation": "🤖 Automation",
+            "skills.security": "🔒 Security",
 
             "sectors.label": "Industry specialization",
             "sectors.title": "Architecture tailored to your business model",

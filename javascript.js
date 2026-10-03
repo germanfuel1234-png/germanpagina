@@ -384,4 +384,74 @@ document.addEventListener('DOMContentLoaded', function() {
             document.querySelectorAll('.modal-overlay.active').forEach(cerrarModal);
         }
     });
+
+    // ============================================================
+    // 5. CARRUSEL INTERNO DE LAS TARJETAS DE PROYECTO
+    // Cada tarjeta tiene 3 vistas (icono / código / terminal) que
+    // alternan solas y se pueden saltear con los puntos. stopPropagation
+    // en los puntos evita que el click dispare el modal de la tarjeta
+    // (ver sección 4, el listener de .project-card escucha cualquier click).
+    // ============================================================
+    document.querySelectorAll('.project-card__browser').forEach(browser => {
+        const slides = browser.querySelectorAll('.browser__slide');
+        const dots = browser.querySelectorAll('.carousel__dot');
+        if (slides.length < 2) return;
+
+        let active = 0;
+        let timer = null;
+
+        function goTo(index) {
+            slides[active].classList.remove('is-active');
+            dots[active]?.classList.remove('is-active');
+            active = (index + slides.length) % slides.length;
+            slides[active].classList.add('is-active');
+            dots[active]?.classList.add('is-active');
+        }
+
+        function start() {
+            stop();
+            timer = setInterval(() => goTo(active + 1), 3200);
+        }
+
+        function stop() {
+            if (timer) clearInterval(timer);
+            timer = null;
+        }
+
+        dots.forEach((dot, i) => {
+            dot.addEventListener('click', e => {
+                e.stopPropagation();
+                goTo(i);
+                start();
+            });
+        });
+
+        browser.addEventListener('mouseenter', stop);
+        browser.addEventListener('mouseleave', start);
+
+        start();
+    });
+
+    // ============================================================
+    // 6. CARRUSEL DE LA SECCIÓN PROYECTOS (flechas + scroll-snap)
+    // El scroll en sí lo resuelve el CSS (scroll-snap-type); las flechas
+    // solo mueven el track un ancho de tarjeta a la vez. Swipe/trackpad
+    // funcionan solos porque .projects__grid es un contenedor con overflow-x.
+    // ============================================================
+    const projectsTrack = document.querySelector('.projects__grid');
+    const projectsPrev = document.querySelector('[data-carousel-prev]');
+    const projectsNext = document.querySelector('[data-carousel-next]');
+    if (projectsTrack && projectsPrev && projectsNext) {
+        const cardStep = () => {
+            const card = projectsTrack.querySelector('.project-card');
+            const gap = parseFloat(getComputedStyle(projectsTrack).columnGap) || 24;
+            return (card?.offsetWidth || 300) + gap;
+        };
+        projectsPrev.addEventListener('click', () => {
+            projectsTrack.scrollBy({ left: -cardStep(), behavior: 'smooth' });
+        });
+        projectsNext.addEventListener('click', () => {
+            projectsTrack.scrollBy({ left: cardStep(), behavior: 'smooth' });
+        });
+    }
 });
