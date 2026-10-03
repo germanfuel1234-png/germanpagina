@@ -568,7 +568,7 @@
     .contact__form label .optional {
         font-weight: 400;
         text-transform: none;
-        color: var(--faint);
+        color: var(--muted);
         font-size: 11px;
     }
     .contact__form input,
