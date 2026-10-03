@@ -1,1 +1,6 @@
 .venv-scripts/
+
+# Open Design (app local de diseño) -- metadata propia del proyecto importado,
+# no es parte del sitio.
+.od-skills/
+*.artifact.json
