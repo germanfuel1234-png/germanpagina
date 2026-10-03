@@ -2423,9 +2423,12 @@
         var head = document.head;
         for (var i = 1; i <= TOTAL; i++) {
             var name = 'frame_' + pad4(i) + '.webp';
-            // Frame 1 es el que se ve primero (LCP) -- se prioriza sobre los otros 59,
-            // que compiten por el mismo ancho de banda sin aportar al render inicial.
-            var priority = (i === 1) ? 'high' : 'low';
+            // Frame 1 es el que se ve primero (LCP) -- se prioriza sobre los otros 59.
+            // OJO: no bajar los otros 59 a 'low' -- Chrome los deja esperando detras de
+            // todo lo demas (fuentes, tracking) y el loader del hero espera a que los
+            // 60 terminen, lo que atrasa el Speed Index (probado: 0.9s -> 2.3s). Mejor
+            // dejarlos en prioridad normal, solo el primero se adelanta.
+            var priority = (i === 1) ? 'high' : 'auto';
 
             var link = document.createElement('link');
             link.rel = 'preload';
