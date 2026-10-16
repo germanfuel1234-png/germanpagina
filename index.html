@@ -2243,6 +2243,7 @@
             </div>
         <!-- ===== formulario ===== -->
             <form class="contact__form" id="form-contacto" novalidate data-od-id="contact-form">
+                <input type="text" name="website" id="hp-website" autocomplete="off" tabindex="-1" aria-hidden="true" style="position:absolute;left:-9999px;top:-9999px;width:1px;height:1px;overflow:hidden;" />
                 <div class="form-row">
                 <div class="form-group">
                     <label for="nombre" data-i18n="form.nombre">Nombre</label>
@@ -2268,7 +2269,7 @@
             <div class="form-row">
                 <div class="form-group">
                     <label for="empresa" data-i18n="form.empresa">Empresa <span class="optional">(opcional)</span></label>
-                    <input type="text" id="empresa" name="empresa" placeholder="Nombre de tu empresa" data-i18n-placeholder="form.empresa.ph" />
+                    <input type="text" id="empresa" name="empresa" placeholder="Nombre de tu empresa" data-i18n-placeholder="form.empresa.ph" maxlength="120" />
                 </div>
                 <div class="form-group">
                     <label for="whatsapp" data-i18n="form.whatsapp">WhatsApp / Teléfono</label>
@@ -2285,7 +2286,7 @@
             </div>
             <div class="form-group">
                 <label for="mensaje" data-i18n="form.mensaje">Mensaje <span class="optional">(opcional)</span></label>
-                <textarea id="mensaje" name="mensaje" placeholder="Contanos un poco sobre tu proyecto..." data-i18n-placeholder="form.mensaje.ph"></textarea>
+                <textarea id="mensaje" name="mensaje" placeholder="Contanos un poco sobre tu proyecto..." data-i18n-placeholder="form.mensaje.ph" maxlength="2000"></textarea>
             </div>
 
             <!-- ===== BOTONES ===== -->
@@ -2785,6 +2786,14 @@
 
                 formContacto.addEventListener('submit', function(e) {
                     e.preventDefault();
+
+                    // Honeypot anti-bot: campo invisible para humanos. Si llegó con valor, es un bot.
+                    const hpWebsite = document.getElementById('hp-website');
+                    if (hpWebsite && hpWebsite.value.trim()) {
+                        mostrarExito();
+                        return;
+                    }
+
                     if (!validarFormulario()) return;
 
                     const datos = obtenerDatos();

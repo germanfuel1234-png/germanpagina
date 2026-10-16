@@ -2064,6 +2064,7 @@
             </div>
         <!-- ===== formulario ===== -->
             <form class="contact__form" id="form-contacto" novalidate data-od-id="contact-form">
+                <input type="text" name="website" id="hp-website" autocomplete="off" tabindex="-1" aria-hidden="true" style="position:absolute;left:-9999px;top:-9999px;width:1px;height:1px;overflow:hidden;" />
                 <div class="form-row">
                 <div class="form-group">
                     <label for="nombre" data-i18n="form.nombre">Name</label>
@@ -2089,7 +2090,7 @@
             <div class="form-row">
                 <div class="form-group">
                     <label for="empresa" data-i18n="form.empresa">Company <span class="optional">(optional)</span></label>
-                    <input type="text" id="empresa" name="empresa" placeholder="Your company name" data-i18n-placeholder="form.empresa.ph" />
+                    <input type="text" id="empresa" name="empresa" placeholder="Your company name" data-i18n-placeholder="form.empresa.ph" maxlength="120" />
                 </div>
                 <div class="form-group">
                     <label for="whatsapp" data-i18n="form.whatsapp">WhatsApp / Phone</label>
@@ -2106,7 +2107,7 @@
             </div>
             <div class="form-group">
                 <label for="mensaje" data-i18n="form.mensaje">Message <span class="optional">(optional)</span></label>
-                <textarea id="mensaje" name="mensaje" placeholder="Tell me a bit about your project..." data-i18n-placeholder="form.mensaje.ph"></textarea>
+                <textarea id="mensaje" name="mensaje" placeholder="Tell me a bit about your project..." data-i18n-placeholder="form.mensaje.ph" maxlength="2000"></textarea>
             </div>
 
             <!-- ===== BOTONES ===== -->
@@ -2603,6 +2604,14 @@
 
                 formContacto.addEventListener('submit', function(e) {
                     e.preventDefault();
+
+                    // Honeypot anti-bot: hidden field for humans. If it arrives filled, it's a bot.
+                    const hpWebsite = document.getElementById('hp-website');
+                    if (hpWebsite && hpWebsite.value.trim()) {
+                        mostrarExito();
+                        return;
+                    }
+
                     if (!validarFormulario()) return;
 
                     const datos = obtenerDatos();
