@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Landing page — alcance y planes</title>
+<style>
+  body{background:#0a0a0c;color:#e8e6e3;font-family:Inter,system-ui,sans-serif;max-width:920px;margin:0 auto;padding:48px 24px;line-height:1.6}
+  h1,h2{font-family:'Instrument Serif',Georgia,serif;color:#f1efec}
+  h1{font-size:2.1rem;margin-bottom:4px}
+  .subtitulo{color:#9a968d;margin-top:0;max-width:640px}
+  .mono{font-family:monospace;color:#e0a339;font-size:.8rem;text-transform:uppercase;letter-spacing:.03em}
+  .planes{display:flex;gap:24px;margin-top:40px;flex-wrap:wrap}
+  .plan{flex:1 1 320px;background:#15130f;border:1px solid #27251f;border-radius:12px;padding:28px}
+  .plan.destacado{border-color:#e0a339}
+  .badge{display:inline-block;background:#27251f;color:#e0a339;font-family:monospace;font-size:.75rem;text-transform:uppercase;padding:4px 10px;border-radius:999px;margin-bottom:14px}
+  .plan h2{font-size:1.3rem;margin:0 0 6px}
+  .plan .desc{color:#9a968d;font-size:.92rem;min-height:48px}
+  .monto{font-size:2.1rem;color:#e0a339;font-family:'Instrument Serif',serif;margin:16px 0 2px}
+  .monto small{font-size:1rem;color:#6b6760;font-family:Inter,sans-serif}
+  .condiciones{color:#6b6760;font-size:.82rem;margin-bottom:18px}
+  ul{list-style:none;padding:0;margin:16px 0}
+  li{margin-bottom:9px;font-size:.92rem;padding-left:22px;position:relative}
+  li.si::before{content:"✓";color:#e0a339;position:absolute;left:0}
+  li.no{color:#6b6760}
+  li.no::before{content:"–";color:#6b6760;position:absolute;left:0}
+  .elegir{display:block;text-align:center;background:transparent;border:1px solid #e0a339;color:#e0a339;padding:11px;border-radius:8px;font-family:monospace;text-transform:uppercase;font-size:.82rem;margin-top:20px}
+  .plan.destacado .elegir{background:#e0a339;color:#0a0a0c}
+  .nota-respuesta{color:#9a968d;font-size:.82rem;text-align:center;margin-top:10px}
+  footer{margin-top:48px;border-top:1px solid #27251f;padding-top:16px;color:#6b6760;font-size:.8rem}
+</style>
+</head>
+<body>
+
+<p class="mono">Alcance — Landing page</p>
+<h1>Tu sitio de una sola página, listo para mostrar tu marca</h1>
+<p class="subtitulo">Dos puntos de partida según cuánto necesitás por adelante. Los dos son desarrollo a medida .</p>
+
+<div class="planes">
+
+  <div class="plan">
+    <span class="badge">Estándar</span>
+    <h2>Landing Estándar</h2>
+    <p class="desc">Presentar tu marca y tus servicios en una sola página, con tu botón de WhatsApp como vía principal de contacto.</p>
+    <div class="monto">USD 160</div>
+    <p class="condiciones">Pago único </p>
+    <ul>
+      <li class="si">Página única, diseño responsive</li>
+      <li class="si">Botón de WhatsApp destacado</li>
+      <li class="si">Desarrollo a medida, sin plantilla</li>
+      <li class="si">Formularios de contacto / consulta</li>
+      <li class="si">Pruebas, documentación y acompañamiento</li>
+      <li class="no">Carrito / pagos online</li>
+      <li class="no">Múltiples secciones o páginas internas</li>
+      <li class="no">Hosting y dominio (se cotizan aparte)</li>
+    </ul>
+    <a class="elegir" href="https://wa.me/5491136239969?text=%C2%A1Hola%21%20Quiero%20el%20plan%20Landing%20Est%C3%A1ndar%20%28USD%20160%29." target="_blank" rel="noopener">Elegir este plan</a>
+  </div>
+
+  <div class="plan destacado">
+    <span class="badge">Avanzada</span>
+    <h2>Landing Avanzada</h2>
+    <p class="desc">Lo mismo que la Estándar, más funcionalidades: secciones adicionales, integración con herramientas que ya usás.</p>
+    <div class="monto">USD 225<small> desde</small></div>
+    <p class="condiciones">Piso — si tu proyecto pide más, lo vemos juntos antes de confirmar</p>
+    <ul>
+      <li class="si">Todo lo de Landing Estándar</li>
+      <li class="si">Secciones y bloques adicionales</li>
+      <li class="si">Formularios de contacto / consulta</li>
+      <li class="si">Integraciones (Google Business, redes, etc.)</li>
+      <li class="no">Carrito / pagos online (eso es Ecommerce)</li>
+      <li class="no">Hosting y dominio (se cotizan aparte)</li>
+    </ul>
+    <a class="elegir" href="https://wa.me/5491136239969?text=%C2%A1Hola%21%20Quiero%20el%20plan%20Landing%20Avanzada%20%28USD%20225%2C%20a%20confirmar%20seg%C3%BAn%20alcance%29." target="_blank" rel="noopener">Elegir este plan</a>
+  </div>
+
+</div>
+
+<p class="nota-respuesta">¿Cuál te sirve? Respondé por este mismo chat de WhatsApp con el plan que elegiste, y seguimos con el detalle de tu proyecto.</p>
+
+<footer>© 2026 Rodríguez Germán · Web Designer &amp; Developer</footer>
+</body>
+</html>
