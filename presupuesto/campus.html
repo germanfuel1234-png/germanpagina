@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Campus  — alcance y planes</title>
+<style>
+  body{background:#0a0a0c;color:#e8e6e3;font-family:Inter,system-ui,sans-serif;max-width:920px;margin:0 auto;padding:48px 24px;line-height:1.6}
+  h1,h2{font-family:'Instrument Serif',Georgia,serif;color:#f1efec}
+  h1{font-size:2.1rem;margin-bottom:4px}
+  .subtitulo{color:#9a968d;margin-top:0;max-width:640px}
+  .mono{font-family:monospace;color:#e0a339;font-size:.8rem;text-transform:uppercase;letter-spacing:.03em}
+  .planes{display:flex;gap:24px;margin-top:40px;flex-wrap:wrap}
+  .plan{flex:1 1 320px;background:#15130f;border:1px solid #27251f;border-radius:12px;padding:28px}
+  .plan.destacado{border-color:#e0a339}
+  .badge{display:inline-block;background:#27251f;color:#e0a339;font-family:monospace;font-size:.75rem;text-transform:uppercase;padding:4px 10px;border-radius:999px;margin-bottom:14px}
+  .plan h2{font-size:1.3rem;margin:0 0 6px}
+  .plan .desc{color:#9a968d;font-size:.92rem;min-height:48px}
+  .monto{font-size:2.1rem;color:#e0a339;font-family:'Instrument Serif',serif;margin:16px 0 2px}
+  .condiciones{color:#6b6760;font-size:.82rem;margin-bottom:18px}
+  ul{list-style:none;padding:0;margin:16px 0}
+  li{margin-bottom:9px;font-size:.92rem;padding-left:22px;position:relative}
+  li.si::before{content:"✓";color:#e0a339;position:absolute;left:0}
+  li.no{color:#6b6760}
+  li.no::before{content:"–";color:#6b6760;position:absolute;left:0}
+  .elegir{display:block;text-align:center;background:transparent;border:1px solid #e0a339;color:#e0a339;padding:11px;border-radius:8px;font-family:monospace;text-transform:uppercase;font-size:.82rem;margin-top:20px}
+  .plan.destacado .elegir{background:#e0a339;color:#0a0a0c}
+  .nota-respuesta{color:#9a968d;font-size:.82rem;text-align:center;margin-top:10px}
+  footer{margin-top:48px;border-top:1px solid #27251f;padding-top:16px;color:#6b6760;font-size:.8rem}
+</style>
+</head>
+<body>
+
+<p class="mono">Alcance — Campus </p>
+<h1>Tu plataforma , con seguimiento de tus alumnos</h1>
+<p class="subtitulo">Dos planes incluyen cuentas de alumno, carga de contenido y seguimiento de avance.</p>
+
+<div class="planes">
+
+  <div class="plan">
+    <span class="badge">Básico</span>
+    <h2>Campus Básico</h2>
+    <p class="desc">Para arrancar.</p>
+    <div class="monto">USD 780</div>
+    <p class="condiciones">Pago Tres Cuotas </p>
+    <ul>
+      <li class="si">Cuentas de alumno, login propio</li>
+      <li class="si">Carga de contenido (videos, materiales)</li>
+      <li class="si">Seguimiento de avance por alumno</li>
+      <li class="si">Pruebas, documentación y acompañamiento</li>
+      <li class="si">Evaluaciones / cuestionarios automáticos</li>
+      <li class="no">Certificados automáticos</li>
+      <li class="no">Hosting y dominio (se cotizan aparte)</li>
+    </ul>
+    <a class="elegir" href="https://wa.me/5491136239969?text=%C2%A1Hola%21%20Quiero%20el%20plan%20Campus%20B%C3%A1sico%20%28USD%20780%29." target="_blank" rel="noopener">Elegir este plan</a>
+  </div>
+
+  <div class="plan destacado">
+    <span class="badge">Avanzado</span>
+    <h2>Campus Avanzado</h2>
+    <p class="desc">Para cuando ya tenés o planeás.</p>
+    <div class="monto">USD 1.150</div>
+    <p class="condiciones">Pago único · Cursos ilimitados · Seña del 20% para arrancar</p>
+    <ul>
+      <li class="si">Todo lo de Campus Básico</li>
+      <li class="si">Cursos ilimitados</li>
+      <li class="si">Personalizaciones</li>
+      <li class="si">ChatBot</li>
+      <li class="no">Certificados automáticos</li>
+      <li class="no">Hosting y dominio (se cotizan aparte)</li>
+    </ul>
+    <a class="elegir" href="https://wa.me/5491136239969?text=%C2%A1Hola%21%20Quiero%20el%20plan%20Campus%20Avanzado%20%28USD%201.150%2C%20con%20personalizaciones%20y%20chatbot%29." target="_blank" rel="noopener">Elegir este plan</a>
+  </div>
+
+</div>
+
+<p class="nota-respuesta">¿Cuál te sirve? Si tenés dudas sobre cuántos cursos vas a dar, contanos y te ayudamos a elegir. Respondé por este mismo chat de WhatsApp con el plan que elegiste.</p>
+
+<footer>© 2026 Rodríguez Germán · Web Designer &amp; Developer</footer>
+</body>
+</html>
